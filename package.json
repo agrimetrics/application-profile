@@ -1,0 +1,13 @@
+{
+	"dependencies": {
+		"respec": "^35.6.1"
+	},
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"devDependencies": {
+	},
+	"scripts": {
+		"build": "npx respec --src main.html --out index.html --use-local"
+	}
+}
