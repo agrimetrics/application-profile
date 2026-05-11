@@ -326,7 +326,7 @@ own purposes.
 We provide the predicates that must, should, and may be used for each given subject of the data type, as well as the
 ranges of their possible objects, and their cardinality, i.e. how many times they may be specified for the given
 subject. These specifications are intended to produce high quality, meaningful, and comprehensible linked data. See
-Terms for an definition and explanation of Range and Cardinality for this document.
+`Terms`_ for a definition and explanation of Range and Cardinality for this document.
 
 In the case where the valid predicates, ranges, or cardinalities differ from their respective original ontologies, the
 rules in this application profile should supersede them.
@@ -496,7 +496,7 @@ dcat:Catalog which contains the versioned datasets.
      - May
      - 0..*
      - If specified, and not just English.
-       E.g. dcterms:language "en", “cy" ; for both English and Welsh (Cymraeg).
+       E.g. ``dcterms:language "en", “cy" ;`` for both English and Welsh (Cymraeg).
 
    * - skos:editorialNote
      - Literal xsd:string
@@ -510,8 +510,9 @@ dcat:Catalog which contains the versioned datasets.
          Data applies for the year 2020 but 2020-12 is
          present in 2021's dataset due to Z."@en
 
-There are also some more subjective predicates like dcat:theme, but I think we should be specific about these, probably
-subclass for our purposes, if appropriate.
+..
+  AV: There are also some more subjective predicates like dcat:theme, but I think we should be specific about these,
+  probably subclass for our purposes, if appropriate.
 
 dcat:DataService
 ~~~~~~~~~~~~~~~~
@@ -867,7 +868,6 @@ JSON-LD mapping
            vcard:hasURL <https://www.gov.uk/ea> ;
            vcard:hasEmail <mailto:enquiries@environment-agency.gov.uk> ;
            vcard:hasRole "Executive non-departmental public body"@en ;
-
          ] ;
 
    * - dcterms:title
@@ -1522,8 +1522,8 @@ mapping:
      - Literal value as string
      -
 
-We may implement Accept-Language to support non-English serializations when the serialization doesn't support multiple
-languages via overloading. For now English-by-default.
+.. NOTE:: We may implement Accept-Language to support non-English serializations when the serialization doesn't support
+   multiple languages via overloading. For now English-by-default.
 
 Each skos:Concept assigned to the geo:Feature should also be present in the properties of the GeoJSON object, with the
 camelCase name of its skos:ConceptSchemeused as the key, and the skos:Concept's skos:prefLabel as the value. See the
@@ -1809,7 +1809,7 @@ EDGUR
 EDGUR is a custom vocabulary/ontology which we are developing to describe classes and predicates that aren't defined in
 existing RDF vocabularies.
 
-The EDGUR ontology will be published in its initial draft when it is first required.
+.. NOTE:: The EDGUR ontology will be published in its initial draft when it is first required.
 
 .. code:: ttl
 
@@ -1845,15 +1845,16 @@ the types used to focus on those that are of more interest to our users.
 
 .. TODO: Observation diagram from https://dsp-support.atlassian.net/wiki/spaces/IK/whiteboard/1353941003
 
-The SOSA/SSN specification does not define a predicate to link sosa:Observation directly to sosa:Sample. We use
-sosa:hasSample for this purpose. The specification defines sosa:hasSample with a domain of sosa:FeatureOfInterest; since
-sosa:Sample is a subclass of sosa:FeatureOfInterest, this usage is conformant with the specification. The SOSA/SSN
-specification does not define a predicate to link sosa:Observation directly to sosa:Sample. We use sosa:hasSample for
-this purpose. The specification defines sosa:hasSample with domain includes of sosa:FeatureOfInterest; since sosa:Sample
-is a subclass of sosa:FeatureOfInterest, this usage is conformant with the specification. While the SOSA/SSN
-specification does not explicitly provide a predicate to link a sosa:Observation to a sosa:Sample, we have used
-sosa:hasSample for this purpose. As the specification states this predicate's domain *includes* sosa:FeatureOfInterest
-of which sosa:Sample is a subclass, this usage is in spec.
+.. NOTE::
+  The SOSA/SSN specification does not define a predicate to link sosa:Observation directly to sosa:Sample. We use
+  sosa:hasSample for this purpose. The specification defines sosa:hasSample with a domain of sosa:FeatureOfInterest; since
+  sosa:Sample is a subclass of sosa:FeatureOfInterest, this usage is conformant with the specification. The SOSA/SSN
+  specification does not define a predicate to link sosa:Observation directly to sosa:Sample. We use sosa:hasSample for
+  this purpose. The specification defines sosa:hasSample with domain includes of sosa:FeatureOfInterest; since sosa:Sample
+  is a subclass of sosa:FeatureOfInterest, this usage is conformant with the specification. While the SOSA/SSN
+  specification does not explicitly provide a predicate to link a sosa:Observation to a sosa:Sample, we have used
+  sosa:hasSample for this purpose. As the specification states this predicate's domain *includes* sosa:FeatureOfInterest
+  of which sosa:Sample is a subclass, this usage is in spec.
 
 We use the I-ADOPT framework ontology to provide more structured observation data. By grouping observations with
 sosa:ObservationCollection and iop:VariableSets, we describe the possible set of variables measured by a given
@@ -2217,7 +2218,7 @@ A variable is directly associated with a sosa:Observation to describe the meanin
 Describes an iop:Property of an iop:Entity, potentially involving an iop:Constraint, a contextually related iop:Entity,
 and iop:StatisticalModifier.
 
-For example: length of a herring.
+.. TODO: For example: length of a herring.
 
 .. list-table::
    :header-rows: 1
@@ -2408,7 +2409,7 @@ iop:StatisticalModifier
 
 For example: mean, average, minimum, maximum, count.
 
-We prioritise the use of SDMX CL_STATISTICAL_OPERATION definitions for statistical operations. When referring to
+We prioritise the use of SDMX ``CL_STATISTICAL_OPERATION`` definitions for statistical operations. When referring to
 statistical modifiers or aggregation methods, these always point to our own Concept Scheme for statistical methods or
 operations. Each concept within this scheme implicitly aligns with SDMX notations. If SDMX is not applicable and a
 precise URI definition exists, such as those provided by DDI, we use skos:exactMatch to link our concept to the
@@ -2776,7 +2777,8 @@ application/csvm+json.
 
 ..
    We don't currently support CSV-W, as it doesn't support referencing a CSV that is only available using content
-   negotiation. Implementation depends on `RDF-48: Extension based content negotiation for csv files <https://dsp-support.atlassian.net/browse/RDF-48>`__.
+   negotiation. Implementation depends on `RDF-48: Extension based content negotiation for csv files
+   <https://dsp-support.atlassian.net/browse/RDF-48>`__.
 
 .. _worked-example-2:
 
@@ -2796,7 +2798,7 @@ Consider the following CSV table containing water quality observations:
      - result
      - unit
 
-   * - `https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047/sample/1436878/observation/0061 <https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047/sample/1436878/observation/0061>`__
+   * - https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047/sample/1436878/observation/0061
      - TH-PBRR0047
      - THAMES - HERTS AND NORTH LONDON
      - 2025-04-25T13:13:00
@@ -2923,10 +2925,10 @@ class, and ensure that they are consistent when an instance has multiple classes
    * - Class
      - Unique identifier predicate
 
-   * - dcat:Catalog
-       dcat:Dataset
-       dcat:DataService
-       dcat:Distribution
+   * - | dcat:Catalog
+       | dcat:Dataset
+       | dcat:DataService
+       | dcat:Distribution
      - dcterms:title
 
    * - skos:ConceptScheme
@@ -2966,15 +2968,15 @@ Concept data endpoints
 
    * - /{dataset}
      - Information about the Concept Scheme
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
    * - /{dataset}/Concept
      - List member concepts
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
    * - /{dataset}/Concept/{instance}
 
@@ -2983,9 +2985,9 @@ Concept data endpoints
        - /determinands/Concept/DO - Dissolved Oxygen concept
        - /sampling-purposes/Concept/routine-monitoring
      - Individual concept
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
 Geography data endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3003,10 +3005,10 @@ Geography data endpoints
 
        - /river-basins/Geography
      - Collection of geographies
-     - application/ld+json
-       application/x-jsonlines
-       application/geo+json
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | application/geo+json
+       | text/csv
 
    * - /{dataset}/Geography/{instance}
 
@@ -3015,10 +3017,10 @@ Geography data endpoints
        - /local-authorities/Geography/E06000001 - Hartlepool Local Authority
        - /river-basins/Geography/thames
      - Individual geography
-     - application/ld+json
-       application/x-jsonlines
-       application/geo+json
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | application/geo+json
+       | text/csv
 
 Custom data endpoints
 ~~~~~~~~~~~~~~~~~~~~~
@@ -3037,9 +3039,9 @@ Custom data endpoints
        - /data-requirements/AssetType
        - /data-requirements/Elements
      - Collection of instances for that class, and class definition
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
    * - /{dataset}/{ClassName}/{instance}
 
@@ -3048,9 +3050,9 @@ Custom data endpoints
        - /organizations/Organization/environment-agency
        - /organizations/Department/marine-conservation
      - Individual class instance
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
 Observation data endpoints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -3070,8 +3072,8 @@ Observation data endpoints
      - Sampling point metadata.
 
        Points to the endpoint for observations with sosa:hasObservations.
-     - application/ld+json
-       application/geo+json
+     - | application/ld+json
+       | application/geo+json
 
    * - /sampling-point/{id}/observation
 
@@ -3079,12 +3081,12 @@ Observation data endpoints
 
        - /sampling-point/AN-CORBY/observation?skip=0&limit=100&dateFrom=2020-01-01&dateTo=2020-12-31
      - Observations at specific point
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
-   * - /sampling-point/{id}/sample/{sample-sampling-id}
-       /sampling-point/{id}/sampling/{sample-sampling-id}
+   * - | /sampling-point/{id}/sample/{sample-sampling-id}
+       | /sampling-point/{id}/sampling/{sample-sampling-id}
 
        e.g.
 
@@ -3097,8 +3099,8 @@ Observation data endpoints
 
    * - /sampling-point/{id}/observation-collection/{obs-collection-id}
      - A group of observations
-     - application/ld+json
-       application/x-jsonlines
+     - | application/ld+json
+       | application/x-jsonlines
 
    * - /sampling-point/{id}/sample/{sample-id}/observation/{obs-id}
 
@@ -3114,14 +3116,14 @@ Observation data endpoints
 
    * - /data/sampling-point
      - Bulk sampling point download
-     - application/ld+json
-       application/geo+json
+     - | application/ld+json
+       | application/geo+json
 
    * - /data/observation
      - Bulk observation download
-     - application/ld+json
-       application/x-jsonlines
-       text/csv
+     - | application/ld+json
+       | application/x-jsonlines
+       | text/csv
 
 **Key patterns:**
 
@@ -3153,7 +3155,7 @@ first by time, then geography. Subsequent dimensions should be ordered by which 
 When a dimension is a range, the `SDMX framework's <https://sdmx.org/standards-2/>`__ encoding pattern should be used.
 
 ..
-  TODO: Find where the SDMX defines how to encode ranges into text and insert a reference to the section. Section 6
+  TODO AV: Find where the SDMX defines how to encode ranges into text and insert a reference to the section. Section 6
   references InclusiveValueRange and the minValue & maxValue facets, however, there doesn't appear to be anything about
   encoding those into text.
 
