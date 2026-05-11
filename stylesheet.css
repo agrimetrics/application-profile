@@ -1,0 +1,12 @@
+main {
+  font-family: sans-serif;
+}
+
+pre, table {
+  overflow-x: auto;
+  display: block;
+}
+
+img {
+  max-width: stretch;
+}

@@ -1,0 +1,63 @@
+name: "Build & deploy pages"
+
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch: # Manual runs
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: "Build & upload pages"
+    runs-on: "ubuntu-slim"
+
+    steps:
+      - uses: "actions/checkout@v6"
+
+      - name: "Install uv"
+        id: "uv"
+        uses: "astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b" # v8.1.0
+
+      - name: "Setup pages"
+        id: "setup"
+        uses: "actions/configure-pages@v5"
+
+      - name: "Build"
+        id: "build"
+        run: |
+          mkdir build && \
+          cp -r ./diagrams build/ && \
+          uv run \
+            --isolated \
+            --verbose \
+            --with docutils,pygments docutils \
+            --stylesheet-path=minimal.css,responsive.css,stylesheet.css \
+            --table-style=align-center,colwidths-auto \
+            main.rst build/index.html
+
+      - name: "Upload"
+        id: "upload"
+        uses: "actions/upload-pages-artifact@v3"
+        with:
+          path: "build/"
+
+  deploy:
+    name: "Deploy pages"
+    environment:
+      name: "github-pages"
+      url: "${{ steps.deployment.outputs.page_url }}"
+    runs-on: "ubuntu-slim"
+    needs: "build"
+    steps:
+      - name: "Deploy pages"
+        id: "deployment"
+        uses: "actions/deploy-pages@v4"
