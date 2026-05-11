@@ -372,13 +372,13 @@ dcat:Catalog which contains the versioned datasets.
      - Notes
 
    * - ``dcterms:title``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      - May be repeated for multiple languages
 
    * - ``dcterms:description``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      - May be repeated for multiple languages
@@ -400,7 +400,7 @@ dcat:Catalog which contains the versioned datasets.
      - May be the URL of the license text, e.g. `<https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/>`__
 
    * - ``dcterms:created``
-     - Literal xsd:dateTime
+     - Literal ``xsd:dateTime``
      - Must
      - 1
      - Defaults to now()
@@ -438,7 +438,7 @@ dcat:Catalog which contains the versioned datasets.
      - If publisher is not the creator
 
    * - ``dcterms:issued``
-     - Literal xsd:date
+     - Literal ``xsd:date``
      - Should
      - 0..1
      - If specified by the publisher
@@ -450,7 +450,7 @@ dcat:Catalog which contains the versioned datasets.
      - If available, a web-resolvable URL to human-readable documentation of the Dataset.
 
    * - ``dcat:temporalResolution``
-     - Literal xsd:duration
+     - Literal ``xsd:duration``
      - Should
      - 0..1
      - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
@@ -492,14 +492,14 @@ dcat:Catalog which contains the versioned datasets.
          ]
 
    * - ``dcterms:language``
-     - Literal ISO 639-1 two-letter or ISO 639-2 three-letter code xsd:string
+     - Literal ISO 639-1 two-letter or ISO 639-2 three-letter code ``xsd:string``
      - May
      - 0..*
      - If specified, and not just English.
        E.g. ``dcterms:language "en", “cy" ;`` for both English and Welsh (Cymraeg).
 
    * - ``skos:editorialNote``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - Additional meta information about the Dataset.
@@ -592,13 +592,13 @@ A Catalog is a specialisation of dcat:Dataset, adding only the predicate dcat:da
      - Notes
 
    * - ``dcterms:title``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
 
    * - ``dcterms:description``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
@@ -653,7 +653,7 @@ and when it was last updated.
      - Notes
 
    * - ``dcterms:title``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
@@ -665,19 +665,19 @@ and when it was last updated.
      -
 
    * - ``dcterms:description``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      - Description of the resource this record points to
 
    * - ``dcterms:issued``
-     - Includes Literal xsd:dateTime
+     - Includes Literal ``xsd:dateTime``
      - Should
      - 0..1
      - When the record was added to the catalog
 
    * - ``dcterms:modified``
-     - Includes Literal xsd:dateTime
+     - Includes Literal ``xsd:dateTime``
      - May
      - 0..*
      - When the record was last updated or modified
@@ -708,7 +708,7 @@ dcat:Distribution
      - Notes
 
    * - ``dcterms:title``
-     - Literal xsd:String
+     - Literal ``xsd:String``
      - Must
      - 1..*
      -
@@ -732,7 +732,7 @@ dcat:Distribution
      -
 
    * - ``dcat:description``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      -
@@ -768,25 +768,25 @@ dcat:Distribution
      -
 
    * - ``dcterms:modified``
-     - Literal, including xsd:dateTime
+     - Literal, including ``xsd:dateTime``
      - May
      - 0..1
      -
 
    * - ``dcat:temporalResolution``
-     - Literal xsd:duration
+     - Literal ``xsd:duration``
      - Should
      - 0..1
      - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
 
    * - ``dcat:spatialResolutionInMeters``
-     - Literal, including xsd:decimal
+     - Literal, including ``xsd:decimal``
      - May
      - 0..1
      -
 
    * - ``dcterms:issued``
-     - Literal, including xsd:dateTime
+     - Literal, including ``xsd:dateTime``
      - May
      - 0..1
      -
@@ -987,31 +987,31 @@ A skos:ConceptScheme must also contain at least one skos:Concept using the skos:
      - Notes
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      - Human-readable name
 
    * - ``skos:notation``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 1
      - Should be provided by the data source
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      - Description or formal definition of the concept scheme
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - Additional human-readable names
 
    * - ``skos:note``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - Additional information about the concept scheme
@@ -1045,19 +1045,19 @@ A skos:Concept should use skos:broader and skos:narrower to indicate hierarchy.
      - Scheme(s) this concept belongs to
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      - Human-readable name
 
    * - ``skos:notation``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1
      - Should be provided by the data source
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      - Description or formal definition of the concept
@@ -1076,13 +1076,13 @@ A skos:Concept should use skos:broader and skos:narrower to indicate hierarchy.
      - Inferred, should be present if the skos:Concept has no skos:broader relationship.
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - Additional human-readable names
 
    * - ``skos:note``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - Additional information about the concept
@@ -1132,7 +1132,7 @@ are equivalent, then skos:narrower and skos:broader indicate as usual the hierar
      -
 
    * - ``rdfs:label``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
@@ -1409,7 +1409,7 @@ Geometries should be provided with the following shapes and anchors if coined:
          geo:asWkt "<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(-1.150 52.9534)"^^geo:wktLiteral"
 
    * - ``geo:coordinateDimension``
-     - Literal xsd:decimal
+     - Literal ``xsd:decimal``
      - Must
      - 1
      - Number of axes in the geometry
@@ -1628,13 +1628,13 @@ A new class is of type owl:Class and the following predicates are used to descri
      - Notes
 
    * - ``rdfs:label``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1
      - The human-readable label of the class
 
    * - ``rdfs:comment``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1
      - A description of the class which provides more context about when the class should be used
@@ -1670,13 +1670,13 @@ A new predicate can be of type owl:ObjectProperty (the range of the predicate is
      - Notes
 
    * - ``rdfs:label``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1
      - The human-readable label of the predicate
 
    * - ``rdfs:comment``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1
      - A description explaining the predicate
@@ -1689,7 +1689,7 @@ A new predicate can be of type owl:ObjectProperty (the range of the predicate is
 
    * - ``rdfs:range``
      - - a rdfs:Class or a owl:Class (if the property is an owl:ObjectProperty
-       - a Literal datatype (if the property is an owl:DatatypeProperty e.g. if we declare ex:age to be an owl:DatatypeProperty then we would say ex:age rdfs:range xsd:integer
+       - a Literal datatype (if the property is an owl:DatatypeProperty e.g. if we declare ex:age to be an owl:DatatypeProperty then we would say ex:age rdfs:range ``xsd:integer``
      - Should
      - 0..*
      - The permitted data types of objects for the predicate
@@ -1708,7 +1708,7 @@ Below is the pattern that we would use for defining an owl:ObjectProperty and an
      rdfs:label "Custom Datatype Property"@en ;
      rdfs:comment "A custom datatype property" ;
      rdfs:domain ex:DomainClass ;
-     rdfs:range xsd:string .
+     rdfs:range ``xsd:string`` .
 
 Worked example: Data Requirements Library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1765,19 +1765,19 @@ predicate to relate classes together.
      rdfs:label "asset code"@en ;
      rdfs:comment "Defines the code of the asset" ;
      rdfs:domain ex:Asset ;
-     rdfs:range xsd:string .
+     rdfs:range ``xsd:string`` .
 
    ex:uniclass a owl:DatatypeProperty ;
      rdfs:label "uniclass"@en ;
      rdfs:comment "The uniclass classification code to be used for this Asset type" ;
      rdfs:domain ex:Asset ;
-     rdfs:range xsd:string .
+     rdfs:range ``xsd:string`` .
 
    ex:geometryType a owl:DatatypeProperty ;
        rdfs:label "geometry type"@en ;
        rdfs:comment "Geometry type: Point, Line, Polygon or N/A"@en ;
        rdfs:domain ex:Asset ;
-       rdfs:range xsd:string .
+       rdfs:range ``xsd:string`` .
 
    # Instance Data
    <http://environment.data.gov.uk/asset-management/id/drl/Land> a ex:AssetCategory ;
@@ -1833,7 +1833,7 @@ existing RDF vocabularies.
        rdfs:label "standard error"@en ;
        rdfs:comment "The standard error of a quantity value. Used independently of qudt:standardUncertainty because the sample size of the original measurements is unknown and so the standard error cannot be converted to a standard deviation."@en ;
        rdfs:domain qudt:QuantityValue ;
-       rdfs:range xsd:decimal .
+       rdfs:range ``xsd:decimal`` .
 
 .. TODO: Add ontology definition triples
 
@@ -1916,19 +1916,19 @@ A sosa:Property must also be a iop:Variable.
      - Notes
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 0..*
      -
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - A property should be described with the predicates supported by iop:Variable, or a definition provided with skos:definition.
@@ -1959,7 +1959,7 @@ produce sosa:Observations.
      -
 
    * - ``sosa:resultTime``
-     - Literal xsd:dateTime, xsd:date, xsd:gYearMonth, and/or xsd:gYear.
+     - Literal ``xsd:dateTime``, ``xsd:date``, ``xsd:gYearMonth``, and/or ``xsd:gYear``.
      - Must
      - 1
      - Time at which the result became available. Typically the same as sosa:endTime.
@@ -1983,13 +1983,13 @@ produce sosa:Observations.
      - Time at which the sampling began
 
    * - ``sosa:endTime``
-     - Literal, includes xsd:dateTime
+     - Literal, includes ``xsd:dateTime``
      - May
      - 0..1
      - Time at which sampling completed
 
    * - ``sosa:phenomenonTime``
-     - Literal, includes xsd:dateTime
+     - Literal, includes ``xsd:dateTime``
      - May
      - 0..1
      - Time of the phenomenon being measured
@@ -2110,7 +2110,7 @@ An observation has a result from a sample for a property of a given feature of i
      -
 
    * - ``sosa:phenomenonTime``
-     - Literal xsd:dateTime
+     - Literal ``xsd:dateTime``
      - Must
      - 1
      - Time at which the property was measured
@@ -2134,7 +2134,7 @@ An observation has a result from a sample for a property of a given feature of i
        If the result is a range, qudt:minExclusive and qudt:maxExclusive should be used for exclusive values in the range, and qudt:minInclusive and qudt:maxInclusive should be used for inclusive values in the range.
 
    * - ``sosa:hasSimpleResult``
-     - Literal, including xsd:string, xsd:decimal
+     - Literal, including ``xsd:string``, ``xsd:decimal``
      - Must
      - 1
      -
@@ -2171,7 +2171,7 @@ observed from a single sample.
      - Notes
 
    * - ``rdfs:label``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
@@ -2189,7 +2189,7 @@ observed from a single sample.
      -
 
    * - ``rdfs:comment``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
@@ -2230,7 +2230,7 @@ and iop:StatisticalModifier.
      - Notes
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 0..*
      -
@@ -2242,13 +2242,13 @@ and iop:StatisticalModifier.
      -
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      - A property should be described with the predicates supported by iop:Variable, or a definition provided with skos:definition.
@@ -2301,19 +2301,19 @@ own qudt:QuantityKinds when necessary.
      - Notes
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      -
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
@@ -2339,19 +2339,19 @@ A iop:Entity must also be a skos:Concept. This allows us to describe them in a c
      - Notes
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      -
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
@@ -2377,13 +2377,13 @@ them in a consistent manner to other concepts.
      - Notes
 
    * - ``skos:prefLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Must
      - 1..*
      -
 
    * - ``skos:definition``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - Should
      - 0..*
      -
@@ -2395,7 +2395,7 @@ them in a consistent manner to other concepts.
      -
 
    * - ``skos:altLabel``
-     - Literal xsd:string
+     - Literal ``xsd:string``
      - May
      - 0..*
      -
