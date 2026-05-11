@@ -6,7 +6,7 @@
 .. contents:: Table of contents
 
 Introduction
-------------
+============
 
 Purpose and Scope
 -----------------
@@ -222,7 +222,7 @@ Here is a quick summary of terms for reference:
        - Decapitalising all characters
 
 Namespaces
-~~~~~~~~~~
+----------
 
 .. list-table::
    :header-rows: 1
@@ -300,7 +300,7 @@ Namespaces
      - `W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes <https://www.w3.org/TR/xmlschema11-2/>`__
 
 Overview Diagram
-----------------
+================
 
 .. TODO: convert diagram to mermaid
 
@@ -318,7 +318,7 @@ Overview Diagram
  
 
 Data Types
-----------
+==========
 
 For the various data types, we provide guidelines to be followed for our
 own purposes.
@@ -2868,7 +2868,7 @@ Using the table above we would define a JSON metadata file to describe this CSV 
    }
 
 API behaviour
--------------
+=============
 
 Generally, we endeavour to bring Linked Data to JSON users, not force Linked Data conventions upon them. URIs follow
 REST patterns (/{dataset}/{class}/{instance}), not traditional semantic web patterns (/id/, /def/).
@@ -3340,8 +3340,8 @@ JSON-LD representation:
 
 
 Appendix
---------
+========
 
 
 Custom type definitions
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
