@@ -2771,7 +2771,7 @@ external vocabularies. As a result the data becomes more interpretable and reusa
 tabular data to be transformed into RDF by defining how rows and columns map to RDF triples.
 
 Our datasets will be accessible through a CSV endpoint
-e.g. https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047.csv, and if users require the JSON
+e.g. ``https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047.csv``, and if users require the JSON
 metadata file then the JSON file will be accessible via a HTTP GET request with an Accept header of
 application/csvm+json.
 
@@ -2798,7 +2798,7 @@ Consider the following CSV table containing water quality observations:
      - result
      - unit
 
-   * - https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047/sample/1436878/observation/0061
+   * - ``https://environment.data.gov.uk/water-quality/sampling-point/TH-PBRR0047/sample/1436878/observation/0061``
      - TH-PBRR0047
      - THAMES - HERTS AND NORTH LONDON
      - 2025-04-25T13:13:00
@@ -2873,7 +2873,7 @@ API behaviour
 =============
 
 Generally, we endeavour to bring Linked Data to JSON users, not force Linked Data conventions upon them. URIs follow
-REST patterns (/{dataset}/{class}/{instance}), not traditional semantic web patterns (/id/, /def/).
+REST patterns (``/{dataset}/{class}/{instance}``), not traditional semantic web patterns (``/id/``, ``/def/``).
 
 Each service, hosted at a stable base URL, and is composed of one, top-level, dcat:Catalog. This catalog contains
 skos:ConceptSchemes, dcat:Dataset s, dcat:DataServices, etc, which in turn contain various other classes of the above
@@ -2882,7 +2882,7 @@ Data Types.
 URL structure
 -------------
 
-{base URL}/{catalog}/{dataset}/{RDF class}/{instance identifier}
+``{base URL}/{catalog}/{dataset}/{RDF class}/{instance identifier}``
 
 
 -  Instance names should be kebab-case, and must be URI-safe
@@ -2897,7 +2897,7 @@ URL structure
 
 For example:
 
--  http://example.org/example-catalog/example-dataset/Concept/some-concept
+-  ``http://example.org/example-catalog/example-dataset/Concept/some-concept``
 
 The above can be broken down into the following:
 
@@ -2910,7 +2910,7 @@ The above can be broken down into the following:
      - Class
      - Instance
 
-   * - http://example.org/
+   * - ``http://example.org/``
      - example-catalog/
      - example-dataset/
      - Concept
@@ -2948,11 +2948,11 @@ Catalogue data endpoints
      - Purpose
      - Formats
 
-   * - /
+   * - ``/``
      - Root catalogue (list of datasets)
      - application/ld+json
 
-   * - /catalog or /catalogue
+   * - ``/catalog or /catalogue``
      - Explicit catalogue metadata (DCAT)
      - application/ld+json
 
@@ -2966,24 +2966,24 @@ Concept data endpoints
      - Purpose
      - Formats
 
-   * - /{dataset}
+   * - ``/{dataset}``
      - Information about the Concept Scheme
      - | application/ld+json
        | application/x-jsonlines
        | text/csv
 
-   * - /{dataset}/Concept
+   * - ``/{dataset}/Concept``
      - List member concepts
      - | application/ld+json
        | application/x-jsonlines
        | text/csv
 
-   * - /{dataset}/Concept/{instance}
+   * - ``/{dataset}/Concept/{instance}``
 
        e.g.
 
-       - /determinands/Concept/DO - Dissolved Oxygen concept
-       - /sampling-purposes/Concept/routine-monitoring
+       - ``/determinands/Concept/DO - Dissolved Oxygen concept``
+       - ``/sampling-purposes/Concept/routine-monitoring``
      - Individual concept
      - | application/ld+json
        | application/x-jsonlines
@@ -2999,23 +2999,23 @@ Geography data endpoints
      - Purpose
      - Formats
 
-   * - /{dataset}/Geography
+   * - ``/{dataset}/Geography``
 
        e.g.
 
-       - /river-basins/Geography
+       - ``/river-basins/Geography``
      - Collection of geographies
      - | application/ld+json
        | application/x-jsonlines
        | application/geo+json
        | text/csv
 
-   * - /{dataset}/Geography/{instance}
+   * - ``/{dataset}/Geography/{instance}``
 
        e.g.
 
-       - /local-authorities/Geography/E06000001 - Hartlepool Local Authority
-       - /river-basins/Geography/thames
+       - ``/local-authorities/Geography/E06000001 - Hartlepool Local Authority``
+       - ``/river-basins/Geography/thames``
      - Individual geography
      - | application/ld+json
        | application/x-jsonlines
@@ -3032,23 +3032,23 @@ Custom data endpoints
      - Purpose
      - Formats
 
-   * - /{dataset}/{ClassName}
+   * - ``/{dataset}/{ClassName}``
 
        e.g.
 
-       - /data-requirements/AssetType
-       - /data-requirements/Elements
+       - ``/data-requirements/AssetType``
+       - ``/data-requirements/Elements``
      - Collection of instances for that class, and class definition
      - | application/ld+json
        | application/x-jsonlines
        | text/csv
 
-   * - /{dataset}/{ClassName}/{instance}
+   * - ``/{dataset}/{ClassName}/{instance}``
 
        e.g.
 
-       - /organizations/Organization/environment-agency
-       - /organizations/Department/marine-conservation
+       - ``/organizations/Organization/environment-agency``
+       - ``/organizations/Department/marine-conservation``
      - Individual class instance
      - | application/ld+json
        | application/x-jsonlines
@@ -3064,22 +3064,22 @@ Observation data endpoints
      - Purpose
      - Formats
 
-   * - /sampling-point/{id}
+   * - ``/sampling-point/{id}``
 
        e.g.
 
-       - /sampling-point/AN-CORBY
+       - ``/sampling-point/AN-CORBY``
      - Sampling point metadata.
 
        Points to the endpoint for observations with sosa:hasObservations.
      - | application/ld+json
        | application/geo+json
 
-   * - /sampling-point/{id}/observation
+   * - ``/sampling-point/{id}/observation``
 
        e.g.
 
-       - /sampling-point/AN-CORBY/observation?skip=0&limit=100&dateFrom=2020-01-01&dateTo=2020-12-31
+       - ``/sampling-point/AN-CORBY/observation?skip=0&limit=100&dateFrom=2020-01-01&dateTo=2020-12-31``
      - Observations at specific point
      - | application/ld+json
        | application/x-jsonlines
@@ -3090,36 +3090,36 @@ Observation data endpoints
 
        e.g.
 
-       - /sampling-point/AN-CORBY/sample/1959114/
-       - /sampling-point/AN-CORBY/sampling/1959114/
+       - ``/sampling-point/AN-CORBY/sample/1959114/``
+       - ``/sampling-point/AN-CORBY/sampling/1959114/``
      - Individual sample and sampling metadata.
 
        In the interest of usability, we don’t segregate the information of a sample and sampling. When one is requested, for the convenience of end users, the details of the other should also be returned. The ID of a sample must be the same as the ID of the sampling.
      - application/ld+json
 
-   * - /sampling-point/{id}/observation-collection/{obs-collection-id}
+   * - ``/sampling-point/{id}/observation-collection/{obs-collection-id}``
      - A group of observations
      - | application/ld+json
        | application/x-jsonlines
 
-   * - /sampling-point/{id}/sample/{sample-id}/observation/{obs-id}
+   * - ``/sampling-point/{id}/sample/{sample-id}/observation/{obs-id}``
 
        e.g.
 
-       - /sampling-point/AN-CORBY/sample/1959114/observation/0076
+       - ``/sampling-point/AN-CORBY/sample/1959114/observation/0076``
      - Individual observation
      - application/ld+json
 
-   * - /variable-set
+   * - ``/variable-set``
      - A variable set definition. Each predicate points to a concept scheme endpoint, using Hydra’s memberAssertion to indicate that all concepts in that scheme are in the range of the variable set.
      - application/ld+json
 
-   * - /data/sampling-point
+   * - ``/data/sampling-point``
      - Bulk sampling point download
      - | application/ld+json
        | application/geo+json
 
-   * - /data/observation
+   * - ``/data/observation``
      - Bulk observation download
      - | application/ld+json
        | application/x-jsonlines
@@ -3189,41 +3189,41 @@ class names, or instance names.
      - Endpoint
      - Purpose
    * - Infrastructure
-     - /admin
-     - Dataset/user management
+     - ``/admin``
+     - Dataset & user management
    * - Infrastructure
-     - /health, /status, /metrics
+     - ``/health``, ``/status``, ``/metrics``
      - Monitoring
    * - Infrastructure
-     - /docs, /api-docs, /swagger, /openapi.json
+     - ``/docs``, ``/api-docs``, ``/swagger``, ``/openapi.json``
      - Documentation
    * - Data Operations
-     - /data
+     - ``/data``
      - Bulk download namespace
    * - Data Operations
-     - /catalog, /catalogue
+     - ``/catalog``, ``/catalogue``
      - Catalogue metadata
    * - Data Operations
-     - /bulk
+     - ``/bulk``
      - Reserved for future bulk operations
    * - Linked Data Federation
-     - /id, /def, /doc
+     - ``/id``, ``/def``, ``/doc``
      - Reserved (not used in Dodos, but protected for compatibility)
    * - Linked Data Federation
-     - /sparql
+     - ``/sparql``
      - Reserved for GraphDB federation
    * - Linked Data Federation
-     - /query
+     - ``/query``
      - Reserved for custom query interfaces
    * - Authentication
-     - /auth, /login, /logout, /token
+     - ``/auth``, ``/login``, ``/logout``, ``/token``
      -
    * - Discovery
      - /.well-known
      - RFC 8615 discovery mechanisms
    * - Technical
-     - /api
-     - Reserved for HTML/Node.js API roots use, not for API versioning
+     - ``/api``
+     - Reserved for HTML & Node.js API roots use, not for API versioning
 
 JSON-LD representations
 -----------------------
