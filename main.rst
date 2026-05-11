@@ -797,8 +797,8 @@ dcat:Distribution
      - 0..1
      -
 
-JSON-LD mapping
-~~~~~~~~~~~~~~~
+Catalogue JSON-LD mapping
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -1137,10 +1137,8 @@ are equivalent, then skos:narrower and skos:broader indicate as usual the hierar
      - 0..*
      -
 
-.. _json-ld-mapping-1:
-
-JSON-LD mapping
-~~~~~~~~~~~~~~~
+Concept JSON-LD mapping
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -1192,8 +1190,8 @@ JSON-LD mapping
      - Includes endpoint URI, or URI of resource
      - Applicable to skos:Collection.
 
-Worked example
-~~~~~~~~~~~~~~
+Concepts worked example
+~~~~~~~~~~~~~~~~~~~~~~~
 
 As of writing, the UK's administrative geographies are hierarchically
 organised according to the following diagram:
@@ -1430,10 +1428,8 @@ Geometries should be provided with the following shapes and anchors if coined:
 
        Should be provided as a WKT Point.
 
-.. _json-ld-mapping-2:
-
-JSON-LD mapping
-~~~~~~~~~~~~~~~
+Geography JSON-LD mapping
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -1527,14 +1523,12 @@ mapping:
 
 Each skos:Concept assigned to the geo:Feature should also be present in the properties of the GeoJSON object, with the
 camelCase name of its skos:ConceptSchemeused as the key, and the skos:Concept's skos:prefLabel as the value. See the
-`worked example <#Worked-example.1>`__ below.
+`worked example <Geography worked example>`_ below.
 
 The properties should generally not contain complex data types such as objects. Arrays may be used when appropriate.
 
-.. _worked-example-1:
-
-Worked example
-~~~~~~~~~~~~~~
+Geography worked example
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 The water quality sampling point endpoint for AN-CORBY returns the following JSON-LD response, which has been cut down
 for simplicity:
@@ -2419,10 +2413,8 @@ If no suitable term exists within SDMX, we fall back to the DDI Controlled Vocab
 appropriate definition is available there either, we create a new concept. Such concepts are defined as both a
 skos:Concept and an iop:StatisticalModifier.
 
-.. _json-ld-mapping-3:
-
-JSON-LD mapping
-~~~~~~~~~~~~~~~
+Observation JSON-LD mapping
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -2780,10 +2772,8 @@ application/csvm+json.
    negotiation. Implementation depends on `RDF-48: Extension based content negotiation for csv files
    <https://dsp-support.atlassian.net/browse/RDF-48>`__.
 
-.. _worked-example-2:
-
-Worked example
-~~~~~~~~~~~~~~
+Cubes worked example
+~~~~~~~~~~~~~~~~~~~~
 
 Consider the following CSV table containing water quality observations:
 
@@ -3296,10 +3286,8 @@ JSON-LD contexts
      * - Concept
        -
 
-.. _worked-example-3:
-
-Worked example
-~~~~~~~~~~~~~~
+JSON-LD context worked example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In Turtle syntax:
 
