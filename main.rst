@@ -2048,7 +2048,7 @@ sosa:ObservationCollection
 
    – SOSA/SSN 2023 spec
 
-An sosa:ObservationCollection must group all sosa:Observations made on a single sosa:Sample, if there is more than one
+A sosa:ObservationCollection must group all sosa:Observations made on a single sosa:Sample, if there is more than one
 observation for the given sample.
 
 .. list-table::
