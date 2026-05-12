@@ -334,8 +334,8 @@ rules in this application profile should supersede them.
 1. Catalogue
 ------------
 
-dcat:Dataset
-~~~~~~~~~~~~
+``dcat:Dataset``
+~~~~~~~~~~~~~~~~
 
    dcat:Dataset represents a collection of data, published or curated by a single agent or identifiable community. The
    notion of dataset in DCAT is broad and inclusive, with the intention of accommodating resource types arising from all
@@ -346,19 +346,19 @@ dcat:Dataset
 
 We use Datasets for each conceptual group of data.
 
-Each dataset should be part of a dcat:Catalog, which should be specified usingdcat:dataset on the dcat:Catalog.
+Each dataset should be part of a ``dcat:Catalog``, which should be specified using ``dcat:dataset`` on the ``dcat:Catalog``.
 
 Temporal datasets are ones which only relate to, or are only valid for, a specific period of time. For temporal
-datasets, dcterms:temporal must be used to indicate that period of time.
+datasets, ``dcterms:temporal`` must be used to indicate that period of time.
 
-A dcat:Dataset may also be a skos:ConceptScheme.
+A ``dcat:Dataset`` may also be a ``skos:ConceptScheme``.
 
 When we import versioned datasets, if each version of dataset also contains data from previous versions, we should
 import and keep only the latest version.
 
 Otherwise, we should make multiple versions of a dataset available. The related datasets should be linked together using
-dcat:previousVersion and dcat:nextVersion. The latest version should be linked to using dcat:hasCurrentVersion in the
-dcat:Catalog which contains the versioned datasets.
+``dcat:previousVersion`` and ``dcat:nextVersion``. The latest version should be linked to using ``dcat:hasCurrentVersion`` in the
+``dcat:Catalog`` which contains the versioned datasets.
 
 .. TODO: dcat:DatasetSeries, dcat:inSeries.
 
@@ -387,7 +387,7 @@ dcat:Catalog which contains the versioned datasets.
      - Includes URI
      - Must
      - 1
-     - Defaults to dcat:publisher of the dcat:Catalog.
+     - Defaults to ``dcat:publisher`` of the ``dcat:Catalog``.
 
        May be URL of the publisher’s website, e.g. `<https://environment.data.gov.uk/>`__.
 
@@ -406,7 +406,7 @@ dcat:Catalog which contains the versioned datasets.
      - Defaults to now()
 
    * - ``dcterms:temporal``
-     - a dcterms:PeriodOfTime
+     - a ``dcterms:PeriodOfTime``
      - Must, if dataset is temporal
      - 0..1
      - If the dataset is only relates to a specific period of time.
@@ -426,7 +426,7 @@ dcat:Catalog which contains the versioned datasets.
          ];
 
    * - ``dcterms:accrualPeriodicity``
-     - a dcterms:Frequency
+     - a ``dcterms:Frequency``
      - Should
      - 0..1
      - If versions of the dataset is published regularly, especially if the dataset is temporal, the frequency at which it is published. E.g. yearly.
@@ -456,19 +456,19 @@ dcat:Catalog which contains the versioned datasets.
      - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
 
    * - ``dcat:contactPoint``
-     - a vcard:Kind
+     - a ``vcard:Kind``
      - Should
      - 0..*
      - Contact point for support about the Dataset/DataService
 
    * - ``dcat:inCatalog``
-     - a dcat:Catalog
+     - a ``dcat:Catalog``
      - Should
      - 0..*
      - Parent catalog(s) this dataset belongs to
 
    * - ``dcat:theme``
-     - a skos:Concept
+     - a ``skos:Concept``
      - Should
      - 0..*
      - Themes, topics this dataservice covers. E.g. environment, rivers, water quality.
@@ -480,10 +480,10 @@ dcat:Catalog which contains the versioned datasets.
      - If provided by the publisher. Provides a direct download link for the source of our data. Should be a web-resolvable URL.
 
    * - ``dcterms:source``
-     - a rdfs:Resource with rdfs:label
+     - a ``rdfs:Resource`` with ``rdfs:label``
      - May
      - 0..*
-     - If a URL cannot be provided in dcat:accessURL, a human-readable description of the source.
+     - If a URL cannot be provided in ``dcat:accessURL``, a human-readable description of the source.
 
        .. code:: ttl
 
@@ -514,17 +514,17 @@ dcat:Catalog which contains the versioned datasets.
   AV: There are also some more subjective predicates like dcat:theme, but I think we should be specific about these,
   probably subclass for our purposes, if appropriate.
 
-dcat:DataService
-~~~~~~~~~~~~~~~~
+``dcat:DataService``
+~~~~~~~~~~~~~~~~~~~~
 
    A collection of operations that provides access to one or more datasets or data processing functions.
 
    – DCAT spec
 
-A dcat:DataService may also be a dcat:Catalog. The distinction between a plain catalogue and a data service is fuzzy. A
-general rule of thumb is, if the catalog provides access to dcat:Distributions, a catalogue is probably also data
-service. If properly representing the dataset would require using dcterms:temporal, dcterms:spatial, or dcat:inSeries,
-it should be represented with a dcat:Dataset.
+A ``dcat:DataService`` may also be a ``dcat:Catalog``. The distinction between a plain catalogue and a data service is fuzzy. A
+general rule of thumb is, if the catalog provides access to ``dcat:Distribution``\ s, a catalogue is probably also data
+service. If properly representing the dataset would require using ``dcterms:temporal``, ``dcterms:spatial``, or ``dcat:inSerie``\ s,
+it should be represented with a ``dcat:Dataset``.
 
 .. list-table::
    :header-rows: 1
@@ -545,30 +545,30 @@ it should be represented with a dcat:Dataset.
      - URI
      - Should
      - 0..*
-     - dcat:Datasets provided by this service.
+     - ``dcat:Dataset``\ s provided by this service.
 
    * - ``dcat:endpointDescription``
      - Includes URI
      - Should
      - 0..1
-     - If available, a reference to the documentation of the Dataset. Preferably machine-readable, or for programmatic access such as a Swagger documentation page. If nothing machine-readable is available, should duplicate foaf:page.
+     - If available, a reference to the documentation of the Dataset. Preferably machine-readable, or for programmatic access such as a Swagger documentation page. If nothing machine-readable is available, should duplicate ``foaf:page``.
 
        May be a web-resolvable URL.
 
    * - ``dcat:theme``
-     - a skos:Concept
+     - a ``skos:Concept``
      - Should
      - 0..*
      - Themes, topics this dataservice covers. E.g. environment, rivers, water quality.
 
    * - ``dcterms:type``
-     - Includes a skos:Concept
+     - Includes a ``skos:Concept``
      - May
      - 0..*
      - Types of operations supported by the service. E.g. view, update, download,
 
-dcat:Catalog
-~~~~~~~~~~~~
+``dcat:Catalog``
+~~~~~~~~~~~~~~~~
 
    dcat:Catalog represents a catalog, which is a dataset in which each individual item is a metadata record describing
    some resource; the scope of dcat:Catalog is collections of metadata about **datasets**, **data services**, or other
@@ -576,11 +576,11 @@ dcat:Catalog
 
    – DCAT spec
 
-API URL: /{slug of dcat:Catalog}
+API URL: /{slug of ``dcat:Catalog``}
 
-Each dataset should be part of a dcat:Catalog, which should be specified usingdcat:inCatalog on the dcat:Dataset.
+Each dataset should be part of a ``dcat:Catalog``, which should be specified ``usingdcat:inCatalog`` on the ``dcat:Dataset``.
 
-A Catalog is a specialisation of dcat:Dataset, adding only the predicate dcat:dataset to specify its members.
+A Catalog is a specialisation of ``dcat:Dataset``, adding only the predicate ``dcat:dataset`` to specify its members.
 
 .. list-table::
    :header-rows: 1
@@ -604,7 +604,7 @@ A Catalog is a specialisation of dcat:Dataset, adding only the predicate dcat:da
      -
 
    * - ``dcat:contactPoint``
-     - a vcard:Kind
+     - a ``vcard:Kind``
      - Should
      - 0..*
      - Contact point for support about the catalog specifically, not the datasets or entries contained within. May be set to an appropriate default for the service.
@@ -621,8 +621,8 @@ A Catalog is a specialisation of dcat:Dataset, adding only the predicate dcat:da
      - 0..*
      - Publisher of the catalog specifically, not the datasets or entries contained within. May be set to an appropriate default for the service.
 
-dcat:CatalogRecord
-~~~~~~~~~~~~~~~~~~
+``dcat:CatalogRecord``
+~~~~~~~~~~~~~~~~~~~~~~
 
    A record in a catalog, describing the registration of a single dcat:Resource.
 
@@ -634,13 +634,13 @@ dcat:CatalogRecord
 
    – DCAT spec
 
-We use dcat:CatalogRecords to provide references to external resources not directly provided by, or out of scope of, the
-service providing the dcat:Catalog.
+We use ``dcat:CatalogRecord``\ s to provide references to external resources not directly provided by, or out of scope of, the
+service providing the ``dcat:Catalog``.
 
 For example, the UK government open data portal is provided at `data.gov.uk <https://www.data.gov.uk/>`__, and provides
-various sections for its various departments and subjects, analogous to dcat:Catalogs. The Environment catalog has a
+various sections for its various departments and subjects, analogous to ``dcat:Catalog``\ s. The Environment catalog has a
 listing for the `Water Quality Explorer <https://www.data.gov.uk/dataset/583e771f-1af6-4934-b8f0-28f1d1ddd48c>`__, which
-would be a dcat:CatalogRecord, as it provides a description and some metadata about the dataset, including its license
+would be a ``dcat:CatalogRecord``, as it provides a description and some metadata about the dataset, including its license
 and when it was last updated.
 
 .. list-table::
@@ -659,7 +659,7 @@ and when it was last updated.
      -
 
    * - ``foaf:primaryTopic``
-     - a dcat:Resource, including a dcat:Dataset and a dcat:DataService
+     - a dcat:Resource, including a ``dcat:Dataset`` and a ``dcat:DataService``
      - Must
      - 1
      -
@@ -683,14 +683,14 @@ and when it was last updated.
      - When the record was last updated or modified
 
    * - ``dcterms:conformsTo``
-     - Includes a dcterms:Standard
+     - Includes a ``dcterms:Standard``
      - May
      - 0..*
      -
        .. TODO: Protocols supported by the resource? E.g. JSON-LD, SPARQL, GeoJSON, etc?
 
-dcat:Distribution
-~~~~~~~~~~~~~~~~~
+``dcat:Distribution``
+~~~~~~~~~~~~~~~~~~~~~
 
    A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in
    various ways, including natural language, media-type or format, schematic organization, temporal and spatial
@@ -726,7 +726,7 @@ dcat:Distribution
      -
 
    * - ``dcat:accessService``
-     - a dcat:DataService
+     - a ``dcat:DataService``
      - Should
      - 0..1
      -
@@ -744,25 +744,25 @@ dcat:Distribution
      -
 
    * - ``dcterms:mediaType``
-     - a dcterms:MediaType
+     - a ``dcterms:MediaType``
      - May
      - 1
      -
 
    * - ``dcterms:format``
-     - a dcterms:MediaTypeOrExtent
+     - a ``dcterms:MediaTypeOrExtent``
      - May
      - 0..1
      -
 
    * - ``dcterms:compressFormat``
-     - a dcterms:MediaType
+     - a ``dcterms:MediaType``
      - May
      - 0..1
      -
 
    * - ``dcat:packagingFormat``
-     - a dcterms:MediaType
+     - a ``dcterms:MediaType``
      - May
      - 0..1
      -
@@ -792,7 +792,7 @@ dcat:Distribution
      -
 
    * - ``dcterms:accessRights``
-     - a dcterms:RightsStatement
+     - a ``dcterms:RightsStatement``
      - May
      - 0..1
      -
@@ -855,7 +855,7 @@ Catalogue JSON-LD mapping
 
    * - ``dcat:contactPoint``
      - contactPoint
-     - vcard:Kind as JSON-LD
+     - ``vcard:Kind`` as JSON-LD
      - For example
 
        .. code:: ttl
@@ -907,7 +907,7 @@ Catalogue JSON-LD mapping
 
    * - ``dcat:theme``
      - theme
-     - skos:prefLabel of skos:Concept
+     - ``skos:prefLabel`` of ``skos:Concept``
      -
 
    * - ``foaf:page``
@@ -928,7 +928,7 @@ Catalogue JSON-LD mapping
    * -
      - hasDatasets
      - URI
-     - Applicable to dcat:Catalog
+     - Applicable to ``dcat:Catalog``
 
 
 
@@ -966,16 +966,16 @@ The diagram below shows how we model our services using DCAT
 2. Concept
 ----------
 
-skos:ConceptScheme
-~~~~~~~~~~~~~~~~~~
+``skos:ConceptScheme``
+~~~~~~~~~~~~~~~~~~~~~~
 
    A SKOS concept scheme can be viewed as an aggregation of one or more SKOS concepts
 
    – SKOS spec
 
-A skos:ConceptScheme must also be a dcat:Dataset.
+A ``skos:ConceptScheme`` must also be a ``dcat:Dataset``.
 
-A skos:ConceptScheme must also contain at least one skos:Concept using the skos:topConceptOf predicate.
+A ``skos:ConceptScheme`` must also contain at least one ``skos:Concept`` using the ``skos:topConceptOf`` predicate.
 
 .. list-table::
    :header-rows: 1
@@ -1016,18 +1016,18 @@ A skos:ConceptScheme must also contain at least one skos:Concept using the skos:
      - 0..*
      - Additional information about the concept scheme
 
-skos:Concept
-~~~~~~~~~~~~
+``skos:Concept``
+~~~~~~~~~~~~~~~~
 
    A SKOS concept can be viewed as an idea or notion; a unit of thought. However, what constitutes a unit of thought is
    subjective, and this definition is meant to be suggestive, rather than restrictive.
 
    – SKOS spec
 
-A skos:Concept must be linked to at least one skos:ConceptScheme using skos:inScheme, and may be linked to any number
-of those same concept schemes with skos:topConceptOf.
+A ``skos:Concept`` must be linked to at least one ``skos:ConceptScheme`` using ``skos:inScheme``, and may be linked to any number
+of those same concept schemes with ``skos:topConceptOf``.
 
-A skos:Concept should use skos:broader and skos:narrower to indicate hierarchy.
+A ``skos:Concept`` should use ``skos:broader`` and ``skos:narrower`` to indicate hierarchy.
 
 .. list-table::
    :header-rows: 1
@@ -1039,7 +1039,7 @@ A skos:Concept should use skos:broader and skos:narrower to indicate hierarchy.
      - Notes
 
    * - ``skos:inScheme``
-     - a skos:ConceptScheme
+     - a ``skos:ConceptScheme``
      - Must
      - 1
      - Scheme(s) this concept belongs to
@@ -1062,18 +1062,18 @@ A skos:Concept should use skos:broader and skos:narrower to indicate hierarchy.
      - 0..*
      - Description or formal definition of the concept
 
-   * - ``skos:broader``
-       skos:narrower
-     - a skos:Concept
+   * - | ``skos:broader``
+       | ``skos:narrower``
+     - a ``skos:Concept``
      - Should
      - 0..*
      - Hierarchical relationships
 
    * - ``skos:topConceptOf``
-     - a skos:ConceptScheme
+     - a ``skos:ConceptScheme``
      - May
      - 0..*
-     - Inferred, should be present if the skos:Concept has no skos:broader relationship.
+     - Inferred, should be present if the ``skos:Concept`` has no ``skos:broader`` relationship.
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
@@ -1087,18 +1087,18 @@ A skos:Concept should use skos:broader and skos:narrower to indicate hierarchy.
      - 0..*
      - Additional information about the concept
 
-   * - ``skos:closeMatch``
-       skos:exactMatch
-       skos:broadMatch
-       skos:narrowMatch
-       skos:relatedMatch
-     - a skos:Concept
+   * - | ``skos:closeMatch``
+       | ``skos:exactMatch``
+       | ``skos:broadMatch``
+       | ``skos:narrowMatch``
+       | ``skos:relatedMatch``
+     - a ``skos:Concept``
      - May
      - 0..*
      - To indicate related concepts
 
-skos:Collection
-~~~~~~~~~~~~~~~
+``skos:Collection``
+~~~~~~~~~~~~~~~~~~~
 
    SKOS concept collections are labeled and/or ordered groups of SKOS concepts.
 
@@ -1107,14 +1107,14 @@ skos:Collection
 
    – SKOS spec
 
-When appropriate, skos:Concepts are grouped together into skos:Collections with skos:member. This can be nested, such
-that a skos:Collection may contain other skos:Collections.
+When appropriate, ``skos:Concept``\ s are grouped together into ``skos:Collection``\ s with ``skos:member``. This can be nested, such
+that a ``skos:Collection`` may contain other ``skos:Collection``\ s.
 
-A collection can be treated as a dataset, therefore it may be a dcat:Dataset.
+A collection can be treated as a dataset, therefore it may be a ``dcat:Dataset``.
 
-Collections do not support hierarchy. If relationships are required between skos:Concepts across multiple
-skos:ConceptSchemes, those concepts should be duplicated into another scheme, and skos:exactMatch used to indicate they
-are equivalent, then skos:narrower and skos:broader indicate as usual the hierarchy.
+Collections do not support hierarchy. If relationships are required between ``skos:Concept``\ s across multiple
+``skos:ConceptScheme``\ s, those concepts should be duplicated into another scheme, and ``skos:exactMatch`` used to indicate they
+are equivalent, then ``skos:narrower`` and ``skos:broader`` indicate as usual the hierarchy.
 
 .. list-table::
    :header-rows: 1
@@ -1126,7 +1126,7 @@ are equivalent, then skos:narrower and skos:broader indicate as usual the hierar
      - Notes
 
    * - ``skos:member``
-     - a skos:Collection or a skos:Concept
+     - a ``skos:Collection`` or a ``skos:Concept``
      - Should
      - 0..*
      -
@@ -1170,25 +1170,25 @@ Concept JSON-LD mapping
 
    * - ``skos:broader``
      - broader
-     - JSON-LD encoded skos:Concept
+     - JSON-LD encoded ``skos:Concept``
      -
 
    * - ``skos:narrower``
      - narrower
-     - JSON-LD encoded skos:Concept
+     - JSON-LD encoded ``skos:Concept``
      -
 
    * -
      - hasTopConcepts
-     - Includes endpoint URI, or URI of skos:Concept
-     - Applicable to skos:ConceptScheme.
+     - Includes endpoint URI, or URI of ``skos:Concept``
+     - Applicable to ``skos:ConceptScheme``.
 
-       Inferred from children of the skos:ConceptScheme who are skos:topConceptOf – itself inferred by lack of skos:broader. May be an endpoint which performs a query, or an automatically populated array
+       Inferred from children of the ``skos:ConceptScheme`` who are ``skos:topConceptOf`` – itself inferred by lack of ``skos:broader``. May be an endpoint which performs a query, or an automatically populated array
 
    * -
      - hasMembers
      - Includes endpoint URI, or URI of resource
-     - Applicable to skos:Collection.
+     - Applicable to ``skos:Collection``.
 
 Concepts worked example
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -1210,15 +1210,15 @@ organised according to the following diagram:
      Counties, and Metropolitan Counties. Each of those point to further skos:narrower concepts which are left unlabeled.
 
 
-We would represent this with the following skos:ConceptScheme:
+We would represent this with the following ``skos:ConceptScheme``:
 
--  The UK is broken down into Countries, each being a skos:topConceptOf of the UK, one of which being Wales
+-  The UK is broken down into Countries, each being a ``skos:topConceptOf`` of the UK, one of which being Wales
 
--  Wales is broken down into many skos:narrower Unitary Authorities
+-  Wales is broken down into many ``skos:narrower`` Unitary Authorities
 
--  Each Unitary Authority is broken down into many skos:narrower Electoral Wards
+-  Each Unitary Authority is broken down into many ``skos:narrower`` Electoral Wards
 
--  Each Electoral Ward is broken down into many skos:narrower Communities
+-  Each Electoral Ward is broken down into many ``skos:narrower`` Communities
 
 A subgraph of this relationship could be represented by the following RDF, using Government Statistical Service (GSS)
 codes for notation:
@@ -1262,16 +1262,16 @@ codes for notation:
        skos:notation "W39000434" ;
        skos:prefLabel "Castell"@cy, "Castle"@en .
 
-Each region, regardless of their position in the hierarchy, is skos:inScheme the skos:ConceptScheme containing
+Each region, regardless of their position in the hierarchy, is ``skos:inScheme`` the ``skos:ConceptScheme`` containing
 “administrative regions". Their hierarchical relationships are in this case represented by the lower administrative
-regions using skos:broader to refer to the higher region they belong. Equally valid, the higher administrative regions
-could use skos:narrower to refer to all the lower regions contained within them.
+regions using ``skos:broader`` to refer to the higher region they belong. Equally valid, the higher administrative regions
+could use ``skos:narrower`` to refer to all the lower regions contained within them.
 
 3. Geography
 ------------
 
-geo:FeatureCollection
-~~~~~~~~~~~~~~~~~~~~~
+``geo:FeatureCollection``
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
    A collection of individual Features
 
@@ -1283,13 +1283,13 @@ geo:FeatureCollection
 
    – OGC GeoSPARQL spec
 
-We use geo:FeatureCollections to group related geographic features, such as water quality sampling points, or
+We use ``geo:FeatureCollection``\ s to group related geographic features, such as water quality sampling points, or
 administrative regions.
 
-Each geo:FeatureCollection must also be a dcat:Dataset, and follow all requirements of a dcat:Dataset.
+Each ``geo:FeatureCollection`` must also be a ``dcat:Dataset``, and follow all requirements of a ``dcat:Dataset``.
 
-When a geo:FeatureCollection represents commonly understood geographies, e.g. cities or countries,geo:FeatureCollection
-should also be a skos:ConceptScheme, in which case it should follow all requirements of a skos:ConceptScheme.
+When a ``geo:FeatureCollection`` represents commonly understood geographies, e.g. cities or countries, ``geo:FeatureCollection``
+should also be a ``skos:ConceptScheme``, in which case it should follow all requirements of a ``skos:ConceptScheme``.
 
 .. list-table::
    :header-rows: 1
@@ -1301,13 +1301,13 @@ should also be a skos:ConceptScheme, in which case it should follow all requirem
      - Notes
 
    * - ``rdfs:member``
-     - a geo:Feature
+     - a ``geo:Feature``
      - Should
      - 0..*
      -
 
-geo:Feature
-~~~~~~~~~~~
+``geo:Feature``
+~~~~~~~~~~~~~~~
 
    Feature represents a uniquely identifiable phenomenon, for example a river or an apple. While such phenomena (and
    therefore the Features used to represent them) are bounded, their boundaries may be crisp (e.g., the declared
@@ -1317,14 +1317,14 @@ geo:Feature
 
    – OGC GeoSPARQL spec
 
-We use geo:Features to represent individual geographic features or regions, such as a city, or an administrative region.
+We use ``geo:Feature``\ s to represent individual geographic features or regions, such as a city, or an administrative region.
 
-When a geo:Feature represents a commonly understood geography, e.g. a city or country, it should also be a skos:Concept,
-in which case it should follow all requirements of a skos:Concept.
+When a ``geo:Feature`` represents a commonly understood geography, e.g. a city or country, it should also be a ``skos:Concept``,
+in which case it should follow all requirements of a ``skos:Concept``.
 
-Where a conceptual geography has inexact or unavailable boundaries, it is typed as a skos:Concept rather than a
-geo:Feature. Its spatial nature can be inferred from context: where other geo:Feature instances are declared
-geo:sfWithin it, users may treat it as an implicit geo:Feature.
+Where a conceptual geography has inexact or unavailable boundaries, it is typed as a ``skos:Concept`` rather than a
+``geo:Feature``. Its spatial nature can be inferred from context: where other ``geo:Feature`` instances are declared
+``geo:sfWithin`` it, users may treat it as an implicit ``geo:Feature``.
 
 .. list-table::
    :header-rows: 1
@@ -1336,31 +1336,31 @@ geo:sfWithin it, users may treat it as an implicit geo:Feature.
      - Notes
 
    * - ``geo:hasGeometry``
-     - a geo:Geometry
+     - a ``geo:Geometry``
      - Should
      - 1
      -
 
-   * - ``geo:sfWithin``
-       geo:sfContains
-     - a geo:Feature
+   * - | ``geo:sfWithin``
+       | ``geo:sfContains``
+     - a ``geo:Feature``
      - Should
      - 1..*
-     - Any boundaries which a feature exists within, or features which are contained within a boundary, should be linked via geo:sfWithin or geo:sfContains respectively.
+     - Any boundaries which a feature exists within, or features which are contained within a boundary, should be linked via ``geo:sfWithin`` or ``geo:sfContains`` respectively.
 
-geo:Geometry
-~~~~~~~~~~~~
+``geo:Geometry``
+~~~~~~~~~~~~~~~~
 
    A coherent set of direct positions in space. The positions are held within a Spatial Reference System (SRS).
 
    – OGC GeoSPARQL spec
 
-We use geometries to store the precise bounding area of a geography, in well-known text format using the geo:hasWKT
+We use geometries to store the precise bounding area of a geography, in well-known text format using the ``geo:hasWKT``
 predicate. Usually, this geometry should be encoded as a MultiPolygon, to support geographies composed of multiple
 distinct shapes. For example, islands
 
-For convenience, we should provide the bounding box and centroid of a geography with geo:hasBoundingBox and
-geo:hasCentroid respectively.
+For convenience, we should provide the bounding box and centroid of a geography with ``geo:hasBoundingBox`` and
+``geo:hasCentroid`` respectively.
 
 Geometries should be provided with the following shapes and anchors if coined:
 
@@ -1397,7 +1397,7 @@ Geometries should be provided with the following shapes and anchors if coined:
      - Notes
 
    * - ``geo:asWKT``
-     - Literal geo:wktLiteral
+     - Literal ``geo:wktLiteral``
      - Must
      - 1
      - Must explicitly encode the spatial reference system, which should be `EPSG:4326 <https://epsg.io/4326>`__, unless a different system is requested:
@@ -1413,7 +1413,7 @@ Geometries should be provided with the following shapes and anchors if coined:
      - Number of axes in the geometry
 
    * - ``geo:hasBoundingBox``
-     - a geo:Geometry
+     - a ``geo:Geometry``
      - Should
      - 0..1
      - Should be provided if the geometry is at least 2-dimensional, unless this geometry represents another’s bounding box.
@@ -1421,7 +1421,7 @@ Geometries should be provided with the following shapes and anchors if coined:
        Should be a Polygon
 
    * - ``geo:hasCentroid``
-     - a geo:Geometry
+     - a ``geo:Geometry``
      - Should
      - 0..1
      - Should be provided if the geometry is at least 2-dimensional.
@@ -1441,7 +1441,7 @@ Geography JSON-LD mapping
 
    * - ``geo:hasGeometry``
      - geometry
-     - geo:Geometry object serialised as JSON-LD
+     - ``geo:Geometry`` object serialised as JSON-LD
      -
 
    * - ``geo:asWKT``
@@ -1451,12 +1451,12 @@ Geography JSON-LD mapping
 
    * - ``geo:hasBoundingBox``
      - bbox
-     - geo:Geometry object serialised as JSON-LD
+     - ``geo:Geometry`` object serialised as JSON-LD
      -
 
    * - ``geo:hasCentroid``
      - centroid
-     - geo:Geometry object serialised as JSON-LD
+     - ``geo:Geometry`` object serialised as JSON-LD
      -
 
    * - ``geo:coordinateDimension``
@@ -1465,9 +1465,9 @@ Geography JSON-LD mapping
      -
 
    * - ``geo:sfWithin``
-     - Name of the classification of Feature which contains this geo:Feature, in camelCase
-     - geo:Feature object serialised as JSON-LD
-     - Only keys … of related geo:Feature
+     - Name of the classification of Feature which contains this ``geo:Feature``, in camelCase
+     - ``geo:Feature`` object serialised as JSON-LD
+     - Only keys … of related ``geo:Feature``
 
        .. TODO: which keys?
 
@@ -1521,8 +1521,8 @@ mapping:
 .. NOTE:: We may implement Accept-Language to support non-English serializations when the serialization doesn't support
    multiple languages via overloading. For now English-by-default.
 
-Each skos:Concept assigned to the geo:Feature should also be present in the properties of the GeoJSON object, with the
-camelCase name of its skos:ConceptSchemeused as the key, and the skos:Concept's skos:prefLabel as the value. See the
+Each ``skos:Concept`` assigned to the ``geo:Feature`` should also be present in the properties of the GeoJSON object, with the
+camelCase name of its ``skos:ConceptSchemeused`` as the key, and the ``skos:Concept``'s ``skos:prefLabel`` as the value. See the
 `worked example <Geography worked example>`_ below.
 
 The properties should generally not contain complex data types such as objects. Arrays may be used when appropriate.
@@ -1610,7 +1610,7 @@ RDF Schema (RDFS) and OWL vocabulary is used for defining new classes and predic
 Classes
 ~~~~~~~
 
-A new class is of type owl:Class and the following predicates are used to describe it:
+A new class is of type ``owl:Class`` and the following predicates are used to describe it:
 
 .. list-table::
    :header-rows: 1
@@ -1634,12 +1634,12 @@ A new class is of type owl:Class and the following predicates are used to descri
      - A description of the class which provides more context about when the class should be used
 
    * - ``rdfs:subClassOf``
-     - a rdfs:Class or a owl:Class
+     - a ``rdfs:Class`` or a ``owl:Class``
      - May
      - 0..*
      - Used to indicate whether the class is a subclass of another class
 
-Below is the pattern that we would use for defining an owl:Class
+Below is the pattern that we would use for defining an ``owl:Class``
 
 .. code:: ttl
 
@@ -1651,7 +1651,7 @@ Below is the pattern that we would use for defining an owl:Class
 Predicates
 ~~~~~~~~~~
 
-A new predicate can be of type owl:ObjectProperty (the range of the predicate is a URI) or of type owl:DatatypeProperty
+A new predicate can be of type ``owl:ObjectProperty`` (the range of the predicate is a URI) or of type ``owl:DatatypeProperty``
 (the range of the predicate is a literal)
 
 .. list-table::
@@ -1676,19 +1676,19 @@ A new predicate can be of type owl:ObjectProperty (the range of the predicate is
      - A description explaining the predicate
 
    * - ``rdfs:domain``
-     - a rdfs:Class or a owl:Class
+     - a ``rdfs:Class`` or a ``owl:Class``
      - Should
      - 0..*
      - The permitted class/classes that the predicate can be used on
 
    * - ``rdfs:range``
-     - - a rdfs:Class or a owl:Class (if the property is an owl:ObjectProperty
-       - a Literal datatype (if the property is an owl:DatatypeProperty e.g. if we declare ex:age to be an owl:DatatypeProperty then we would say ``ex:age rdfs:range xsd:integer``
+     - - a ``rdfs:Class`` or a ``owl:Class`` (if the property is an ``owl:ObjectProperty``)
+       - a Literal datatype (if the property is an ``owl:DatatypeProperty`` e.g. if we declare ``ex:age`` to be an ``owl:DatatypeProperty`` then we would say ``ex:age rdfs:range xsd:integer``
      - Should
      - 0..*
      - The permitted data types of objects for the predicate
 
-Below is the pattern that we would use for defining an owl:ObjectProperty and an owl:DatatypeProperty
+Below is the pattern that we would use for defining an ``owl:ObjectProperty`` and an ``owl:DatatypeProperty``
 
 .. code:: ttl
 
@@ -1727,7 +1727,7 @@ Consider the Mudflats Asset Type within the Land Asset Category
      - 21-11-2023
 
 Below is an example of creating classes and predicates for modelling data defined in the data requirements library.
-Triples relating to defining an ontology are omitted as this is just an example. rdfs:member is used as as loose
+Triples relating to defining an ontology are omitted as this is just an example. ``rdfs:member`` is used as as loose
 predicate to relate classes together.
 
 .. code:: ttl
@@ -1851,21 +1851,21 @@ the types used to focus on those that are of more interest to our users.
   of which sosa:Sample is a subclass, this usage is in spec.
 
 We use the I-ADOPT framework ontology to provide more structured observation data. By grouping observations with
-sosa:ObservationCollection and iop:VariableSets, we describe the possible set of variables measured by a given
-observation. We relax the predicates for describing iop:Variables, making them optional, allowing datasets to be
+``sosa:ObservationCollection``\ s and ``iop:VariableSet``\ s, we describe the possible set of variables measured by a given
+observation. We relax the predicates for describing ``iop:Variable``\ s, making them optional, allowing datasets to be
 provided without each variable of each observation being exhaustively described with the I-ADOPT framework.
 
-sosa:FeatureOfInterest
-~~~~~~~~~~~~~~~~~~~~~~
+``sosa:FeatureOfInterest``
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    the entity whose property is being estimated by an Observation, or whose property is being manipulated by an
    Actuation, or which is being sampled or transformed by an act of Sampling
 
    – SOSA/SSN 2023 spec
 
-sosa:FeatureOfInterests that have a geographical location should also be a geo:Feature. Generally they should have a
+``sosa:FeatureOfInterest``\ s that have a geographical location should also be a ``geo:Feature``. Generally they should have a
 Point or MultiPolygon geometry. For example, a sampling point in the water quality explorer is a single location where
-samples are consistently taken from. This geo:Feature should be described by a Point.
+samples are consistently taken from. This ``geo:Feature`` should be described by a Point.
 
 .. list-table::
    :header-rows: 1
@@ -1877,28 +1877,28 @@ samples are consistently taken from. This geo:Feature should be described by a P
      - Notes
 
    * - ``sosa:hasProperty``
-     - a sosa:Property
+     - a ``sosa:Property``
      - Should
      - 0..*
      - If the feature itself has properties which are observed
 
    * - ``edgur:hasClassification``
-     - a skos:Concept
+     - a ``skos:Concept``
      - May
      - 0..1
      - If one has been provided by the relevant body
 
-sosa:Property
-~~~~~~~~~~~~~
+``sosa:Property``
+~~~~~~~~~~~~~~~~~
 
    identifiable quality of features of interest that can be observed or acted upon
 
    – SOSA/SSN 2023 spec
 
-A sosa:Property must also be a skos:Concept, to provide additional contextual information about the property, as well as
-its relationships to other properties. skos:notation should be used to indicate the code of the property, if one exists.
+A ``sosa:Property`` must also be a ``skos:Concept``, to provide additional contextual information about the property, as well as
+its relationships to other properties. ``skos:notation`` should be used to indicate the code of the property, if one exists.
 
-A sosa:Property must also be a iop:Variable.
+A ``sosa:Property`` must also be a ``iop:Variable``.
 
 .. list-table::
    :header-rows: 1
@@ -1925,17 +1925,17 @@ A sosa:Property must also be a iop:Variable.
      - Literal ``xsd:string``
      - May
      - 0..*
-     - A property should be described with the predicates supported by iop:Variable, or a definition provided with skos:definition.
+     - A property should be described with the predicates supported by ``iop:Variable``, or a definition provided with ``skos:definition``.
 
-sosa:Sampling
-~~~~~~~~~~~~~
+``sosa:Sampling``
+~~~~~~~~~~~~~~~~~
 
    act of carrying out a SamplingProcedure using a Sampler to create one or more Samples of a FeatureOfInterest
 
    – SOSA/SSN 2023 spec
 
-A sosa:Sampling represents a snapshot from which sosa:Samples can be taken, and those in turn ultimately observed to
-produce sosa:Observations.
+A ``sosa:Sampling`` represents a snapshot from which ``sosa:Sample``\ s can be taken, and those in turn ultimately observed to
+produce ``sosa:Observation``\ s.
 
 .. list-table::
    :header-rows: 1
@@ -1947,7 +1947,7 @@ produce sosa:Observations.
      - Notes
 
    * - ``sosa:hasFeatureOfInterest``
-     - a sosa:FeatureOfInterest
+     - a ``sosa:FeatureOfInterest``
      - Must
      - 1
      -
@@ -1956,22 +1956,22 @@ produce sosa:Observations.
      - Literal ``xsd:dateTime``, ``xsd:date``, ``xsd:gYearMonth``, and/or ``xsd:gYear``.
      - Must
      - 1
-     - Time at which the result became available. Typically the same as sosa:endTime.
+     - Time at which the result became available. Typically the same as ``sosa:endTime``.
 
    * - ``sosa:hasResult``
-     - a sosa:Sample
+     - a ``sosa:Sample``
      - Should
      - 0..*
-     - If a sosa:Sampling has one or more sosa:Samples then we use sosa:hasResult to provide the sosa:Samples
+     - If a ``sosa:Sampling`` has one or more ``sosa:Sample``\ s then we use ``sosa:hasResult`` to provide the ``sosa:Sample``\ s
 
    * - ``geo:hasGeometry``
-     - a geo:Geometry
+     - a ``geo:Geometry``
      - May
      - 0..1
-     - geo:hasGeometry is used on the sosa:Sampling to describe the location at which the sosa:Sampling took place or it can be used to describe the sosa:Sample location.
+     - ``geo:hasGeometry`` is used on the ``sosa:Sampling`` to describe the location at which the ``sosa:Sampling`` took place or it can be used to describe the ``sosa:Sample`` location.
 
    * - ``sosa:startTime``
-     - Literal, includesxsd:dateTime
+     - Literal, ``includesxsd:dateTime``
      - May
      - 0..1
      - Time at which the sampling began
@@ -1988,8 +1988,8 @@ produce sosa:Observations.
      - 0..1
      - Time of the phenomenon being measured
 
-sosa:Sample
-~~~~~~~~~~~
+``sosa:Sample``
+~~~~~~~~~~~~~~~
 
    Samples are typically subsets or extracts from an entity or feature. Every sample is expected to (eventually) be the
    feature of interest of an Observation
@@ -1998,7 +1998,7 @@ sosa:Sample
 
 A sample is a result of a sampling of a feature of interest, from which observations can be made.
 
-Each sample must have a related sosa:Sampling to provide additional contextual information about the sample.
+Each sample must have a related ``sosa:Sampling`` to provide additional contextual information about the sample.
 
 .. list-table::
    :header-rows: 1
@@ -2010,31 +2010,31 @@ Each sample must have a related sosa:Sampling to provide additional contextual i
      - Notes
 
    * - ``sosa:isSampleOf``
-     - a sosa:FeatureOfInterestor a sosa:Sample
+     - a ``sosa:FeatureOfInterestor`` a ``sosa:Sample``
      - Must
      - 1
      -
 
    * - ``sosa:isResultOf``
-     - a sosa:Sampling
+     - a ``sosa:Sampling``
      - Must
      - 1
      -
 
    * - ``sosa:hasOriginalSample``
-     - a sosa:Sample
+     - a ``sosa:Sample``
      - May
      - 0..1
-     - If this sample was created from, or is a subset of, an original sample, this points to the original sosa:Sample.
+     - If this sample was created from, or is a subset of, an original sample, this points to the original ``sosa:Sample``.
 
    * - ``edgur:hasClassification``
-     - a skos:Concept
+     - a ``skos:Concept``
      - May
      - 0..1
      - A classification of the sample e.g. survey based sample, run based sample, individual animal sample.
 
-sosa:ObservationCollection
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+``sosa:ObservationCollection``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    An instance of `ObservationCollection <https://w3c.github.io/sdw-sosa-ssn/ssn/#SOSAObservationCollection>`__
    represents a container for a set of data derived from observations. This broadly corresponds with the class
@@ -2042,7 +2042,7 @@ sosa:ObservationCollection
 
    – SOSA/SSN 2023 spec
 
-A sosa:ObservationCollection must group all sosa:Observations made on a single sosa:Sample, if there is more than one
+A ``sosa:ObservationCollection`` must group all ``sosa:Observation``\ s made on a single ``sosa:Sample``, if there is more than one
 observation for the given sample.
 
 .. list-table::
@@ -2055,25 +2055,25 @@ observation for the given sample.
      - Notes
 
    * - ``sosa:hasFeatureOfInterest``
-     - a sosa:FeatureOfInterest
+     - a ``sosa:FeatureOfInterest``
      - Must
      - 1
      -
 
    * - ``sosa:observedProperty``
-     - a iop:VariableSet
+     - a ``iop:VariableSet``
      - Must
      - 1
      -
 
    * - ``sosa:hasSample``
-     - a sosa:Sample
+     - a ``sosa:Sample``
      - Should
      - 0..1
      -
 
-sosa:Observation
-~~~~~~~~~~~~~~~~
+``sosa:Observation``
+~~~~~~~~~~~~~~~~~~~~
 
    act of carrying out an ObservingProcedure using a Sensor to estimate or calculate a value of an observable Property
    of a FeatureOfInterest
@@ -2092,13 +2092,13 @@ An observation has a result from a sample for a property of a given feature of i
      - Notes
 
    * - ``sosa:hasFeatureOfInterest``
-     - a sosa:FeatureOfInterest
+     - a ``sosa:FeatureOfInterest``
      - Must
      - 1
      -
 
    * - ``sosa:observedProperty``
-     - a sosa:Property
+     - a ``sosa:Property``
      - Must
      - 1
      -
@@ -2110,7 +2110,7 @@ An observation has a result from a sample for a property of a given feature of i
      - Time at which the property was measured
 
    * - ``sosa:hasResult``
-     - a rdfs:Resource
+     - a ``rdfs:Resource``
      - Must
      - 1
      - Should use an existing ontology for this when applicable, e.g. http://qudt.org/schema/qudt and http://qudt.org/schema/qudt/unit, as shown in the SOSA/SSN spec:
@@ -2123,9 +2123,9 @@ An observation has a result from a sample for a property of a given feature of i
            qudt:value 24.9 ;
          ] ;
 
-       If the result is a mean value, qudt:standardUncertainty should provide the standard deviation if it is specified.
+       If the result is a mean value, ``qudt:standardUncertainty`` should provide the standard deviation if it is specified.
 
-       If the result is a range, qudt:minExclusive and qudt:maxExclusive should be used for exclusive values in the range, and qudt:minInclusive and qudt:maxInclusive should be used for inclusive values in the range.
+       If the result is a range, ``qudt:minExclusive`` and ``qudt:maxExclusive`` should be used for exclusive values in the range, and ``qudt:minInclusive`` and ``qudt:maxInclusive`` should be used for inclusive values in the range.
 
    * - ``sosa:hasSimpleResult``
      - Literal, including ``xsd:string``, ``xsd:decimal``
@@ -2134,25 +2134,25 @@ An observation has a result from a sample for a property of a given feature of i
      -
 
    * - ``sosa:hasSample``
-     - a sosa:Sample
+     - a ``sosa:Sample``
      - Should
      - 0..1
      - Sample from which this observation was made, if a sample was used
 
    * - ``sosa:isMemberOf``
-     - a sosa:ObservationCollection
+     - a ``sosa:ObservationCollection``
      - May
      - 0..1
-     - If several observations were made on a single Sample, they should be grouped into a sosa:ObservationCollection with this predicate.
+     - If several observations were made on a single Sample, they should be grouped into a ``sosa:ObservationCollection`` with this predicate.
 
-iop:VariableSet
-~~~~~~~~~~~~~~~
+``iop:VariableSet``
+~~~~~~~~~~~~~~~~~~~
 
    An aggregation class to group a set of variable for a specific purpose.
 
    – I-ADOPT Framework ontology
 
-Together with sosa:ObservationCollections, we use iop:VariableSets to describe all possible variables that may be
+Together with ``sosa:ObservationCollection``\ s, we use ``iop:VariableSet``\ s to describe all possible variables that may be
 observed from a single sample.
 
 .. list-table::
@@ -2171,13 +2171,13 @@ observed from a single sample.
      -
 
    * - ``iop:hasMember``
-     - a iop:Variable
+     - a ``iop:Variable``
      - Must
      - 1..*
      -
 
    * - ``iop:hasApplicableObjectOfInterest``
-     - a iop:Entity
+     - a ``iop:Entity``
      - Should
      - 0..*
      -
@@ -2189,28 +2189,28 @@ observed from a single sample.
      -
 
    * - ``iop:hasApplicableStatisticalModifier``
-     - a iop:StatisticalModifier
+     - a ``iop:StatisticalModifier``
      - May
      - 0..*
-     - If a modifier applies to the entire iop:VariableSet
+     - If a modifier applies to the entire ``iop:VariableSet``
 
    * - ``iop:hasApplicableProperty``
-     - a iop:Property
+     - a ``iop:Property``
      - May
      - 0..*
      -
 
-iop:Variable
-~~~~~~~~~~~~
+``iop:Variable``
+~~~~~~~~~~~~~~~~
 
    A description of something observed or derived, minimally consisting of an ObjectOfInterest and its Property.
 
    – I-ADOPT Framework ontology
 
-A variable is directly associated with a sosa:Observation to describe the meaning of its sosa:hasResult.
+A variable is directly associated with a ``sosa:Observation`` to describe the meaning of its ``sosa:hasResult``.
 
-Describes an iop:Property of an iop:Entity, potentially involving an iop:Constraint, a contextually related iop:Entity,
-and iop:StatisticalModifier.
+Describes an ``iop:Property`` of an ``iop:Entity``, potentially involving an ``iop:Constraint``, a contextually related ``iop:Entity``,
+and ``iop:StatisticalModifier``.
 
 .. TODO: For example: length of a herring.
 
@@ -2230,7 +2230,7 @@ and iop:StatisticalModifier.
      -
 
    * - ``iop:hasProperty``
-     - a iop:Property
+     - a ``iop:Property``
      - Should
      - 0..1
      -
@@ -2245,34 +2245,34 @@ and iop:StatisticalModifier.
      - Literal ``xsd:string``
      - May
      - 0..*
-     - A property should be described with the predicates supported by iop:Variable, or a definition provided with skos:definition.
+     - A property should be described with the predicates supported by ``iop:Variable``, or a definition provided with ``skos:definition``.
 
    * - ``iop:hasConstraint``
-     - a iop:Constraint
+     - a ``iop:Constraint``
      - May
      - 0..*
      -
 
    * - ``iop:hasObjectOfInterest``
-     - a iop:Entity
+     - a ``iop:Entity``
      - May
      - 0..*
      -
 
    * - ``iop:hasContextObject``
-     - a iop:Entity
+     - a ``iop:Entity``
      - May
      - 0..*
      -
 
    * - ``iop:hasStatisticalModifier``
-     - a iop:Constraint
+     - a ``iop:Constraint``
      - May
      - 0..1
      -
 
-iop:Property
-~~~~~~~~~~~~
+``iop:Property``
+~~~~~~~~~~~~~~~~
 
    A type of a characteristic of the ObjectOfInterest.
 
@@ -2280,10 +2280,10 @@ iop:Property
 
 For example: depth, temperature, sex, width.
 
-A iop:Property must also be a skos:Concept. This allows us to describe them in a consistent manner to other concepts.
+A ``iop:Property`` must also be a ``skos:Concept``. This allows us to describe them in a consistent manner to other concepts.
 
-A iop:Property should be a qudt:QuantityKind. We should extensive vocabulary it provides when possible, and define our
-own qudt:QuantityKinds when necessary.
+A ``iop:Property`` should be a ``qudt:QuantityKind``. We should extensive vocabulary it provides when possible, and define our
+own ``qudt:QuantityKind``\ s when necessary.
 
 .. list-table::
    :header-rows: 1
@@ -2312,8 +2312,8 @@ own qudt:QuantityKinds when necessary.
      - 0..*
      -
 
-iop:Entity
-~~~~~~~~~~
+``iop:Entity``
+~~~~~~~~~~~~~~
 
    An object or process that has a role in an observation.
 
@@ -2321,7 +2321,7 @@ iop:Entity
 
 For example: a river, or a fish.
 
-A iop:Entity must also be a skos:Concept. This allows us to describe them in a consistent manner to other concepts.
+A ``iop:Entity`` must also be a ``skos:Concept``. This allows us to describe them in a consistent manner to other concepts.
 
 .. list-table::
    :header-rows: 1
@@ -2350,15 +2350,15 @@ A iop:Entity must also be a skos:Concept. This allows us to describe them in a c
      - 0..*
      -
 
-iop:Constraint
-~~~~~~~~~~~~~~
+``iop:Constraint``
+~~~~~~~~~~~~~~~~~~
 
    A Constraint limits the scope of the observation and confines the context to a particular state. It describes
    properties of the involved entities that are relevant to the particular observation.
 
    – I-ADOPT Framework ontology
 
-A iop:Constraint must also be a skos:Concept. This allows us to describe
+A ``iop:Constraint`` must also be a ``skos:Concept``. This allows us to describe
 them in a consistent manner to other concepts.
 
 .. list-table::
@@ -2383,7 +2383,7 @@ them in a consistent manner to other concepts.
      -
 
    * - ``iop:constrains``
-     - a iop:Entity
+     - a ``iop:Entity``
      - Should
      - 0..*
      -
@@ -2394,8 +2394,8 @@ them in a consistent manner to other concepts.
      - 0..*
      -
 
-iop:StatisticalModifier
-~~~~~~~~~~~~~~~~~~~~~~~
+``iop:StatisticalModifier``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    The statistical modifier describes which statistical measure has been applied.
 
@@ -2406,12 +2406,12 @@ For example: mean, average, minimum, maximum, count.
 We prioritise the use of SDMX ``CL_STATISTICAL_OPERATION`` definitions for statistical operations. When referring to
 statistical modifiers or aggregation methods, these always point to our own Concept Scheme for statistical methods or
 operations. Each concept within this scheme implicitly aligns with SDMX notations. If SDMX is not applicable and a
-precise URI definition exists, such as those provided by DDI, we use skos:exactMatch to link our concept to the
+precise URI definition exists, such as those provided by DDI, we use ``skos:exactMatch`` to link our concept to the
 corresponding DDI URI.
 
 If no suitable term exists within SDMX, we fall back to the DDI Controlled Vocabulary for Aggregation Methods. Where no
 appropriate definition is available there either, we create a new concept. Such concepts are defined as both a
-skos:Concept and an iop:StatisticalModifier.
+``skos:Concept`` and an ``iop:StatisticalModifier``.
 
 Observation JSON-LD mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2441,7 +2441,7 @@ Observation JSON-LD mapping
 
    * - ``sosa:hasUnit``
      - hasUnit
-     - skos:prefLabel of skos:Conceptas string
+     - ``skos:prefLabel`` of ``skos:Concept`` as string
      -
 
    * - ``sosa:observedProperty``
@@ -2477,17 +2477,17 @@ Observation JSON-LD mapping
    * - ``sosa:hasSample``
      - hasSample
      - JSON-LD
-     - Applicable to sosa:Observation
+     - Applicable to ``sosa:Observation``
 
    * -
      - hasObservations
-     - URI to endpoint which provides related sosa:Observations
-     - Applicable to sosa:FeatureOfInterests and sosa:Samples
+     - URI to endpoint which provides related ``sosa:Observation``\ s
+     - Applicable to ``sosa:FeatureOfInterest``\ s and ``sosa:Sample``\ s
 
    * -
      - hasSamplings
-     - URI to endpoint which provides related sosa:Samplings
-     - Applicable to sosa:FeatureOfInterests
+     - URI to endpoint which provides related ``sosa:Sampling``\ s
+     - Applicable to ``sosa:FeatureOfInterest``\ s
 
 Observation worked example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2495,18 +2495,18 @@ Observation worked example
 The `Water Quality Explorer <https://environment.data.gov.uk/water-quality/>`__ provides the sampling points from which
 various water quality measurements are taken.
 
-Each sampling point is modelled as a geo:Feature, providing its geographical position, and sosa:FeatureOfInterest, as
+Each sampling point is modelled as a ``geo:Feature``, providing its geographical position, and ``sosa:FeatureOfInterest``, as
 each is being observed.
 
 Sampling points are grouped into various types of area, including Environment Agency, Local Authority (typically
 councils), and various types of water body.
 
 Water quality measurements are defined as determinands by the Marine Management Organisation (MMO), which are our
-iop:Variables. Each sosa:Observation of a sampling is grouped into a sosa:ObservationCollection. Each determinand is
-grouped for a given class of water body with an iop:VariableCollection.
+``iop:Variable``\ s. Each ``sosa:Observation`` of a sampling is grouped into a ``sosa:ObservationCollection``. Each determinand is
+grouped for a given class of water body with an ``iop:VariableCollection``.
 
 As determinands are defined as part of the water quality dataset, these have not been broken down with the I-ADOPT
-framework. Therefore we provide a minimal example below, with only the iop:VariableSets and iop:Variables defined, and a
+framework. Therefore we provide a minimal example below, with only the ``iop:VariableSet``\ s and ``iop:Variable``\ s defined, and a
 subsequent example showing how the determinands can be broken down further with the I-ADOPT framework.
 
 .. TODO: these should be collapsible <details> blocks, but Github doesn't seem to support it. Use raw HTML to achieve
@@ -2865,8 +2865,8 @@ API behaviour
 Generally, we endeavour to bring Linked Data to JSON users, not force Linked Data conventions upon them. URIs follow
 REST patterns (``/{dataset}/{class}/{instance}``), not traditional semantic web patterns (``/id/``, ``/def/``).
 
-Each service, hosted at a stable base URL, and is composed of one, top-level, dcat:Catalog. This catalog contains
-skos:ConceptSchemes, dcat:Dataset s, dcat:DataServices, etc, which in turn contain various other classes of the above
+Each service, hosted at a stable base URL, and is composed of one, top-level, ``dcat:Catalog``. This catalog contains
+``skos:ConceptScheme``\ s, ``dcat:Dataset``\ s, ``dcat:DataService``\ s, etc, which in turn contain various other classes of the above
 Data Types.
 
 URL structure
@@ -2881,9 +2881,9 @@ URL structure
 
 -  Datasets can contain multiple classes (e.g., /wetlands/WetlandSite/{id} and /wetlands/WetlandBoundary/{id})
 
--  Datasets with simple skos:ConceptScheme structures use Concept as the class (e.g. /determinands/Concept/DO)
+-  Datasets with simple ``skos:ConceptScheme`` structures use Concept as the class (e.g. /determinands/Concept/DO)
 
--  Datasets with a skos:ConceptScheme of geographies use Geography as the class (e.g. /local-authorities/Geography/E06000001)
+-  Datasets with a ``skos:ConceptScheme`` of geographies use Geography as the class (e.g. /local-authorities/Geography/E06000001)
 
 For example:
 
@@ -2915,15 +2915,15 @@ class, and ensure that they are consistent when an instance has multiple classes
    * - Class
      - Unique identifier predicate
 
-   * - | dcat:Catalog
-       | dcat:Dataset
-       | dcat:DataService
-       | dcat:Distribution
-     - dcterms:title
+   * - | ``dcat:Catalog``
+       | ``dcat:Dataset``
+       | ``dcat:DataService``
+       | ``dcat:Distribution``
+     - ``dcterms:title``
 
-   * - skos:ConceptScheme
-       skos:Concept
-     - skos:notation
+   * - | ``skos:ConceptScheme``
+       | ``skos:Concept``
+     - ``skos:notation``
 
 Where there are multiple instances of the same candidate predicate, the one using the primary language of the service
 should be chosen. In the case of DSP, that would be English.
@@ -3061,7 +3061,8 @@ Observation data endpoints
        - ``/sampling-point/AN-CORBY``
      - Sampling point metadata.
 
-       Points to the endpoint for observations with sosa:hasObservations.
+       Points to the endpoint for observations with ``hasObservations``, defined to be an inverse of
+       ``sosa:hasUltimateFeatureOfInterest``.
      - | application/ld+json
        | application/geo+json
 
@@ -3128,8 +3129,8 @@ Uniquely identifying sites, sample/samplings, and observations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Typically, a dataset will provide a way to uniquely address a sampling point and sample/sampling, in which case we
-should reuse those. For the sampling point, those identifiers will be the skos:notation of the geo:Feature +
-skos:Concept + sosa:FeatureOfInterest instance. For the sample/sampling, this may require concatenation to form a unique
+should reuse those. For the sampling point, those identifiers will be the ``skos:notation`` of the ``geo:Feature`` +
+``skos:Concept`` + ``sosa:FeatureOfInterest`` instance. For the sample/sampling, this may require concatenation to form a unique
 ID.
 
 Datasets typically provide many observed results for a given sample, and each of these must be uniquely addressable by a
@@ -3149,13 +3150,13 @@ When a dimension is a range, the `SDMX framework's <https://sdmx.org/standards-2
   references InclusiveValueRange and the minValue & maxValue facets, however, there doesn't appear to be anything about
   encoding those into text.
 
-Each dimension, measures, and statistical modifier may be defined as a skos:Concept grouped into appropriate
-skos:ConceptSchemes. All measures should be part of the same skos:ConceptScheme, all statistical modifiers part of the
-same skos:ConceptScheme, and each dimension may form their own skos:ConceptScheme.
+Each dimension, measures, and statistical modifier may be defined as a ``skos:Concept`` grouped into appropriate
+``skos:ConceptScheme``\ s. All measures should be part of the same ``skos:ConceptScheme``, all statistical modifiers part of the
+same ``skos:ConceptScheme``, and each dimension may form their own ``skos:ConceptScheme``.
 
 For example, the Ecology & Fish Data Explorer (EFDE) dataset provides multiple “runs" for each sample/sampling, each
 providing several observations including length & weight, broken down by species. Each species has a unique numeric ID
-(skos:notation) maintained by the department responsible for the dataset, so we reuse this in the observation IDs.
+(``skos:notation``) maintained by the department responsible for the dataset, so we reuse this in the observation IDs.
 
 Possible observation URIs include:
 
@@ -3209,7 +3210,7 @@ class names, or instance names.
      - ``/auth``, ``/login``, ``/logout``, ``/token``
      -
    * - Discovery
-     - /.well-known
+     - ``/.well-known``
      - RFC 8615 discovery mechanisms
    * - Technical
      - ``/api``
@@ -3234,7 +3235,7 @@ Subjects provided in JSON-LD format should have their types specified with type,
 URIs that are addressable via a RESTful API should be specified with the key id, and the context should provide the
 mapping ``id → @id``. We still use @id as a key where the particular identifier is not directly available as RESTful
 endpoint; typically used to designate blank nodes or subjects which are dependent on its containing subject (i.e. the
-geo:Geography embedded in a sosa:FeatureOfInterest).
+``geo:Geography`` embedded in a ``sosa:FeatureOfInterest``).
 
 The context must set @base to the appropriate URI so that all relative id values expand correctly within the intended
 vocabulary.
@@ -3254,9 +3255,9 @@ Predicates with literal values in a particular language should be appropriately 
 using a specific language or direction. Contexts which provide values with languages should have the mapping ``value →
 @value``, ``language → @language`` and ``direction → @direction``.
 
-Fields that should set ``@language`` includes skos:prefLabel, skos:altLabel, skos:note, skos:definition.
+Fields that should set ``@language`` includes ``skos:prefLabel``, ``skos:altLabel``, ``skos:note``, ``skos:definition``.
 
-Fields that should **not** set ``@language`` includes skos:notation.
+Fields that should **not** set ``@language`` includes ``skos:notation``.
 
 Hydra
 ~~~~~
