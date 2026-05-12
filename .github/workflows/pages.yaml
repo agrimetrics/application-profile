@@ -34,15 +34,11 @@ jobs:
       - name: "Build"
         id: "build"
         run: |
-          mkdir build && \
-          cp -r ./diagrams build/ && \
           uv run \
             --isolated \
             --verbose \
-            --with docutils,pygments docutils \
-            --stylesheet-path=minimal.css,responsive.css,stylesheet.css \
-            --table-style=align-center,colwidths-auto \
-            main.rst build/index.html
+            --with docutils,pygments \
+            ./dev/build.sh
 
       - name: "Upload"
         id: "upload"
