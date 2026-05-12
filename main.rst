@@ -1683,7 +1683,7 @@ A new predicate can be of type owl:ObjectProperty (the range of the predicate is
 
    * - ``rdfs:range``
      - - a rdfs:Class or a owl:Class (if the property is an owl:ObjectProperty
-       - a Literal datatype (if the property is an owl:DatatypeProperty e.g. if we declare ex:age to be an owl:DatatypeProperty then we would say ex:age rdfs:range ``xsd:integer``
+       - a Literal datatype (if the property is an owl:DatatypeProperty e.g. if we declare ex:age to be an owl:DatatypeProperty then we would say ``ex:age rdfs:range xsd:integer``
      - Should
      - 0..*
      - The permitted data types of objects for the predicate
@@ -1702,7 +1702,7 @@ Below is the pattern that we would use for defining an owl:ObjectProperty and an
      rdfs:label "Custom Datatype Property"@en ;
      rdfs:comment "A custom datatype property" ;
      rdfs:domain ex:DomainClass ;
-     rdfs:range ``xsd:string`` .
+     rdfs:range xsd:string .
 
 Worked example: Data Requirements Library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1759,19 +1759,19 @@ predicate to relate classes together.
      rdfs:label "asset code"@en ;
      rdfs:comment "Defines the code of the asset" ;
      rdfs:domain ex:Asset ;
-     rdfs:range ``xsd:string`` .
+     rdfs:range xsd:string .
 
    ex:uniclass a owl:DatatypeProperty ;
      rdfs:label "uniclass"@en ;
      rdfs:comment "The uniclass classification code to be used for this Asset type" ;
      rdfs:domain ex:Asset ;
-     rdfs:range ``xsd:string`` .
+     rdfs:range xsd:string .
 
    ex:geometryType a owl:DatatypeProperty ;
        rdfs:label "geometry type"@en ;
        rdfs:comment "Geometry type: Point, Line, Polygon or N/A"@en ;
        rdfs:domain ex:Asset ;
-       rdfs:range ``xsd:string`` .
+       rdfs:range xsd:string .
 
    # Instance Data
    <http://environment.data.gov.uk/asset-management/id/drl/Land> a ex:AssetCategory ;
@@ -1827,7 +1827,7 @@ existing RDF vocabularies.
        rdfs:label "standard error"@en ;
        rdfs:comment "The standard error of a quantity value. Used independently of qudt:standardUncertainty because the sample size of the original measurements is unknown and so the standard error cannot be converted to a standard deviation."@en ;
        rdfs:domain qudt:QuantityValue ;
-       rdfs:range ``xsd:decimal`` .
+       rdfs:range xsd:decimal .
 
 .. TODO: Add ontology definition triples
 
