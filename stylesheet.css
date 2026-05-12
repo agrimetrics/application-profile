@@ -2,11 +2,15 @@ main {
   font-family: sans-serif;
 }
 
-pre, table {
+main p {
+  overflow-x: auto;
+}
+
+main pre, main table {
   overflow-x: auto;
   display: block;
 }
 
-img {
+main img {
   max-width: 100%;
 }
