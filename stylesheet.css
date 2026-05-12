@@ -8,5 +8,5 @@ pre, table {
 }
 
 img {
-  max-width: stretch;
+  max-width: 100%;
 }
