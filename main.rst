@@ -1937,7 +1937,7 @@ A ``sosa:Property`` must also be a ``iop:Variable``.
 
    – SOSA/SSN 2023 spec
 
-A ``sosa:Sampling`` represents a snapshot from which ``sosa:Sample``\ s can be taken, and those in turn ultimately observed to
+A ``sosa:Sampling`` represents a snapshot from which ``sosa:Sample``\ s can be taken, and those in turn are observed to
 produce ``sosa:Observation``\ s.
 
 .. list-table::
