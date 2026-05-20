@@ -579,8 +579,6 @@ it should be represented with a ``dcat:Dataset``.
 
    – DCAT spec
 
-API URL: /{slug of ``dcat:Catalog``}
-
 Each dataset should be part of a ``dcat:Catalog``, which should be specified using ``dcat:inCatalog`` on the ``dcat:Dataset``.
 
 A Catalog is a specialisation of ``dcat:Dataset``, adding only the predicate ``dcat:dataset`` to specify its members.
@@ -662,7 +660,7 @@ and when it was last updated.
      -
 
    * - ``foaf:primaryTopic``
-     - a dcat:Resource, including a ``dcat:Dataset`` and a ``dcat:DataService``
+     - a ``dcat:Resource``, including a ``dcat:Dataset`` and a ``dcat:DataService``
      - Must
      - ``1``
      -
@@ -812,52 +810,52 @@ Catalogue JSON-LD mapping
      - Notes
 
    * - ``dcat:accessURL``
-     - accessURL
+     - ``accessURL``
      - Literal value as string
      -
 
    * - ``dcterms:created``
-     - issuedDate
+     - ``issuedDate``
      - Literal value as string
      -
 
    * - ``dcterms:creator``
-     - creator
+     - ``creator``
      - Literal value as string
      -
 
    * - ``dcterms:description``
-     - description
+     - ``description``
      - Literal value as string
      -
 
    * - ``dcat:downloadURL``
-     - downloadURL
+     - ``downloadURL``
      - Literal value as string
      -
 
    * - ``dcat:endpointDescription``
-     - docs
+     - ``docs``
      - Literal value as string
      -
 
    * - ``dcterms:license``
-     - license
+     - ``license``
      - Literal value as string
      -
 
    * - ``dcterms:publisher``
-     - publisher
+     - ``publisher``
      - Literal value as string
      -
 
    * - ``dcat:temporalResolution``
-     - temporalResolution
+     - ``temporalResolution``
      - Literal value as string
      -
 
    * - ``dcat:contactPoint``
-     - contactPoint
+     - ``contactPoint``
      - ``vcard:Kind`` as JSON-LD
      - For example
 
@@ -874,32 +872,32 @@ Catalogue JSON-LD mapping
          ] ;
 
    * - ``dcterms:title``
-     - title
+     - ``title``
      - Literal value as string
      -
 
    * - ``dcterms:issued``
-     - issued
+     - ``issued``
      - Literal value as string
      -
 
    * - ``dcterms:language``
-     - language
+     - ``language``
      - Literal value as string
      -
 
    * - ``dcterms:modified``
-     - lastModified
+     - ``lastModified``
      - Literal value as string
      -
 
    * - ``dcterms:source``
-     - source
+     - ``source``
      - Literal value as string
      -
 
    * - ``dcterms:temporal``
-     - timeRange
+     - ``timeRange``
      - Object with start and end as string
      -
 
@@ -909,27 +907,27 @@ Catalogue JSON-LD mapping
      -
 
    * - ``dcat:theme``
-     - theme
+     - ``theme``
      - ``skos:prefLabel`` of ``skos:Concept``
      -
 
    * - ``foaf:page``
-     - humanDocs
+     - ``humanDocs``
      - Literal value as string
      -
 
    * - ``foaf:primaryTopic``
-     - primaryTopic
+     - ``primaryTopic``
      - URI as string
      -
 
    * - ``skos:editorialNote``
-     - editorialNote
+     - ``editorialNote``
      - Literal value as string
      -
 
    * -
-     - hasDatasets
+     - ``hasDatasets``
      - URI
      - Applicable to ``dcat:Catalog``
 
@@ -1152,44 +1150,44 @@ Concept JSON-LD mapping
      - Notes
 
    * - ``skos:prefLabel``
-     - prefLabel
+     - ``prefLabel``
      - Literal value as string
      -
 
    * - ``skos:altLabel``
-     - altLabel
+     - ``altLabel``
      - Literal value as string
      -
 
    * - ``skos:definition``
-     - description
+     - ``description``
      - Literal value as string
      -
 
    * - ``skos:note``
-     - note
+     - ``note``
      - Literal value as string
      -
 
    * - ``skos:broader``
-     - broader
+     - ``broader``
      - JSON-LD encoded ``skos:Concept``
      -
 
    * - ``skos:narrower``
-     - narrower
+     - ``narrower``
      - JSON-LD encoded ``skos:Concept``
      -
 
    * -
-     - hasTopConcepts
+     - ``hasTopConcepts``
      - Includes endpoint URI, or URI of ``skos:Concept``
      - Applicable to ``skos:ConceptScheme``.
 
        Inferred from children of the ``skos:ConceptScheme`` who are ``skos:topConceptOf`` – itself inferred by lack of ``skos:broader``. May be an endpoint which performs a query, or an automatically populated array
 
    * -
-     - hasMembers
+     - ``hasMembers``
      - Includes endpoint URI, or URI of resource
      - Applicable to ``skos:Collection``.
 
@@ -1377,17 +1375,17 @@ Geometries should be provided with the following shapes and anchors if coined:
 
    * - Full geometry
      - MultiPolygon or Polygon
-     - #geometry
+     - ``#geometry``
      - If the geometry is non-contiguous, a MultiPolygon should be used.
 
    * - Bounding box
      - Polygon
-     - #bbox
+     - ``#bbox``
      -
 
    * - Centroid
      - Point
-     - #centroid
+     - ``#centroid``
      -
 
 .. list-table::
@@ -1443,27 +1441,27 @@ Geography JSON-LD mapping
      - Notes
 
    * - ``geo:hasGeometry``
-     - geometry
+     - ``geometry``
      - ``geo:Geometry`` object serialised as JSON-LD
      -
 
    * - ``geo:asWKT``
-     - asWKT
+     - ``asWKT``
      - Literal value as string
      -
 
    * - ``geo:hasBoundingBox``
-     - bbox
+     - ``bbox``
      - ``geo:Geometry`` object serialised as JSON-LD
      -
 
    * - ``geo:hasCentroid``
-     - centroid
+     - ``centroid``
      - ``geo:Geometry`` object serialised as JSON-LD
      -
 
    * - ``geo:coordinateDimension``
-     - coordinateDimension
+     - ``coordinateDimension``
      - Literal value as integer
      -
 
@@ -1492,32 +1490,32 @@ mapping:
      - Notes
 
    * -
-     - isDistributionOf
+     - ``isDistributionOf``
      - Resource URL
      - The URL of the Resource from which this GeoJSON object was generated
 
    * - ``skos:notation``
-     - notation
+     - ``notation``
      - Literal value as string
      -
 
    * - ``skos:prefLabel``
-     - name
+     - ``name``
      - Literal value as string
      -
 
    * - ``skos:altLabel``
-     - altName
+     - ``altName``
      - Literal value as string
      -
 
    * - ``skos:definition``
-     - description
+     - ``description``
      - Literal value as string
      -
 
    * - ``skos:note``
-     - note
+     - ``note``
      - Literal value as string
      -
 
@@ -2422,67 +2420,67 @@ Observation JSON-LD mapping
      - Notes
 
    * - ``sosa:hasFeatureOfInterest``
-     - hasFeatureOfInterest
+     - ``hasFeatureOfInterest``
      - JSON-LD
      -
 
    * - ``sosa:hasResult``
-     - hasResult
+     - ``hasResult``
      - JSON-LD
      -
 
    * - ``sosa:hasSimpleReuslt``
-     - hasSimpleResult
+     - ``hasSimpleResult``
      - Literal value
      -
 
    * - ``sosa:hasUnit``
-     - hasUnit
+     - ``hasUnit``
      - ``skos:prefLabel`` of ``skos:Concept`` as string
      -
 
    * - ``sosa:observedProperty``
-     - observedProperty
+     - ``observedProperty``
      - JSON-LD
      -
 
    * - ``sosa:phenomenonTime``
-     - phenomenonTime
+     - ``phenomenonTime``
      - Literal value as string
      -
 
    * - ``sosa:resultTime``
-     - resultTime
+     - ``resultTime``
      - Literal value as string
      -
 
    * - ``sosa:startTime``
-     - startTime
+     - ``startTime``
      - Literal value as string
      -
 
    * - ``sosa:isSampleOf``
-     - isSampleOf
+     - ``isSampleOf``
      - JSON-LD
      -
 
    * - ``sosa:isResultOf``
-     - isResultOf
+     - ``isResultOf``
      - JSON-LD
      -
 
    * - ``sosa:hasSample``
-     - hasSample
+     - ``hasSample``
      - JSON-LD
      - Applicable to ``sosa:Observation``
 
    * -
-     - hasObservations
+     - ``hasObservations``
      - URI to endpoint which provides related ``sosa:Observation``\ s
      - Applicable to ``sosa:FeatureOfInterest``\ s and ``sosa:Sample``\ s
 
    * -
-     - hasSamplings
+     - ``hasSamplings``
      - URI to endpoint which provides related ``sosa:Sampling``\ s
      - Applicable to ``sosa:FeatureOfInterest``\ s
 
@@ -2754,7 +2752,7 @@ CSV-W
 
 CSV-W (CSV on the Web) is a standard for describing and clarifying the content of CSV tables. While CSV is one of the
 most common formats for sharing tabular data, it contains very little information about the meaning or structure of the
-data it holds. CSV-W addresses this by allowing datasets to be accompanied by structured metadata (a.json metadata
+data it holds. CSV-W addresses this by allowing datasets to be accompanied by structured metadata (a ``.json`` metadata
 file). This metadata file can describe column data types, identifiers, relationships between tables, and links to
 external vocabularies. As a result the data becomes more interpretable and reusable across systems. CSV-W enables
 tabular data to be transformed into RDF by defining how rows and columns map to RDF triples.
@@ -2876,11 +2874,11 @@ URL structure
 
 -  RDF class names must be in PascalCase, URI-safe, and unique within a dataset
 
--  Datasets can contain multiple classes (e.g., /wetlands/WetlandSite/{id} and /wetlands/WetlandBoundary/{id})
+-  Datasets can contain multiple classes (e.g., ``/wetlands/WetlandSite/{id}`` and ``/wetlands/WetlandBoundary/{id}``)
 
--  Datasets with simple ``skos:ConceptScheme`` structures use Concept as the class (e.g. /determinands/Concept/DO)
+-  Datasets with simple ``skos:ConceptScheme`` structures use Concept as the class (e.g. ``/determinands/Concept/DO``)
 
--  Datasets with a ``skos:ConceptScheme`` of geographies use Geography as the class (e.g. /local-authorities/Geography/E06000001)
+-  Datasets with a ``skos:ConceptScheme`` of geographies use Geography as the class (e.g. ``/local-authorities/Geography/E06000001``)
 
 For example:
 
@@ -2898,10 +2896,10 @@ The above can be broken down into the following:
      - Instance
 
    * - ``http://example.org/``
-     - example-catalog/
-     - example-dataset/
-     - Concept
-     - some-concept
+     - ``example-catalog/``
+     - ``example-dataset/``
+     - ``Concept``
+     - ``some-concept```
 
 The source of the unique identifier of a instance varies with its class. We should use the following predicate for each
 class, and ensure that they are consistent when an instance has multiple classes:
@@ -3116,11 +3114,11 @@ Observation data endpoints
 **Key patterns:**
 
 -  **Nested access**: Drill down from sampling point → sample → observation
--  **Bulk access**: Query parameters for filtering (e.g. /data/observation?pointNotation={id})
+-  **Bulk access**: Query parameters for filtering (e.g. ``/data/observation?pointNotation={id}``)
 -  **Pagination**: All endpoints paginated using Hydra; in-memory formats (JSON-LD, GeoJSON) have lower max limits
    than streaming formats (CSV, JSON-Lines)
 -  **Multi-source aggregation**: A Dodos instance can merge observations from multiple sources (e.g., fish,
-   invertebrates, plankton) into the unified /data/observation endpoint
+   invertebrates, plankton) into the unified ``/data/observation`` endpoint
 
 Uniquely identifying sites, sample/samplings, and observations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -3131,11 +3129,11 @@ should reuse those. For the sampling point, those identifiers will be the ``skos
 ID.
 
 Datasets typically provide many observed results for a given sample, and each of these must be uniquely addressable by a
-obs-id. These IDs must be programatically generated from the dimensions of the observations, which are unique to each
+``obs-id``. These IDs must be programatically generated from the dimensions of the observations, which are unique to each
 dataset. These IDs should generally be human-readable, but they need not be human-writable; users are expected to use
 API endpoints to discover unique observations, not manually generate them.
 
-The general pattern of observation IDs should follow: dimension 1[,dimension 2,…]@[,statistical modifier].
+The general pattern of observation IDs should follow: ``dimension 1[,dimension 2,…]@[,statistical modifier]``.
 
 The order of dimensions must be consistent for the given dataset. Dimensions should generally be ordered, as applicable,
 first by time, then geography. Subsequent dimensions should be ordered by which eliminates the most data.
@@ -3333,3 +3331,4 @@ Appendix
 
 Custom type definitions
 -----------------------
+
