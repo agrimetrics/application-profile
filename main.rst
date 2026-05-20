@@ -1843,15 +1843,9 @@ the types used to focus on those that are of more interest to our users.
 .. TODO: Observation diagram from https://dsp-support.atlassian.net/wiki/spaces/IK/whiteboard/1353941003
 
 .. NOTE::
-  The SOSA/SSN specification does not define a predicate to link sosa:Observation directly to sosa:Sample. We use
-  sosa:hasSample for this purpose. The specification defines sosa:hasSample with a domain of sosa:FeatureOfInterest; since
-  sosa:Sample is a subclass of sosa:FeatureOfInterest, this usage is conformant with the specification. The SOSA/SSN
-  specification does not define a predicate to link sosa:Observation directly to sosa:Sample. We use sosa:hasSample for
-  this purpose. The specification defines sosa:hasSample with domain includes of sosa:FeatureOfInterest; since sosa:Sample
-  is a subclass of sosa:FeatureOfInterest, this usage is conformant with the specification. While the SOSA/SSN
-  specification does not explicitly provide a predicate to link a sosa:Observation to a sosa:Sample, we have used
-  sosa:hasSample for this purpose. As the specification states this predicate's domain *includes* sosa:FeatureOfInterest
-  of which sosa:Sample is a subclass, this usage is in spec.
+  While the SOSA/SSN specification does not explicitly provide a predicate to link a ``sosa:Observation`` to a
+  ``sosa:Sample``, we have used ``sosa:hasSample`` for this purpose. As the specification states this predicate's domain
+  *includes* ``sosa:FeatureOfInterest``, i.e. it is not exclusive, this usage is in spec.
 
 We use the I-ADOPT framework ontology to provide more structured observation data. By grouping observations with
 ``sosa:ObservationCollection``\ s and ``iop:VariableSet``\ s, we describe the possible set of variables measured by a given
