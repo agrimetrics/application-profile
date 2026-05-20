@@ -2,10 +2,6 @@ main {
   font-family: sans-serif;
 }
 
-main p {
-  overflow-x: auto;
-}
-
 main pre, main table {
   overflow-x: auto;
   display: block;
@@ -14,3 +10,8 @@ main pre, main table {
 main img {
   max-width: 100%;
 }
+
+.literal > span.pre {
+  white-space: break-spaces !important;
+}
+
