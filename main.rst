@@ -191,10 +191,10 @@ Here is a quick summary of terms for reference:
    * - Cardinality
      - The number of times a predicate may be used per given subject.
 
-       - 1: Exactly one
-       - 0..1: At most one
-       - 1..*: At least one
-       - 0..*: Any number of times
+       - ``1``: Exactly one
+       - ``0..1``: At most one
+       - ``1..*``: At least one
+       - ``0..*``: Any number of times
 
    * - Coining
      - The act of assigning an URI (identifier) to a resource. A resource without a name is called a blank node.
@@ -377,19 +377,19 @@ Otherwise, we should make multiple versions of a dataset available. The related 
    * - ``dcterms:title``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      - May be repeated for multiple languages
 
    * - ``dcterms:description``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      - May be repeated for multiple languages
 
    * - ``dcterms:publisher``
      - Includes URI
      - Must
-     - 1
+     - ``1``
      - Defaults to ``dcat:publisher`` of the ``dcat:Catalog``.
 
        May be URL of the publisher’s website, e.g. `<https://environment.data.gov.uk/>`__.
@@ -399,19 +399,19 @@ Otherwise, we should make multiple versions of a dataset available. The related 
    * - ``dcterms:license``
      - Includes URI
      - Must
-     - 1..*
+     - ``1..*``
      - May be the URL of the license text, e.g. `<https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/>`__
 
    * - ``dcterms:created``
      - Literal ``xsd:dateTime``
      - Must
-     - 1
+     - ``1``
      - Defaults to now()
 
    * - ``dcterms:temporal``
      - a ``dcterms:PeriodOfTime``
      - Must, if dataset is temporal
-     - 0..1
+     - ``0..1``
      - If the dataset is only relates to a specific period of time.
 
        E.g.
@@ -431,61 +431,61 @@ Otherwise, we should make multiple versions of a dataset available. The related 
    * - ``dcterms:accrualPeriodicity``
      - a ``dcterms:Frequency``
      - Should
-     - 0..1
+     - ``0..1``
      - If versions of the dataset is published regularly, especially if the dataset is temporal, the frequency at which it is published. E.g. yearly.
 
    * - ``dcterms:creator``
      - Includes URI
      - Should
-     - 0..1
+     - ``0..1``
      - If publisher is not the creator
 
    * - ``dcterms:issued``
      - Literal ``xsd:date``
      - Should
-     - 0..1
+     - ``0..1``
      - If specified by the publisher
 
    * - ``foaf:page``
      - Includes URI
      - Should
-     - 0..*
+     - ``0..*``
      - If available, a web-resolvable URL to human-readable documentation of the Dataset.
 
    * - ``dcat:temporalResolution``
      - Literal ``xsd:duration``
      - Should
-     - 0..1
+     - ``0..1``
      - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
 
    * - ``dcat:contactPoint``
      - a ``vcard:Kind``
      - Should
-     - 0..*
+     - ``0..*``
      - Contact point for support about the Dataset/DataService
 
    * - ``dcat:inCatalog``
      - a ``dcat:Catalog``
      - Should
-     - 0..*
+     - ``0..*``
      - Parent catalog(s) this dataset belongs to
 
    * - ``dcat:theme``
      - a ``skos:Concept``
      - Should
-     - 0..*
+     - ``0..*``
      - Themes, topics this dataservice covers. E.g. environment, rivers, water quality.
 
    * - ``dcat:downloadURL``
      - URI
      - May
-     - 0..*
+     - ``0..*``
      - If provided by the publisher. Provides a direct download link for the source of our data. Should be a web-resolvable URL.
 
    * - ``dcterms:source``
      - a ``rdfs:Resource`` with ``rdfs:label``
      - May
-     - 0..*
+     - ``0..*``
      - If a URL cannot be provided in ``dcat:accessURL``, a human-readable description of the source.
 
        .. code:: ttl
@@ -497,14 +497,14 @@ Otherwise, we should make multiple versions of a dataset available. The related 
    * - ``dcterms:language``
      - Literal ISO 639-1 two-letter or ISO 639-2 three-letter code ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - If specified, and not just English.
        E.g. ``dcterms:language "en", “cy" ;`` for both English and Welsh (Cymraeg).
 
    * - ``skos:editorialNote``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - Additional meta information about the Dataset.
 
        .. code:: ttl
@@ -541,19 +541,19 @@ it should be represented with a ``dcat:Dataset``.
    * - ``dcat:endpointURL``
      - URI
      - Must
-     - 1
+     - ``1``
      - Web-resolvable URI to the endpoint which serves datasets.
 
    * - ``dcat:servesDataset``
      - URI
      - Should
-     - 0..*
+     - ``0..*``
      - ``dcat:Dataset``\ s provided by this service.
 
    * - ``dcat:endpointDescription``
      - Includes URI
      - Should
-     - 0..1
+     - ``0..1``
      - If available, a reference to the documentation of the Dataset. Preferably machine-readable, or for programmatic access such as a Swagger documentation page. If nothing machine-readable is available, should duplicate ``foaf:page``.
 
        May be a web-resolvable URL.
@@ -561,13 +561,13 @@ it should be represented with a ``dcat:Dataset``.
    * - ``dcat:theme``
      - a ``skos:Concept``
      - Should
-     - 0..*
+     - ``0..*``
      - Themes, topics this dataservice covers. E.g. environment, rivers, water quality.
 
    * - ``dcterms:type``
      - Includes a ``skos:Concept``
      - May
-     - 0..*
+     - ``0..*``
      - Types of operations supported by the service. E.g. view, update, download,
 
 ``dcat:Catalog``
@@ -581,7 +581,7 @@ it should be represented with a ``dcat:Dataset``.
 
 API URL: /{slug of ``dcat:Catalog``}
 
-Each dataset should be part of a ``dcat:Catalog``, which should be specified ``usingdcat:inCatalog`` on the ``dcat:Dataset``.
+Each dataset should be part of a ``dcat:Catalog``, which should be specified using ``dcat:inCatalog`` on the ``dcat:Dataset``.
 
 A Catalog is a specialisation of ``dcat:Dataset``, adding only the predicate ``dcat:dataset`` to specify its members.
 
@@ -597,31 +597,31 @@ A Catalog is a specialisation of ``dcat:Dataset``, adding only the predicate ``d
    * - ``dcterms:title``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``dcterms:description``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``dcat:contactPoint``
      - a ``vcard:Kind``
      - Should
-     - 0..*
+     - ``0..*``
      - Contact point for support about the catalog specifically, not the datasets or entries contained within. May be set to an appropriate default for the service.
 
    * - ``dcterms:license``
      - Includes URI
      - Should
-     - 0..*
+     - ``0..*``
      - License for the catalog specifically, not the datasets or entries contained within. May be set to an appropriate default for the service.
 
    * - ``dcterms:publisher``
      - Includes URI
      - Should
-     - 0..*
+     - ``0..*``
      - Publisher of the catalog specifically, not the datasets or entries contained within. May be set to an appropriate default for the service.
 
 ``dcat:CatalogRecord``
@@ -658,37 +658,37 @@ and when it was last updated.
    * - ``dcterms:title``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``foaf:primaryTopic``
      - a dcat:Resource, including a ``dcat:Dataset`` and a ``dcat:DataService``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``dcterms:description``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      - Description of the resource this record points to
 
    * - ``dcterms:issued``
      - Includes Literal ``xsd:dateTime``
      - Should
-     - 0..1
+     - ``0..1``
      - When the record was added to the catalog
 
    * - ``dcterms:modified``
      - Includes Literal ``xsd:dateTime``
      - May
-     - 0..*
+     - ``0..*``
      - When the record was last updated or modified
 
    * - ``dcterms:conformsTo``
      - Includes a ``dcterms:Standard``
      - May
-     - 0..*
+     - ``0..*``
      -
        .. TODO: Protocols supported by the resource? E.g. JSON-LD, SPARQL, GeoJSON, etc?
 
@@ -713,91 +713,91 @@ and when it was last updated.
    * - ``dcterms:title``
      - Literal ``xsd:String``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``dcat:downloadURL``
      - URI
      - Must
-     - 1..1
+     - ``1..1``
      -
 
    * - ``dcat:accessURL``
      - URI
      - Should
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcat:accessService``
      - a ``dcat:DataService``
      - Should
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcat:description``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``dcterms:license``
      - URI
      - Should
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcterms:mediaType``
      - a ``dcterms:MediaType``
      - May
-     - 1
+     - ``1``
      -
 
    * - ``dcterms:format``
      - a ``dcterms:MediaTypeOrExtent``
      - May
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcterms:compressFormat``
      - a ``dcterms:MediaType``
      - May
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcat:packagingFormat``
      - a ``dcterms:MediaType``
      - May
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcterms:modified``
      - Literal, including ``xsd:dateTime``
      - May
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcat:temporalResolution``
      - Literal ``xsd:duration``
      - Should
-     - 0..1
+     - ``0..1``
      - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
 
    * - ``dcat:spatialResolutionInMeters``
      - Literal, including ``xsd:decimal``
      - May
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcterms:issued``
      - Literal, including ``xsd:dateTime``
      - May
-     - 0..1
+     - ``0..1``
      -
 
    * - ``dcterms:accessRights``
      - a ``dcterms:RightsStatement``
      - May
-     - 0..1
+     - ``0..1``
      -
 
 Catalogue JSON-LD mapping
@@ -992,31 +992,31 @@ A ``skos:ConceptScheme`` must also contain at least one ``skos:Concept`` using t
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      - Human-readable name
 
    * - ``skos:notation``
      - Literal ``xsd:string``
      - Should
-     - 1
+     - ``1``
      - Should be provided by the data source
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      - Description or formal definition of the concept scheme
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - Additional human-readable names
 
    * - ``skos:note``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - Additional information about the concept scheme
 
 ``skos:Concept``
@@ -1044,50 +1044,50 @@ A ``skos:Concept`` should use ``skos:broader`` and ``skos:narrower`` to indicate
    * - ``skos:inScheme``
      - a ``skos:ConceptScheme``
      - Must
-     - 1
+     - ``1``
      - Scheme(s) this concept belongs to
 
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      - Human-readable name
 
    * - ``skos:notation``
      - Literal ``xsd:string``
      - Must
-     - 1
+     - ``1``
      - Should be provided by the data source
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      - Description or formal definition of the concept
 
    * - | ``skos:broader``
        | ``skos:narrower``
      - a ``skos:Concept``
      - Should
-     - 0..*
+     - ``0..*``
      - Hierarchical relationships
 
    * - ``skos:topConceptOf``
      - a ``skos:ConceptScheme``
      - May
-     - 0..*
+     - ``0..*``
      - Inferred, should be present if the ``skos:Concept`` has no ``skos:broader`` relationship.
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - Additional human-readable names
 
    * - ``skos:note``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - Additional information about the concept
 
    * - | ``skos:closeMatch``
@@ -1097,7 +1097,7 @@ A ``skos:Concept`` should use ``skos:broader`` and ``skos:narrower`` to indicate
        | ``skos:relatedMatch``
      - a ``skos:Concept``
      - May
-     - 0..*
+     - ``0..*``
      - To indicate related concepts
 
 ``skos:Collection``
@@ -1131,13 +1131,13 @@ are equivalent, then ``skos:narrower`` and ``skos:broader`` indicate as usual th
    * - ``skos:member``
      - a ``skos:Collection`` or a ``skos:Concept``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``rdfs:label``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
 Concept JSON-LD mapping
@@ -1306,7 +1306,7 @@ should also be a ``skos:ConceptScheme``, in which case it should follow all requ
    * - ``rdfs:member``
      - a ``geo:Feature``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
 ``geo:Feature``
@@ -1341,14 +1341,14 @@ Where a conceptual geography has inexact or unavailable boundaries, it is typed 
    * - ``geo:hasGeometry``
      - a ``geo:Geometry``
      - Should
-     - 1
+     - ``1``
      -
 
    * - | ``geo:sfWithin``
        | ``geo:sfContains``
      - a ``geo:Feature``
      - Should
-     - 1..*
+     - ``1..*``
      - Any boundaries which a feature exists within, or features which are contained within a boundary, should be linked via ``geo:sfWithin`` or ``geo:sfContains`` respectively.
 
 ``geo:Geometry``
@@ -1402,7 +1402,7 @@ Geometries should be provided with the following shapes and anchors if coined:
    * - ``geo:asWKT``
      - Literal ``geo:wktLiteral``
      - Must
-     - 1
+     - ``1``
      - Must explicitly encode the spatial reference system, which should be `EPSG:4326 <https://epsg.io/4326>`__, unless a different system is requested:
 
        .. code:: ttl
@@ -1412,13 +1412,13 @@ Geometries should be provided with the following shapes and anchors if coined:
    * - ``geo:coordinateDimension``
      - Literal ``xsd:decimal``
      - Must
-     - 1
+     - ``1``
      - Number of axes in the geometry
 
    * - ``geo:hasBoundingBox``
      - a ``geo:Geometry``
      - Should
-     - 0..1
+     - ``0..1``
      - Should be provided if the geometry is at least 2-dimensional, unless this geometry represents another’s bounding box.
 
        Should be a Polygon
@@ -1426,7 +1426,7 @@ Geometries should be provided with the following shapes and anchors if coined:
    * - ``geo:hasCentroid``
      - a ``geo:Geometry``
      - Should
-     - 0..1
+     - ``0..1``
      - Should be provided if the geometry is at least 2-dimensional.
 
        Should be provided as a WKT Point.
@@ -1627,19 +1627,19 @@ A new class is of type ``owl:Class`` and the following predicates are used to de
    * - ``rdfs:label``
      - Literal ``xsd:string``
      - Must
-     - 1
+     - ``1``
      - The human-readable label of the class
 
    * - ``rdfs:comment``
      - Literal ``xsd:string``
      - Must
-     - 1
+     - ``1``
      - A description of the class which provides more context about when the class should be used
 
    * - ``rdfs:subClassOf``
      - a ``rdfs:Class`` or a ``owl:Class``
      - May
-     - 0..*
+     - ``0..*``
      - Used to indicate whether the class is a subclass of another class
 
 Below is the pattern that we would use for defining an ``owl:Class``
@@ -1669,26 +1669,26 @@ A new predicate can be of type ``owl:ObjectProperty`` (the range of the predicat
    * - ``rdfs:label``
      - Literal ``xsd:string``
      - Must
-     - 1
+     - ``1``
      - The human-readable label of the predicate
 
    * - ``rdfs:comment``
      - Literal ``xsd:string``
      - Must
-     - 1
+     - ``1``
      - A description explaining the predicate
 
    * - ``rdfs:domain``
      - a ``rdfs:Class`` or a ``owl:Class``
      - Should
-     - 0..*
+     - ``0..*``
      - The permitted class/classes that the predicate can be used on
 
    * - ``rdfs:range``
      - - a ``rdfs:Class`` or a ``owl:Class`` (if the property is an ``owl:ObjectProperty``)
        - a Literal datatype (if the property is an ``owl:DatatypeProperty`` e.g. if we declare ``ex:age`` to be an ``owl:DatatypeProperty`` then we would say ``ex:age rdfs:range xsd:integer``
      - Should
-     - 0..*
+     - ``0..*``
      - The permitted data types of objects for the predicate
 
 Below is the pattern that we would use for defining an ``owl:ObjectProperty`` and an ``owl:DatatypeProperty``
@@ -1882,13 +1882,13 @@ samples are consistently taken from. This ``geo:Feature`` should be described by
    * - ``sosa:hasProperty``
      - a ``sosa:Property``
      - Should
-     - 0..*
+     - ``0..*``
      - If the feature itself has properties which are observed
 
    * - ``edgur:hasClassification``
      - a ``skos:Concept``
      - May
-     - 0..1
+     - ``0..1``
      - If one has been provided by the relevant body
 
 ``sosa:Property``
@@ -1915,19 +1915,19 @@ A ``sosa:Property`` must also be a ``iop:Variable``.
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 0..*
+     - ``0..*``
      -
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - A property should be described with the predicates supported by ``iop:Variable``, or a definition provided with ``skos:definition``.
 
 ``sosa:Sampling``
@@ -1952,43 +1952,43 @@ produce ``sosa:Observation``\ s.
    * - ``sosa:hasFeatureOfInterest``
      - a ``sosa:FeatureOfInterest``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:resultTime``
      - Literal ``xsd:dateTime``, ``xsd:date``, ``xsd:gYearMonth``, and/or ``xsd:gYear``.
      - Must
-     - 1
+     - ``1``
      - Time at which the result became available. Typically the same as ``sosa:endTime``.
 
    * - ``sosa:hasResult``
      - a ``sosa:Sample``
      - Should
-     - 0..*
+     - ``0..*``
      - If a ``sosa:Sampling`` has one or more ``sosa:Sample``\ s then we use ``sosa:hasResult`` to provide the ``sosa:Sample``\ s
 
    * - ``geo:hasGeometry``
      - a ``geo:Geometry``
      - May
-     - 0..1
+     - ``0..1``
      - ``geo:hasGeometry`` is used on the ``sosa:Sampling`` to describe the location at which the ``sosa:Sampling`` took place or it can be used to describe the ``sosa:Sample`` location.
 
    * - ``sosa:startTime``
      - Literal, ``includesxsd:dateTime``
      - May
-     - 0..1
+     - ``0..1``
      - Time at which the sampling began
 
    * - ``sosa:endTime``
      - Literal, includes ``xsd:dateTime``
      - May
-     - 0..1
+     - ``0..1``
      - Time at which sampling completed
 
    * - ``sosa:phenomenonTime``
      - Literal, includes ``xsd:dateTime``
      - May
-     - 0..1
+     - ``0..1``
      - Time of the phenomenon being measured
 
 ``sosa:Sample``
@@ -2013,27 +2013,27 @@ Each sample must have a related ``sosa:Sampling`` to provide additional contextu
      - Notes
 
    * - ``sosa:isSampleOf``
-     - a ``sosa:FeatureOfInterestor`` a ``sosa:Sample``
+     - a ``sosa:FeatureOfInterest`` or a ``sosa:Sample``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:isResultOf``
      - a ``sosa:Sampling``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:hasOriginalSample``
      - a ``sosa:Sample``
      - May
-     - 0..1
+     - ``0..1``
      - If this sample was created from, or is a subset of, an original sample, this points to the original ``sosa:Sample``.
 
    * - ``edgur:hasClassification``
      - a ``skos:Concept``
      - May
-     - 0..1
+     - ``0..1``
      - A classification of the sample e.g. survey based sample, run based sample, individual animal sample.
 
 ``sosa:ObservationCollection``
@@ -2060,19 +2060,19 @@ observation for the given sample.
    * - ``sosa:hasFeatureOfInterest``
      - a ``sosa:FeatureOfInterest``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:observedProperty``
      - a ``iop:VariableSet``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:hasSample``
      - a ``sosa:Sample``
      - Should
-     - 0..1
+     - ``0..1``
      -
 
 ``sosa:Observation``
@@ -2097,25 +2097,25 @@ An observation has a result from a sample for a property of a given feature of i
    * - ``sosa:hasFeatureOfInterest``
      - a ``sosa:FeatureOfInterest``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:observedProperty``
      - a ``sosa:Property``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:phenomenonTime``
      - Literal ``xsd:dateTime``
      - Must
-     - 1
+     - ``1``
      - Time at which the property was measured
 
    * - ``sosa:hasResult``
      - a ``rdfs:Resource``
      - Must
-     - 1
+     - ``1``
      - Should use an existing ontology for this when applicable, e.g. http://qudt.org/schema/qudt and http://qudt.org/schema/qudt/unit, as shown in the SOSA/SSN spec:
 
        .. code:: ttl
@@ -2133,19 +2133,19 @@ An observation has a result from a sample for a property of a given feature of i
    * - ``sosa:hasSimpleResult``
      - Literal, including ``xsd:string``, ``xsd:decimal``
      - Must
-     - 1
+     - ``1``
      -
 
    * - ``sosa:hasSample``
      - a ``sosa:Sample``
      - Should
-     - 0..1
+     - ``0..1``
      - Sample from which this observation was made, if a sample was used
 
    * - ``sosa:isMemberOf``
      - a ``sosa:ObservationCollection``
      - May
-     - 0..1
+     - ``0..1``
      - If several observations were made on a single Sample, they should be grouped into a ``sosa:ObservationCollection`` with this predicate.
 
 ``iop:VariableSet``
@@ -2170,37 +2170,37 @@ observed from a single sample.
    * - ``rdfs:label``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``iop:hasMember``
      - a ``iop:Variable``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``iop:hasApplicableObjectOfInterest``
      - a ``iop:Entity``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``rdfs:comment``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
    * - ``iop:hasApplicableStatisticalModifier``
      - a ``iop:StatisticalModifier``
      - May
-     - 0..*
+     - ``0..*``
      - If a modifier applies to the entire ``iop:VariableSet``
 
    * - ``iop:hasApplicableProperty``
      - a ``iop:Property``
      - May
-     - 0..*
+     - ``0..*``
      -
 
 ``iop:Variable``
@@ -2229,49 +2229,49 @@ and ``iop:StatisticalModifier``.
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 0..*
+     - ``0..*``
      -
 
    * - ``iop:hasProperty``
      - a ``iop:Property``
      - Should
-     - 0..1
+     - ``0..1``
      -
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      - A property should be described with the predicates supported by ``iop:Variable``, or a definition provided with ``skos:definition``.
 
    * - ``iop:hasConstraint``
      - a ``iop:Constraint``
      - May
-     - 0..*
+     - ``0..*``
      -
 
    * - ``iop:hasObjectOfInterest``
      - a ``iop:Entity``
      - May
-     - 0..*
+     - ``0..*``
      -
 
    * - ``iop:hasContextObject``
      - a ``iop:Entity``
      - May
-     - 0..*
+     - ``0..*``
      -
 
    * - ``iop:hasStatisticalModifier``
      - a ``iop:Constraint``
      - May
-     - 0..1
+     - ``0..1``
      -
 
 ``iop:Property``
@@ -2300,19 +2300,19 @@ own ``qudt:QuantityKind``\ s when necessary.
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
 ``iop:Entity``
@@ -2338,19 +2338,19 @@ A ``iop:Entity`` must also be a ``skos:Concept``. This allows us to describe the
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
 ``iop:Constraint``
@@ -2376,25 +2376,25 @@ them in a consistent manner to other concepts.
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - 1..*
+     - ``1..*``
      -
 
    * - ``skos:definition``
      - Literal ``xsd:string``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``iop:constrains``
      - a ``iop:Entity``
      - Should
-     - 0..*
+     - ``0..*``
      -
 
    * - ``skos:altLabel``
      - Literal ``xsd:string``
      - May
-     - 0..*
+     - ``0..*``
      -
 
 ``iop:StatisticalModifier``
