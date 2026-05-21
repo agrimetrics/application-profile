@@ -2546,7 +2546,7 @@ RDF in Turtle syntax
        geo:sfWithin <areas/Concept/M> ;
        geo:sfWithin <subareas/Concept/C> .
 
-     <sampling-point/AN-CORBY/sampling/1025221>
+     <sampling-point/AN-CORBY/sample/1025221#sampling>
        a sosa:Sampling ;
        sosa:hasFeatureOfInterest <sampling-point/AN-CORBY> ;
        edgur:hasClassification <sampling-purposes/Concept/CA> ;
@@ -2557,7 +2557,7 @@ RDF in Turtle syntax
        a sosa:Sample ;
        sosa:isSampleOf <sampling-point/AN-CORBY> ;
        edgur:hasClassification <sample-material-types/Concept/4AZZ> ;
-       sosa:isResultOf <sampling-point/AN-CORBY/sampling/1025221> ;
+       sosa:isResultOf <sampling-point/AN-CORBY/sample/1025221#sampling> ;
        sosa:resultTime "2000-09-04"^^xsd:date ;
        sosa:startTime "2000-01-24T10:30:00"^^xsd:dateTime .
 
@@ -3071,16 +3071,14 @@ Observation data endpoints
        | application/x-jsonlines
        | text/csv
 
-   * - | /sampling-point/{id}/sample/{sample-sampling-id}
-       | /sampling-point/{id}/sampling/{sample-sampling-id}
+   * - | /sampling-point/{id}/sample/{sample-id}
 
        e.g.
 
-       - ``/sampling-point/AN-CORBY/sample/1959114/``
-       - ``/sampling-point/AN-CORBY/sampling/1959114/``
+       - ``/sampling-point/AN-CORBY/sample/1959114``
      - Individual sample and sampling metadata.
 
-       In the interest of usability, we don’t segregate the information of a sample and sampling. When one is requested, for the convenience of end users, the details of the other should also be returned. The ID of a sample must be the same as the ID of the sampling.
+       In the interest of usability, we don’t segregate the information of a sample and sampling. When a sample is requested its corresponding sampling is returned as an embedded subject with an ID suffix of `#sampling`.
      - application/ld+json
 
    * - ``/sampling-point/{id}/observation-collection/{obs-collection-id}``
