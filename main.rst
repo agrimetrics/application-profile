@@ -85,10 +85,10 @@ each with its own standards alignment and integration conventions:
 2. **Concept** — Controlled vocabularies, code lists, and taxonomies. Provides the shared meaning that allows different
    domains to recognise equivalent terms—“Sampling Point" in water quality and “Observation Site" in ecology refer to
    the same concept. Aligned to SKOS.
-3. **Geographies** — Named locations with spatial extents: sampling points, catchment boundaries, administrative areas,
+3. **Geography** — Named locations with spatial extents: sampling points, catchment boundaries, administrative areas,
    and designated sites. A location defined once can serve planning, biodiversity monitoring, and water quality
    reporting simultaneously. Aligned to GeoSPARQL with GeoJSON and WKT representations.
-4. **Complex Classes** — Domain-specific entities with structured attributes: organisations, permits, consents, assets,
+4. **Custom** — Domain-specific entities with structured attributes: organisations, permits, consents, assets,
    and similar objects whose richness cannot be reduced to a flat table. Aligned to domain ontologies with OWL-based
    class definitions.
 5. **Observations** — Measurement data: the readings produced by sensors, surveys, and sampling programmes. The most
@@ -197,10 +197,10 @@ Here is a quick summary of terms for reference:
        - ``0..*``: Any number of times
 
    * - Coining
-     - The act of assigning an URI (identifier) to a resource. A resource without a name is called a blank node.
+     - The act of assigning an URI (identifier) to a resource.
 
    * - Blank node
-     - A resource without a name.
+     - A resource without globally unique URI.
 
        In Turtle syntax, blank nodes may be labelled for reuse, or nested, see RDF 1.1 Turtle.
 
@@ -245,6 +245,10 @@ Namespaces
    * - ``ddiam:``
      - `<http://vocabularies.cessda.eu/urn/urn:ddi:int.ddi.cv:AggregationMethod:1.1.2/>`__
      - `DDI Alliance Controlled Vocabulary for Aggregation Method <https://rdf-vocabulary.ddialliance.org/ddi-cv/AggregationMethod/1.0.0/AggregationMethod.html>`__
+   
+   * - ``defra-core:``
+     - `<http://environment.data.gov.uk/ontology/core/>`__
+     - `Defra Core <https://github.com/canwaf/ontology-work/blob/main/defra-core-ontology.ttl>`__
 
    * - ``foaf:``
      - `<http://xmlns.com/foaf/0.1/>`__
@@ -263,8 +267,8 @@ Namespaces
      - `OWL Ontology <https://www.w3.org/2002/07/owl#>`__
 
    * - ``prov:``
-     - `<http://www.w3.org/TR/prov-o/>`__
-     - `PROV-O: The PROV Ontology <https://www.w3.org/TR/prov-o/>`__
+     - `<http://www.w3.org/TR/prov-o#>`__
+     - `PROV-O: The PROV Ontology <https://www.w3.org/TR/prov-o#>`__
 
    * - ``qb:``
      - `<http://purl.org/linked-data/cube#>`__
@@ -283,7 +287,7 @@ Namespaces
      - `RDFS (Resource Description Framework Schema) Vocabulary <https://www.w3.org/TR/rdf-schema/>`__
 
    * - ``schema:``
-     - `<http://www.schema.org/>`__
+     - `<https://www.schema.org/>`__
      - `Schema.org <https://www.schema.org/>`__
 
    * - ``skos:``
@@ -334,7 +338,7 @@ subject. These specifications are intended to produce high quality, meaningful, 
 In the case where the valid predicates, ranges, or cardinalities differ from their respective original ontologies, the
 rules in this application profile should supersede them.
 
-1. Catalogue
+Catalogue
 ------------
 
 ``dcat:Dataset``
@@ -475,6 +479,12 @@ Otherwise, we should make multiple versions of a dataset available. The related 
      - Should
      - ``0..*``
      - Themes, topics this dataservice covers. E.g. environment, rivers, water quality.
+  
+   * - ``dcat:themeTaxonomy``
+     - URI
+     - May
+     - ``0..*``
+     - The ``SKOS:ConceptScheme``/s used to describe data within the ``dcat:Dataset``.
 
    * - ``dcat:downloadURL``
      - URI
@@ -526,7 +536,7 @@ Otherwise, we should make multiple versions of a dataset available. The related 
 
 A ``dcat:DataService`` may also be a ``dcat:Catalog``. The distinction between a plain catalogue and a data service is fuzzy. A
 general rule of thumb is, if the catalog provides access to ``dcat:Distribution``\ s, a catalogue is probably also data
-service. If properly representing the dataset would require using ``dcterms:temporal``, ``dcterms:spatial``, or ``dcat:inSerie``\ s,
+service. If properly representing the dataset would require using ``dcterms:temporal``, ``dcterms:spatial``, or ``dcat:inSeries``,
 it should be represented with a ``dcat:Dataset``.
 
 .. list-table::
@@ -709,7 +719,7 @@ and when it was last updated.
      - Notes
 
    * - ``dcterms:title``
-     - Literal ``xsd:String``
+     - Literal ``xsd:string``
      - Must
      - ``1..*``
      -
@@ -744,6 +754,12 @@ and when it was last updated.
      - ``0..1``
      -
 
+   * - ``dcat:temporalResolution``
+     - Literal ``xsd:duration``
+     - Should
+     - ``0..1``
+     - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
+
    * - ``dcterms:mediaType``
      - a ``dcterms:MediaType``
      - May
@@ -773,12 +789,6 @@ and when it was last updated.
      - May
      - ``0..1``
      -
-
-   * - ``dcat:temporalResolution``
-     - Literal ``xsd:duration``
-     - Should
-     - ``0..1``
-     - If the dataset is computed, or is a cube, and has a time period, this is the minimum time period within the cube.
 
    * - ``dcat:spatialResolutionInMeters``
      - Literal, including ``xsd:decimal``
@@ -829,6 +839,11 @@ Catalogue JSON-LD mapping
      - Literal value as string
      -
 
+   * - ``dcat:themeTaxonomy``
+     - ``themeTaxonomy``
+     - URI as string
+     -
+
    * - ``dcat:downloadURL``
      - ``downloadURL``
      - Literal value as string
@@ -841,8 +856,8 @@ Catalogue JSON-LD mapping
 
    * - ``dcterms:license``
      - ``license``
-     - Literal value as string
-     -
+     - URI as string
+     - For the Open Government License we use the URL which is https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/ and we ensure our JSON-LD context treats this as an ID.
 
    * - ``dcterms:publisher``
      - ``publisher``
@@ -964,7 +979,7 @@ The diagram below shows how we model our services using DCAT
      The third with dcat:dataset to Units, a dcat:Dataset and skos:ConceptScheme.
      The fourth with dcat:dataset to Sampling Points, a dcat:Dataset and geo:FeatureCollection.
 
-2. Concept
+Concept
 ----------
 
 ``skos:ConceptScheme``
@@ -995,7 +1010,7 @@ A ``skos:ConceptScheme`` must also contain at least one ``skos:Concept`` using t
 
    * - ``skos:notation``
      - Literal ``xsd:string``
-     - Should
+     - Must
      - ``1``
      - Should be provided by the data source
 
@@ -1268,7 +1283,7 @@ Each region, regardless of their position in the hierarchy, is ``skos:inScheme``
 regions using ``skos:broader`` to refer to the higher region they belong. Equally valid, the higher administrative regions
 could use ``skos:narrower`` to refer to all the lower regions contained within them.
 
-3. Geography
+Geography
 ------------
 
 ``geo:FeatureCollection``
@@ -1356,7 +1371,7 @@ Where a conceptual geography has inexact or unavailable boundaries, it is typed 
 
    – OGC GeoSPARQL spec
 
-We use geometries to store the precise bounding area of a geography, in well-known text format using the ``geo:hasWKT``
+We use geometries to store the precise bounding area of a geography, in well-known text format using the ``geo:asWKT``
 predicate. Usually, this geometry should be encoded as a MultiPolygon, to support geographies composed of multiple
 distinct shapes. For example, islands
 
@@ -1405,7 +1420,7 @@ Geometries should be provided with the following shapes and anchors if coined:
 
        .. code:: ttl
 
-         geo:asWkt "<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(-1.150 52.9534)"^^geo:wktLiteral"
+         geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(-1.150 52.9534)"^^geo:wktLiteral"
 
    * - ``geo:coordinateDimension``
      - Literal ``xsd:decimal``
@@ -1549,7 +1564,7 @@ for simplicity:
      "geometry": {
        "id": "https://environment.data.gov.uk/water-quality/sampling-point/AN-CORBY#Geometry",
        "@type": "geo:Geometry",
-       "asWKT": "POINT(-0.665 52.4901) <http://www.opengis.net/def/crs/EPSG/0/4326>"
+       "asWKT": "<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(-0.665 52.4901)"
      },
      "samplingPointStatus": {
        "@id": "_:status#O",
@@ -1599,7 +1614,7 @@ The same subject is transformed into the following GeoJSON when requested:
      }
    }
 
-4. Custom
+Custom
 ---------
 
 The data provided by our services uses terms from established vocabularies in order to improve interoperability. However
@@ -1644,10 +1659,14 @@ Below is the pattern that we would use for defining an ``owl:Class``
 
 .. code:: ttl
 
-   ex:CustomClass a owl:Class ;
-       rdfs:label "Custom Class"@en ;
-       rdfs:comment "A domain-specific class" ;
-       rdfs:subClassOf ex:ParentClass .
+  @prefix ex: <http://example.org/> .
+  @prefix owl: <http://www.w3.org/2002/07/owl#> .
+  @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+  ex:CustomClass a owl:Class ;
+      rdfs:label "Custom Class"@en ;
+      rdfs:comment "A domain-specific class" ;
+      rdfs:subClassOf ex:ParentClass .
 
 Predicates
 ~~~~~~~~~~
@@ -1693,152 +1712,39 @@ Below is the pattern that we would use for defining an ``owl:ObjectProperty`` an
 
 .. code:: ttl
 
-   ex:customObjectProperty a owl:ObjectProperty ;
-       rdfs:label "Custom Object Property"@en ;
-       rdfs:comment "A custom object property" ;
-       rdfs:domain ex:DomainClass ;
-       rdfs:range ex:RangeClass .
+  @prefix ex: <http://example.org/> .
+  @prefix owl: <http://www.w3.org/2002/07/owl#> .
+  @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+  @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-   ex:customDatatypeProperty a owl:DatatypeProperty ;
-     rdfs:label "Custom Datatype Property"@en ;
-     rdfs:comment "A custom datatype property" ;
-     rdfs:domain ex:DomainClass ;
-     rdfs:range xsd:string .
+  ex:customObjectProperty a owl:ObjectProperty ;
+      rdfs:label "Custom Object Property"@en ;
+      rdfs:comment "A custom object property" ;
+      rdfs:domain ex:DomainClass ;
+      rdfs:range ex:RangeClass .
 
-Worked example: Data Requirements Library
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ex:customDatatypeProperty a owl:DatatypeProperty ;
+      rdfs:label "Custom Datatype Property"@en ;
+      rdfs:comment "A custom datatype property" ;
+      rdfs:domain ex:DomainClass ;
+      rdfs:range xsd:string .
 
-Consider the Mudflats Asset Type within the Land Asset Category
 
-.. list-table::
-   :header-rows: 1
+DEFRA Linked Data Domain Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   * - Asset Type
-     - Description
-     - Asset Code
-     - Uniclass
-     - Geometry Type
-     - Updates
+The 'DEFRA Linked Data Domain Model' is an effort to create a linked data domain model for the Defra Group. It aims to provide a structured, machine-readable representation of regulatory and water-related data, supported by a core ontology. The model is currently under development and can be viewed at https://github.com/canwaf/ontology-work
 
-   * - Mudflats
-     - Coastal wetlands that form in intertidal areas where sediments have been deposited by tides or rivers. Mudflats are usually covered at high tide, and lower in the intertidal zone than salt marshes. They are a natural part of the coastal environment that provide habitat and have an effect on water management.
-     - LM
-     - En_32_65_55
-     - Polygon
-     - 21-11-2023
 
-Below is an example of creating classes and predicates for modelling data defined in the data requirements library.
-Triples relating to defining an ontology are omitted as this is just an example. ``rdfs:member`` is used as as loose
-predicate to relate classes together.
 
-.. code:: ttl
 
-   @prefix ex: <http://example.com/> .
-   @prefix owl: <http://www.w3.org/2002/07/owl#> .
-   @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-   @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-   # Classes
-   ex:AssetCategory a owl:Class ;
-       rdfs:label "Asset Category"@en ;
-       rdfs:comment "An individual Asset Category" .
-
-   ex:Asset a owl:Class ;
-       rdfs:label "Asset"@en ;
-       rdfs:comment "An individual Asset" .
-
-   ex:Element a owl:Class ;
-       rdfs:label "Element"@en ;
-       rdfs:comment "An individual Element" .
-
-   ex:Attribute a owl:Class ;
-       rdfs:label "Attribute"@en ;
-       rdfs:comment "An individual Attribute" .
-
-   # Predicates
-   ex:assetCode a owl:DatatypeProperty ;
-     rdfs:label "asset code"@en ;
-     rdfs:comment "Defines the code of the asset" ;
-     rdfs:domain ex:Asset ;
-     rdfs:range xsd:string .
-
-   ex:uniclass a owl:DatatypeProperty ;
-     rdfs:label "uniclass"@en ;
-     rdfs:comment "The uniclass classification code to be used for this Asset type" ;
-     rdfs:domain ex:Asset ;
-     rdfs:range xsd:string .
-
-   ex:geometryType a owl:DatatypeProperty ;
-       rdfs:label "geometry type"@en ;
-       rdfs:comment "Geometry type: Point, Line, Polygon or N/A"@en ;
-       rdfs:domain ex:Asset ;
-       rdfs:range xsd:string .
-
-   # Instance Data
-   <http://environment.data.gov.uk/asset-management/id/drl/Land> a ex:AssetCategory ;
-       rdfs:label "Land"@en ;
-       rdfs:comment "Areas of land that are involved in water management." .
-
-   <http://environment.data.gov.uk/asset-management/id/drl/Mudflats> a ex:Asset ;
-       rdfs:label "Mudflats"@en ;
-       rdfs:comment "Coastal wetlands that form in intertidal areas where sediments have been deposited by tides or rivers....." ;
-       rdfs:member ex:Land;
-       ex:assetCode "LM" ;
-       ex:uniclass "En_32_65_55" ;
-       ex:geometryType "Polygon" ;
-       dcterms:modified "2023-11-21" .
-
-   <http://environment.data.gov.uk/asset-management/id/drl/Mudflats-access-strip> a ex:Element ;
-       rdfs:label "Access Strip"@en ;
-       rdfs:comment "A strip of land that is used for access to an asset for operational or maintenance purposes." ;
-       rdfs:member ex:Mudflats .
-
-   <http://environment.data.gov.uk/asset-management/id/drl/Mudflats-access-strip-business-function> a ex:Attribute ;
-       rdfs:label "Business Function"@en ;
-       rdfs:comment "The Business Function that is responsible for the element" ;
-       rdfs:member <http://environment.data.gov.uk/asset-management/id/drl/Mudflats-access-strip> .
-
-EDGUR
-~~~~~
-
-EDGUR is a custom vocabulary/ontology which we are developing to describe classes and predicates that aren't defined in
-existing RDF vocabularies.
-
-.. NOTE:: The EDGUR ontology will be published in its initial draft when it is first required.
-
-.. code:: ttl
-
-   @prefix edgur: <https://environment.data.gov.uk/relatum/> .
-   @prefix owl: <http://www.w3.org/2002/07/owl#> .
-   @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-   @prefix xml: <http://www.w3.org/XML/1998/namespace> .
-   @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-   @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-   @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-   @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-   @prefix sosa: <http://www.w3.org/ns/sosa#> .
-   @prefix schema: <http://www.schema.org/> .
-
-   edgur:hasClassification a owl:ObjectProperty ;
-       rdfs:label "has classification"@en ;
-       rdfs:comment "Associates a resource with a SKOS Concept that classifies it."@en ;
-       rdfs:range skos:Concept .
-
-   edgur:standardError a owl:DatatypeProperty ;
-       rdfs:label "standard error"@en ;
-       rdfs:comment "The standard error of a quantity value. Used independently of qudt:standardUncertainty because the sample size of the original measurements is unknown and so the standard error cannot be converted to a standard deviation."@en ;
-       rdfs:domain qudt:QuantityValue ;
-       rdfs:range xsd:decimal .
-
-.. TODO: Add ontology definition triples
-
-5. Observation
---------------
+Observations
+---------------
 
 While the SOSA/SSN vocabulary allows for describing sampling procedures and their results in great depth, we cut down
 the types used to focus on those that are of more interest to our users.
 
-.. TODO: Observation diagram from https://dsp-support.atlassian.net/wiki/spaces/IK/whiteboard/1353941003
+.. figure:: ./diagrams/observation_model.png
 
 .. NOTE::
   While the SOSA/SSN specification does not explicitly provide a predicate to link a ``sosa:Observation`` to a
@@ -1877,7 +1783,7 @@ samples are consistently taken from. This ``geo:Feature`` should be described by
      - ``0..*``
      - If the feature itself has properties which are observed
 
-   * - ``edgur:hasClassification``
+   * - ``defra-core:hasClassification``
      - a ``skos:Concept``
      - May
      - ``0..1``
@@ -1907,7 +1813,7 @@ A ``sosa:Property`` must also be a ``iop:Variable``.
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - ``0..*``
+     - ``1..*``
      -
 
    * - ``skos:altLabel``
@@ -1966,7 +1872,7 @@ produce ``sosa:Observation``\ s.
      - ``geo:hasGeometry`` is used on the ``sosa:Sampling`` to describe the location at which the ``sosa:Sampling`` took place or it can be used to describe the ``sosa:Sample`` location.
 
    * - ``sosa:startTime``
-     - Literal, ``includesxsd:dateTime``
+     - Literal, includes ``xsd:dateTime``
      - May
      - ``0..1``
      - Time at which the sampling began
@@ -2022,7 +1928,7 @@ Each sample must have a related ``sosa:Sampling`` to provide additional contextu
      - ``0..1``
      - If this sample was created from, or is a subset of, an original sample, this points to the original ``sosa:Sample``.
 
-   * - ``edgur:hasClassification``
+   * - ``defra-core:hasClassification``
      - a ``skos:Concept``
      - May
      - ``0..1``
@@ -2122,12 +2028,6 @@ An observation has a result from a sample for a property of a given feature of i
 
        If the result is a range, ``qudt:minExclusive`` and ``qudt:maxExclusive`` should be used for exclusive values in the range, and ``qudt:minInclusive`` and ``qudt:maxInclusive`` should be used for inclusive values in the range.
 
-   * - ``sosa:hasSimpleResult``
-     - Literal, including ``xsd:string``, ``xsd:decimal``
-     - Must
-     - ``1``
-     -
-
    * - ``sosa:hasSample``
      - a ``sosa:Sample``
      - Should
@@ -2221,7 +2121,7 @@ and ``iop:StatisticalModifier``.
    * - ``skos:prefLabel``
      - Literal ``xsd:string``
      - Must
-     - ``0..*``
+     - ``1..*``
      -
 
    * - ``iop:hasProperty``
@@ -2261,7 +2161,7 @@ and ``iop:StatisticalModifier``.
      -
 
    * - ``iop:hasStatisticalModifier``
-     - a ``iop:Constraint``
+     - a ``iop:StatisticalModifier`` and a ``skos:Concept``
      - May
      - ``0..1``
      -
@@ -2429,14 +2329,9 @@ Observation JSON-LD mapping
      - JSON-LD
      -
 
-   * - ``sosa:hasSimpleReuslt``
-     - ``hasSimpleResult``
-     - Literal value
-     -
-
-   * - ``sosa:hasUnit``
+   * - ``qudt:hasUnit``
      - ``hasUnit``
-     - ``skos:prefLabel`` of ``skos:Concept`` as string
+     - URI of ``qudt:Unit`` or JSON-LD containing the ``qudt:Unit`` definition
      -
 
    * - ``sosa:observedProperty``
@@ -2523,7 +2418,7 @@ RDF in Turtle syntax
      @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
      @prefix unit: <http://qudt.org/vocab/unit/> .
      @prefix qudt: <http://qudt.org/schema/qudt/> .
-     @prefix edgur: <http://environment.data.gov.uk/registry/> .
+     @prefix defra-core: <http://environment.data.gov.uk/ontology/core/> .
 
      <sampling-point>
        a skos:ConceptScheme,
@@ -2539,9 +2434,9 @@ RDF in Turtle syntax
        skos:prefLabel "CORBY STW FINAL EFFLUENT"@en ;
        geo:hasGeometry [
          a geo:Geometry ;
-         geo:asWkt "POINT(490739 288855) <http://www.opengis.net/def/crs/EPSG/0/27700>"^^geo:wktLiteral ;
+         geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/27700> POINT(490739 288855)"^^geo:wktLiteral ;
        ] ;
-       edgur:hasClassification <sampling-point-statuses/Concept/O> ;
+       defra-core:hasClassification <sampling-point-statuses/Concept/O> ;
        geo:sfWithin <regions/Concept/AN> ;
        geo:sfWithin <areas/Concept/M> ;
        geo:sfWithin <subareas/Concept/C> .
@@ -2549,14 +2444,14 @@ RDF in Turtle syntax
      <sampling-point/AN-CORBY/sample/1025221#sampling>
        a sosa:Sampling ;
        sosa:hasFeatureOfInterest <sampling-point/AN-CORBY> ;
-       edgur:hasClassification <sampling-purposes/Concept/CA> ;
+       defra-core:hasClassification <sampling-purposes/Concept/CA> ;
        sosa:resultTime "2000-09-04"^^xsd:date ;
        sosa:startTime "2000-001-24T10:30:00"^^xsd:dateTime .
 
      <sampling-point/AN-CORBY/sample/1025221>
        a sosa:Sample ;
        sosa:isSampleOf <sampling-point/AN-CORBY> ;
-       edgur:hasClassification <sample-material-types/Concept/4AZZ> ;
+       defra-core:hasClassification <sample-material-types/Concept/4AZZ> ;
        sosa:isResultOf <sampling-point/AN-CORBY/sample/1025221#sampling> ;
        sosa:resultTime "2000-09-04"^^xsd:date ;
        sosa:startTime "2000-01-24T10:30:00"^^xsd:dateTime .
@@ -2570,9 +2465,7 @@ RDF in Turtle syntax
        a sosa:Observation ;
        sosa:hasSample <sampling-point/AN-CORBY/sample/1025221> ;
        sosa:isMemberOf <sampling-point/AN-CORBY/observations/1025221> ;
-       sosa:hasSimpleResult "<1" ;
        sosa:observedProperty <determinands/Concept/0050> ;
-       sosa:hasUnit <units/Concept/206> ;
        sosa:hasResult [
          a qudt:QuantityValue ;
          qudt:minInclusive 0 ;
@@ -2584,9 +2477,7 @@ RDF in Turtle syntax
        a sosa:Observation ;
        sosa:hasSample <sampling-point/AN-CORBY/sample/1025221> ;
        sosa:isMemberOf <sampling-point/AN-CORBY/observations/1025221> ;
-       sosa:hasSimpleResult 214 ;
        sosa:observedProperty <determinands/Concept/3527> ;
-       sosa:hasUnit <units/Concept/112> ;
        sosa:hasResult [
          a qudt:QuantityValue ;
          qudt:numericValue 214 ;
@@ -2744,7 +2635,7 @@ RDF in Turtle syntax, extended to break down determinands with the I-ADOPT frame
        skos:prefLabel "Lead"@en
        skos:altLabel "Pb" .
 
-6. Cubes
+Cubes
 --------
 
 CSV-W
@@ -2793,10 +2684,6 @@ Consider the following CSV table containing water quality observations:
 
 Using the table above we would define a JSON metadata file to describe this CSV as follows:
 
-
-..
-   TODO: Needs double checking/reviewing
-
 .. code:: json
 
    {
@@ -2842,7 +2729,7 @@ Using the table above we would define a JSON metadata file to describe this CSV 
            "name": "result",
            "titles": "result",
            "datatype": "decimal",
-           "propertyUrl": ["http://purl.org/linked-data/sdmx/2009/measure#obsValue", "http://www.w3.org/ns/sosa/hasSimpleResult"]
+           "propertyUrl": ["http://purl.org/linked-data/sdmx/2009/measure#obsValue"]
          },
          {
            "name": "unit",
@@ -2870,7 +2757,7 @@ URL structure
 ``{base URL}/{catalog}/{dataset}/{RDF class}/{instance identifier}``
 
 
--  Instance names should be kebab-case, and must be URI-safe
+-  Text-based instance identifiers must always use kebab-case and be URI-safe, regardless of whether they are created internally or derived from source data. Source-provided identifiers or notations that are not text-based should retain their original format so long as the URI is valid.
 
 -  RDF class names must be in PascalCase, URI-safe, and unique within a dataset
 
@@ -3115,7 +3002,7 @@ Observation data endpoints
 -  **Bulk access**: Query parameters for filtering (e.g. ``/data/observation?pointNotation={id}``)
 -  **Pagination**: All endpoints paginated using Hydra; in-memory formats (JSON-LD, GeoJSON) have lower max limits
    than streaming formats (CSV, JSON-Lines)
--  **Multi-source aggregation**: A Dodos instance can merge observations from multiple sources (e.g., fish,
+-  **Multi-source aggregation**: A FAIRground instance can merge observations from multiple sources (e.g., fish,
    invertebrates, plankton) into the unified ``/data/observation`` endpoint
 
 Uniquely identifying sites, sample/samplings, and observations
@@ -3192,7 +3079,7 @@ class names, or instance names.
      - Reserved for future bulk operations
    * - Linked Data Federation
      - ``/id``, ``/def``, ``/doc``
-     - Reserved (not used in Dodos, but protected for compatibility)
+     - Reserved (not used in FAIRground, but protected for compatibility)
    * - Linked Data Federation
      - ``/sparql``
      - Reserved for GraphDB federation
@@ -3228,7 +3115,7 @@ Subjects provided in JSON-LD format should have their types specified with type,
 URIs that are addressable via a RESTful API should be specified with the key id, and the context should provide the
 mapping ``id → @id``. We still use @id as a key where the particular identifier is not directly available as RESTful
 endpoint; typically used to designate blank nodes or subjects which are dependent on its containing subject (i.e. the
-``geo:Geography`` embedded in a ``sosa:FeatureOfInterest``).
+``geo:Geometry`` embedded in a ``sosa:FeatureOfInterest``).
 
 The context must set @base to the appropriate URI so that all relative id values expand correctly within the intended
 vocabulary.
@@ -3325,8 +3212,4 @@ JSON-LD representation:
 
 Appendix
 ========
-
-
-Custom type definitions
------------------------
 

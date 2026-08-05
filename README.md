@@ -23,3 +23,10 @@ export PUPPETEER_EXECUTABLE_PATH="$(command -v google-chrome)" # Or chromium, if
 ```
 
 See [ReSpec docs](https://respec.org/docs) for additional assistance with development.
+
+## Viewing changes made to the Application Profile locally
+1. Create a virtual environment using `python -m venv .venv`
+2. Activate the virtual environment `source .venv/bin/activate`
+3. Install docutils and pygments using `pip install docutils pygments`
+4. Make changes to the Application Profile `main.rst` file then run `./dev/build.sh`, you can then view your changes in the `build/index.html` file.
+
