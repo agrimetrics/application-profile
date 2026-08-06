@@ -3,8 +3,8 @@ DSP Application Profile
 
 :Author: Andrew Fergusson <andrew.fergusson@telespazio.com>, Pritam Bhudia <pritam.bhudia@telespazio.com>, Avery Vigolo <avery.vigolo@telespazio.com>
 :Created: $Date: 2026-02-25 $
-:Published: $Date: 2026-05-07 $
-:Version: $Revision: 0.9 $
+:Published: $Date: 2026-08-06 $
+:Version: $Revision: 0.9.1 $
 
 .. contents:: Table of contents
 
@@ -305,23 +305,6 @@ Namespaces
    * - ``xsd:``
      - `<http://www.w3.org/2001/XMLSchema#>`__
      - `W3C XML Schema Definition Language (XSD) 1.1 Part 2: Datatypes <https://www.w3.org/TR/xmlschema11-2/>`__
-
-Overview Diagram
-================
-
-.. TODO: convert diagram to mermaid
-
-.. figure:: ./diagrams/application_overview.png
-   :alt:
-     Overview diagram of the DSP-3 application registry.
-     A box labeled environment.data.gov.uk contains a dcat:Catalogue.
-     This dcat:Catalgue points into two other dcat:Catalogues in two other boxes, these boxes are labeled Observational
-     Data Web App and Ground Cover Web App.
-     The dcat:Catalogue in the Observational Data box is also a dcat:DataService, and points to two dcat:Datasets: the
-     dataset is also a skos:ConceptScheme, the second dataset is also a sosa:ObservationCollection.
-     The dcat:Catalogue in the Ground Cover box is also a dcat:Dataset, and points to two dcat:Datasets: the
-     dataset is also a skos:ConceptScheme, the second dataset also provides csvw.
-     The skos:ConceptSchemes in both boxes are linked together, showing that they are shared concepts.
  
 
 Data Types
@@ -366,8 +349,6 @@ import and keep only the latest version.
 Otherwise, we should make multiple versions of a dataset available. The related datasets should be linked together using
 ``dcat:previousVersion`` and ``dcat:nextVersion``. The latest version should be linked to using ``dcat:hasCurrentVersion`` in the
 ``dcat:Catalog`` which contains the versioned datasets.
-
-.. TODO: dcat:DatasetSeries, dcat:inSeries.
 
 .. list-table::
    :header-rows: 1
@@ -472,7 +453,7 @@ Otherwise, we should make multiple versions of a dataset available. The related 
      - a ``dcat:Catalog``
      - Should
      - ``0..*``
-     - Parent catalog(s) this dataset belongs to
+     - Parent catalog(s) this dataset belongs to. We sometimes use this predicate where the object is of type ``dcat:Dataset`` but we accept the inference that the ``dcat:Dataset`` can be inferred to also be a ``dcat:Catalog`` (even though it isn't explicitly typed as one)
 
    * - ``dcat:theme``
      - a ``skos:Concept``
@@ -631,74 +612,6 @@ A Catalog is a specialisation of ``dcat:Dataset``, adding only the predicate ``d
      - Should
      - ``0..*``
      - Publisher of the catalog specifically, not the datasets or entries contained within. May be set to an appropriate default for the service.
-
-``dcat:CatalogRecord``
-~~~~~~~~~~~~~~~~~~~~~~
-
-   A record in a catalog, describing the registration of a single dcat:Resource.
-
-   This class is optional and not all catalogs will use it. It exists for catalogs where a distinction is made between
-   metadata about a *dataset or service* and metadata about the *entry in the catalog about the dataset or service*. For
-   example, the *publication date* property of the *dataset* reflects the date when the information was originally made
-   available by the publishing agency, while the publication date of the *catalog record* is the date when the dataset
-   was added to the catalog.
-
-   – DCAT spec
-
-We use ``dcat:CatalogRecord``\ s to provide references to external resources not directly provided by, or out of scope of, the
-service providing the ``dcat:Catalog``.
-
-For example, the UK government open data portal is provided at `data.gov.uk <https://www.data.gov.uk/>`__, and provides
-various sections for its various departments and subjects, analogous to ``dcat:Catalog``\ s. The Environment catalog has a
-listing for the `Water Quality Explorer <https://www.data.gov.uk/dataset/583e771f-1af6-4934-b8f0-28f1d1ddd48c>`__, which
-would be a ``dcat:CatalogRecord``, as it provides a description and some metadata about the dataset, including its license
-and when it was last updated.
-
-.. list-table::
-   :header-rows: 1
-
-   * - Predicate
-     - Range
-     - Requirement
-     - Cardinality
-     - Notes
-
-   * - ``dcterms:title``
-     - Literal ``xsd:string``
-     - Must
-     - ``1..*``
-     -
-
-   * - ``foaf:primaryTopic``
-     - a ``dcat:Resource``, including a ``dcat:Dataset`` and a ``dcat:DataService``
-     - Must
-     - ``1``
-     -
-
-   * - ``dcterms:description``
-     - Literal ``xsd:string``
-     - Should
-     - ``0..*``
-     - Description of the resource this record points to
-
-   * - ``dcterms:issued``
-     - Includes Literal ``xsd:dateTime``
-     - Should
-     - ``0..1``
-     - When the record was added to the catalog
-
-   * - ``dcterms:modified``
-     - Includes Literal ``xsd:dateTime``
-     - May
-     - ``0..*``
-     - When the record was last updated or modified
-
-   * - ``dcterms:conformsTo``
-     - Includes a ``dcterms:Standard``
-     - May
-     - ``0..*``
-     -
-       .. TODO: Protocols supported by the resource? E.g. JSON-LD, SPARQL, GeoJSON, etc?
 
 ``dcat:Distribution``
 ~~~~~~~~~~~~~~~~~~~~~
@@ -948,36 +861,14 @@ Catalogue JSON-LD mapping
 
 
 
-Modelling datasets using DCAT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Our modelling approach using DCAT3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. figure:: ./diagrams/dcat_tree.png
 
-The diagram below shows how we model our datasets using DCAT
-
-.. TODO: convert diagram to mermaid
-
-.. figure:: ./diagrams/dcat_dataset_modelling.png
-   :alt:
-     A hierarchy diagram. At the top, the DSP catalog, a dcat:Catalog, points with dcat:record to Fly Fishing, a
-     dcat:CatalogRecord.
-     This points with foaf:primaryTopic to Fly Fishing, a dcat:Dataset.
-     This points to two dcat:Distributions, the first in CSV format, the second in JSON-LD format.
-
-Modelling services using DCAT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The diagram below shows how we model our services using DCAT
-
-.. TODO: convert diagram to mermaid
-
-.. figure:: ./diagrams/dcat_service_modelling.png
-   :alt:
-     A hierarchy diagram. At the top, the DSP catalog, a dcat:Catalog, points with dcat:record to Water Quality
-     Serivce, a dcat:CatalogRecord. This points with foaf:primaryTopic to Water Quality, a dcat:DataService and
-     dcat:Catalog. This points to four children.
-     The first with dcat:dataset to Determinands, a dcat:Dataset and skos:ConceptScheme.
-     The second with dcat:service to Observations, a dcat:DataService.
-     The third with dcat:dataset to Units, a dcat:Dataset and skos:ConceptScheme.
-     The fourth with dcat:dataset to Sampling Points, a dcat:Dataset and geo:FeatureCollection.
+The diagram above visualises how we model ``dcat:Catalog`` s and ``dcat:Dataset`` s. At the top level is environment.data.gov.uk which is a ``dcat:Catalog``, it contains other ``dcat:Catalog`` s such as the ecology-and-fish or the data-requirements catalog. 
+Each of these sub-catalogs generally contain ``dcat:Dataset`` s, but they can also contain other ``dcat:Catalog`` s. In the diagram above the only "true" ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only "true" ``dcat:Dataset`` s are the ``skos:ConceptScheme`` s. 
+While we explicitly type each ``dcat:Dataset`` s only as a ``dcat:Dataset`` s the use of certain predicates such as ``dcat:inCatalog`` or ``dcat:themeTaxonomy`` results in the ``dcat:Dataset`` 
+being inferred (by an RDF reasoner) to also be a ``dcat:Catalog``, we have made this choice as they should be seen as a ``dcat:Dataset`` resource first and foremost.
 
 Concept
 ----------
