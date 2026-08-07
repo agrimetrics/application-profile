@@ -1429,7 +1429,7 @@ mapping:
    multiple languages via overloading. For now English-by-default.
 
 Each ``skos:Concept`` assigned to the ``geo:Feature`` should also be present in the properties of the GeoJSON object, with the
-camelCase name of its ``skos:ConceptSchemeused`` as the key, and the ``skos:Concept``'s ``skos:prefLabel`` as the value. See the
+camelCase name of its ``skos:ConceptScheme`` used as the key, and the ``skos:Concept``'s URI as the value. See the
 `worked example <Geography worked example>`_ below.
 
 The properties should generally not contain complex data types such as objects. Arrays may be used when appropriate.
@@ -1437,73 +1437,55 @@ The properties should generally not contain complex data types such as objects. 
 Geography worked example
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The water quality sampling point endpoint for AN-CORBY returns the following JSON-LD response, which has been cut down
+The ecology and fish (benthic) sampling point endpoint for the sampling point 135967-v1 returns the following JSON-LD response, which has been cut down
 for simplicity:
 
 .. code:: json
 
-   {
-     "id": "https://environment.data.gov.uk/water-quality/sampling-point/AN-CORBY",
-     "@type": [
-       "sosa:FeatureOfInterest",
-       "geo:Feature"
-     ],
-     "altLabel": "CORBY STW F/E",
-     "prefLabel": "CORBY STW FINAL EFFLUENT",
-     "notation": "AN-CORBY",
-     "hasObservations": "https://environment.data.gov.uk/water-quality/sampling-point/AN-CORBY/observation",
-     "geometry": {
-       "id": "https://environment.data.gov.uk/water-quality/sampling-point/AN-CORBY#Geometry",
-       "@type": "geo:Geometry",
-       "asWKT": "<http://www.opengis.net/def/crs/EPSG/0/4326> POINT(-0.665 52.4901)"
-     },
-     "samplingPointStatus": {
-       "@id": "_:status#O",
-       "@type": [
-         "skos:Concept",
-         "sosa:Property"
-       ],
-       "prefLabel": "OPEN",
-       "notation": "O"
-     },
-     "samplingPointType": {
-       "@id": "_:samplingPointType#SA",
-       "@type": [
-         "skos:Concept",
-         "sosa:Property"
-       ],
-       "prefLabel": "SEWAGE DISCHARGES - FINAL/TREATED EFFLUENT - WATER COMPANY",
-       "notation": "SA"
-     },
-     "region": { ... },
-     "area": { ... },
-     "subArea": { ... }
-   }
+  {
+    "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1",
+    "@type": "sosa:FeatureOfInterest",
+    "geometry": {
+      "@id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1#Geometry",
+      "@type": "geo:Geometry",
+      "asWKT": "<http://www.opengis.net/def/crs/EPSG/0/27700> POINT(430031 606343)"
+    },
+    "seaArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sea-areas/Concept/northumberland",
+    "notation": "135967-v1",
+    "agencyArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/agency-areas/Concept/national-marine",
+    "reportingArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/reporting-areas/Concept/north-east",
+    "waterbodyType": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/waterbody-types/Concept/wbcw",
+    "wfdWaterbodyId": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/wfd-waterbodies/Concept/GB650301500001"
+  }
+  
+
 
 The same subject is transformed into the following GeoJSON when requested:
 
 .. code:: json
+   
+  {
+    "type": "Feature",
+    "geometry": {
+      "coordinates": [
+        -1.527978174,
+        55.350201484
+      ],
+      "type": "Point"
+    },
+    "properties": {
+      "notation": "135967-v1",
+      "@type": "sosa:FeatureOfInterest",
+      "seaArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sea-areas/Concept/northumberland",
+      "agencyArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/agency-areas/Concept/national-marine",
+      "reportingArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/reporting-areas/Concept/north-east",
+      "waterbodyType": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/waterbody-types/Concept/wbcw",
+      "wfdWaterbodyId": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/wfd-waterbodies/Concept/GB650301500001"
+    }
+  }
 
-   {
-     "type": "Feature",
-     "geometry": {
-       "coordinates": [
-         -0.665027896,
-         52.490089102
-       ],
-       "type": "Point"
-     },
-     "properties": {
-       "name": "CORBY STW FINAL EFFLUENT",
-       "status": "OPEN",
-       "type": "SEWAGE DISCHARGES - FINAL/TREATED EFFLUENT - WATER COMPANY",
-       "region": "Anglian",
-       "area": "ANGLIAN - LINCS AND NORTHANTS",
-       "subArea": "L&W NORTH & SOUTH",
-       "notation": "AN-CORBY",
-       "isDistributionOf": "https://environment.data.gov.uk/water-quality/sampling-point/AN-CORBY"
-     }
-   }
+
+
 
 Custom
 ---------
@@ -1624,7 +1606,7 @@ Below is the pattern that we would use for defining an ``owl:ObjectProperty`` an
 DEFRA Linked Data Domain Model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The 'DEFRA Linked Data Domain Model' is an effort to create a linked data domain model for the Defra Group. It aims to provide a structured, machine-readable representation of regulatory and water-related data, supported by a core ontology. The model is currently under development and can be viewed at https://github.com/canwaf/ontology-work
+The 'DEFRA Linked Data Domain Model' is an effort to create a linked data domain model for the Defra Group. It aims to provide a structured, machine-readable representation of regulatory and water-related data, supported by a core ontology. The model is currently under development and can be viewed at https://github.com/agrimetrics/defra-ontology
 
 
 
