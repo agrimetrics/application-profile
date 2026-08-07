@@ -865,9 +865,9 @@ Our modelling approach using DCAT3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. figure:: ./diagrams/dcat_tree.png
 
-The diagram above visualises how we model ``dcat:Catalog`` s and ``dcat:Dataset`` s. At the top level is environment.data.gov.uk which is a ``dcat:Catalog``, it contains other ``dcat:Catalog`` s such as the ecology-and-fish or the data-requirements catalog. 
-Each of these sub-catalogs generally contain ``dcat:Dataset`` s, but they can also contain other ``dcat:Catalog`` s. In the diagram above the only "true" ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only "true" ``dcat:Dataset`` s are the ``skos:ConceptScheme`` s. 
-While we explicitly type each ``dcat:Dataset`` s only as a ``dcat:Dataset`` s the use of certain predicates such as ``dcat:inCatalog`` or ``dcat:themeTaxonomy`` results in the ``dcat:Dataset`` 
+The diagram above visualises how we model ``dcat:Catalog``\s and ``dcat:Dataset`` s. At the top level is environment.data.gov.uk which is a ``dcat:Catalog``, it contains other ``dcat:Catalog``\s such as the ecology-and-fish or the data-requirements catalog. 
+Each of these sub-catalogs generally contain ``dcat:Dataset`` s, but they can also contain other ``dcat:Catalog`` s. In the diagram above the only "true" ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only "true" ``dcat:Dataset``\s are the ``skos:ConceptScheme`` s. 
+While we explicitly type each ``dcat:Dataset``\s only as a ``dcat:Dataset``\s the use of certain predicates such as ``dcat:inCatalog`` or ``dcat:themeTaxonomy`` results in the ``dcat:Dataset`` 
 being inferred (by an RDF reasoner) to also be a ``dcat:Catalog``, we have made this choice as they should be seen as a ``dcat:Dataset`` resource first and foremost.
 
 Concept
@@ -1437,7 +1437,7 @@ The properties should generally not contain complex data types such as objects. 
 Geography worked example
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ecology and fish (benthic) sampling point endpoint for the sampling point 135967-v1 returns the following JSON-LD response, which has been cut down
+The Ecology and Fish (Benthic dataset) sampling point endpoint for the sampling point 135967-v1 returns the following JSON-LD response, which has been cut down
 for simplicity:
 
 .. code:: json
@@ -1662,6 +1662,49 @@ samples are consistently taken from. This ``geo:Feature`` should be described by
      - ``0..1``
      - If one has been provided by the relevant body
 
+``sosa:Procedure``
+~~~~~~~~~~~~~~~~~~
+
+   workflow, protocol, plan, algorithm, or computational method specifying how to make an Execution
+
+   – SOSA/SSN 2023 spec
+
+We use ``sosa:Procedure`` to provide additional information about the ``sosa:Sampling`` method. The ``sosa:Procedure`` should either be a blank node or an anchor e.g. ``http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1/sample/514432-v1-rA-a527041#procedure``.
+Where it makes sense to create a vocabulary of ``sosa:Procedure``\s then each ``sosa:Procedure`` will be defined as a ``skos:Concept`` within a ``skos:ConceptScheme``.
+
+.. list-table::
+   :header-rows: 1
+
+   * - Predicate
+     - Range
+     - Requirement
+     - Cardinality
+     - Notes
+
+   * - ``skos:prefLabel``
+     - Literal ``xsd:string``
+     - Must
+     - ``1..*``
+     -
+
+   * - ``skos:notation``
+     - Literal ``xsd:string``
+     - Must
+     - ``1..*``
+     -
+
+   * - ``skos:inScheme``
+     - a ``skos:ConceptScheme``
+     - Must only if the ``sosa:Procedure`` is also a ``skos:Concept`` otherwise not needed.
+     - ``1..*`` (if also a ``skos:Concept``)
+     - 
+
+   * - ``skos:definition``
+     - Literal ``xsd:string``
+     - Should
+     - ``0..*``
+     - 
+
 ``sosa:Property``
 ~~~~~~~~~~~~~~~~~
 
@@ -1737,6 +1780,12 @@ produce ``sosa:Observation``\ s.
      - Should
      - ``0..*``
      - If a ``sosa:Sampling`` has one or more ``sosa:Sample``\ s then we use ``sosa:hasResult`` to provide the ``sosa:Sample``\ s
+
+   * - ``sosa:usedProcedure``
+     - a ``sosa:Procedure``
+     - May
+     - ``0..*``
+     - 
 
    * - ``geo:hasGeometry``
      - a ``geo:Geometry``
@@ -2255,258 +2304,35 @@ Observation JSON-LD mapping
 Observation worked example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The `Water Quality Explorer <https://environment.data.gov.uk/water-quality/>`__ provides the sampling points from which
-various water quality measurements are taken.
+The Ecology and Fish API currently in development describes observational data using the ``SOSA/SSN``, ``QUDT`` and ``I-ADOPT`` vocabularies. The cut down example below describes an observation describing the count of a particular taxon of fish in a given sample.
+The ``sosa:hasResult`` block breaks down the raw result into its value, units and other additional information. The ``sosa:observedProperty`` block breaks down what the observation property into individual components using I-ADOPT.
 
-Each sampling point is modelled as a ``geo:Feature``, providing its geographical position, and ``sosa:FeatureOfInterest``, as
-each is being observed.
+  .. code:: json
 
-Sampling points are grouped into various types of area, including Environment Agency, Local Authority (typically
-councils), and various types of water body.
+    {
+    "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count",
+    "@type": "sosa:Observation",
+    "hasResult": {
+      "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count#result",
+      "@type": "qudt:QuantityValue",
+      "hasUnit": "unit:INDIV",
+      "numericValue": 2,
+      "standardUncertainty": null
+    },
+    "observedProperty": {
+      "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count#observedProperty",
+      "@type": [
+        "sosa:Property",
+        "iop:Variable"
+      ],
+      "hasProperty": "quantitykind:Count",
+      "hasConstraint": [],
+      "hasObjectOfInterest": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/taxa/Concept/NBNSYS0100049570",
+      "hasStatisticalModifier": "https://environment-test.data.gov.uk/ecology-and-fish/statistical-modifiers/Concept/count"
+    }
+   }
 
-Water quality measurements are defined as determinands by the Marine Management Organisation (MMO), which are our
-``iop:Variable``\ s. Each ``sosa:Observation`` of a sampling is grouped into a ``sosa:ObservationCollection``. Each determinand is
-grouped for a given class of water body with an ``iop:VariableCollection``.
-
-As determinands are defined as part of the water quality dataset, these have not been broken down with the I-ADOPT
-framework. Therefore we provide a minimal example below, with only the ``iop:VariableSet``\ s and ``iop:Variable``\ s defined, and a
-subsequent example showing how the determinands can be broken down further with the I-ADOPT framework.
-
-.. TODO: these should be collapsible <details> blocks, but Github doesn't seem to support it. Use raw HTML to achieve
-   the same effect?
-
-.. class:: details
-
-RDF in Turtle syntax
-  .. code:: ttl
-
-     @base <http://example.org/observational-dataset/> .
-
-     @prefix dcat: <http://www.w3.org/ns/dcat#> .
-     @prefix dcterms: <http://purl.org/dc/terms/> .
-     @prefix geo: <http://www.opengis.net/ont/geosparql#> .
-     @prefix iop: <https://w3id.org/iadopt/ont/> .
-     @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-     @prefix sosa: <http://www.w3.org/ns/sosa/> .
-     @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-     @prefix unit: <http://qudt.org/vocab/unit/> .
-     @prefix qudt: <http://qudt.org/schema/qudt/> .
-     @prefix defra-core: <http://environment.data.gov.uk/ontology/core/> .
-
-     <sampling-point>
-       a skos:ConceptScheme,
-         dcat:Dataset ;
-       dcterms:title "Sampling points for water quality"@en ;
-       skos:prefLabel "Sampling points for water quality"@en .
-
-     <sampling-point/AN-CORBY>
-       a skos:Concept,
-         geo:Feature,
-         sosa:FeatureOfInterest ;
-       skos:notation "AN-CORBY" ;
-       skos:prefLabel "CORBY STW FINAL EFFLUENT"@en ;
-       geo:hasGeometry [
-         a geo:Geometry ;
-         geo:asWKT "<http://www.opengis.net/def/crs/EPSG/0/27700> POINT(490739 288855)"^^geo:wktLiteral ;
-       ] ;
-       defra-core:hasClassification <sampling-point-statuses/Concept/O> ;
-       geo:sfWithin <regions/Concept/AN> ;
-       geo:sfWithin <areas/Concept/M> ;
-       geo:sfWithin <subareas/Concept/C> .
-
-     <sampling-point/AN-CORBY/sample/1025221#sampling>
-       a sosa:Sampling ;
-       sosa:hasFeatureOfInterest <sampling-point/AN-CORBY> ;
-       defra-core:hasClassification <sampling-purposes/Concept/CA> ;
-       sosa:resultTime "2000-09-04"^^xsd:date ;
-       sosa:startTime "2000-001-24T10:30:00"^^xsd:dateTime .
-
-     <sampling-point/AN-CORBY/sample/1025221>
-       a sosa:Sample ;
-       sosa:isSampleOf <sampling-point/AN-CORBY> ;
-       defra-core:hasClassification <sample-material-types/Concept/4AZZ> ;
-       sosa:isResultOf <sampling-point/AN-CORBY/sample/1025221#sampling> ;
-       sosa:resultTime "2000-09-04"^^xsd:date ;
-       sosa:startTime "2000-01-24T10:30:00"^^xsd:dateTime .
-
-     <sampling-point/AN-CORBY/observations/1025221>
-       a sosa:ObservationCollection ;
-       sosa:hasSample <sampling-point/AN-CORBY/sample/1025221> ;
-       sosa:observedProperty <determinand-collections/Concept/effluent> .
-
-     <sampling-point/AN-CORBY/sample/1025221/observation/3527>
-       a sosa:Observation ;
-       sosa:hasSample <sampling-point/AN-CORBY/sample/1025221> ;
-       sosa:isMemberOf <sampling-point/AN-CORBY/observations/1025221> ;
-       sosa:observedProperty <determinands/Concept/0050> ;
-       sosa:hasResult [
-         a qudt:QuantityValue ;
-         qudt:minInclusive 0 ;
-         qudt:maxExclusive 1 ;
-         qudt:hasUnit unit:MicroGM-PER-L ;
-       ] .
-
-     <sampling-point/AN-CORBY/sample/1025221/observation/3527>
-       a sosa:Observation ;
-       sosa:hasSample <sampling-point/AN-CORBY/sample/1025221> ;
-       sosa:isMemberOf <sampling-point/AN-CORBY/observations/1025221> ;
-       sosa:observedProperty <determinands/Concept/3527> ;
-       sosa:hasResult [
-         a qudt:QuantityValue ;
-         qudt:numericValue 214 ;
-         qudt:hasUnit unit:L-PER-SEC ;
-       ] .
-
-     <determinand-collections> a skos:ConceptScheme .
-
-     <determinand-collections/Concept/effluent>
-       a skos:Concept,
-         iop:VariableSet ;
-       skos:prefLabel "Determinands measurable for effluent"@en ;
-       iop:hasApplicableProperty
-         <determinands/Concept/0050> ,
-         <determinands/Concept/3527> .
-
-     <determinands> a skos:ConceptScheme .
-
-     <determinands/Concept/0050>
-       a skos:Concept,
-         sosa:Property,
-         iop:Variable ;
-       skos:inScheme <determinands> ;
-       skos:notation "0050" ;
-       skos:prefLabel: "Lead"@en ;
-       skos:altLabel "Lead - as Pb"@en .
-
-     <determinands/Concept/3527>
-       a skos:Concept,
-         sosa:Property,
-         iop:Variable ;
-       skos:inScheme <determinands> ;
-       skos:notation "3527" ;
-       skos:prefLabel: "Flow, instantaneous"@en ;
-       skos:altLabel "Flow l/s"@en .
-
-     <regions>
-       a skos:ConceptScheme,
-         geo:FeatureCollection ;
-       skos:prefLabel "Regions"@en .
-
-     <regions/Concept/AN>
-       a skos:Concept,
-         geo:Feature ;
-       geo:hasGeometry [ ... ] ;
-       skos:inScheme <regions> ;
-       skos:notation "AN" ;
-       skos:prefLabel "Anglian"@en .
-
-     <areas>
-       a skos:ConceptScheme,
-         geo:FeatureCollection ;
-       skos:prefLabel "areas"@en .
-
-     <areas/Concept/M>
-       a skos:Concept,
-         geo:Feature ;
-       geo:hasGeometry [ ... ] ;
-       skos:inScheme <areas> ;
-       skos:notation "M" ;
-       skos:prefLabel "ANGLIAN - LINCS AND NORTHANTS"@en .
-
-     <subareas>
-       a skos:ConceptScheme,
-         geo:FeatureCollection ;
-       skos:prefLabel "Sub-areas"@en .
-
-     <subareas/Concept/C>
-       a skos:Concept,
-         geo:Feature ;
-       geo:hasGeometry [ ... ] ;
-       skos:inScheme <subareas> ;
-       skos:notation "C" ;
-       skos:prefLabel "NORTH & SOUTH TEAM SUB AREA"@en .
-
-     <sampling-point-statuses> a skos:ConceptScheme ;
-       skos:prefLabel "Sampling point status"@en .
-
-     <sampling-point-statuses/Concept/O> a skos:Concept ;
-       skos:inScheme <sampling-point-statuses> ;
-       skos:notation "O" ;
-       skos:prefLabel "OPEN"@en .
-
-     <sampling-purposes> a skos:ConceptScheme ;
-       skos:prefLabel "Sampling purpose"@en .
-
-     <sampling-purposes/Concept/CA> a skos:Concept ;
-       skos:inScheme <sampling-purposes> ;
-       skos:notation "CA" ;
-       skos:prefLabel "COMPLAINCE AUDIT (PERMIT)"@en .
-
-     <sample-material-types> a skos:ConceptScheme .
-
-     <sample-material-types/Concept/4AZZ>
-       a skos:Concept ;
-       skos:inScheme <sample-material-types> ;
-       skos:notation "4AZZ" ;
-       skos:prefLabel "FINAL SEWAGE EFFLUENT"@en .
-
-     <units> a skos:ConceptScheme .
-
-     <units/Concept/112> a skos:Concept ;
-       skos:inScheme <units> ;
-       skos:notation "112" ;
-       skos:prefLabel "LITRE PER SECOND"@en ;
-       skos:altLabel "l/s" ;
-       skos:exactMatch unit:L-PER-SEC .
-
-     <units/Concept/206> a skos:Concept ;
-       skos:inScheme <units> ;
-       skos:notation "206" ;
-       skos:prefLabel "MICROGRAM PER LITRE"@en ;
-       skos:altLabel "ug/l" ;
-       skos:exactMatch unit:MicroGM-PER-L .
-
-
-.. class:: details
-
-RDF in Turtle syntax, extended to break down determinands with the I-ADOPT framework
-   .. code:: ttl
-
-     <determinands/Concept/0050>
-       iop:hasProperty <properties/Concept/lead-concentration> ;
-       iop:hasObjectOfInterest <entities/Concept/water-body>
-       iop:hasContextObject <entities/Concept/lead> .
-
-     <determinands/Concept/3527>
-       iop:hasProperty <properties/Concept/flow> ;
-       iop:hasObjectOfInterest <entities/Concept/water-body> .
-
-     <properties> a skos:ConceptScheme .
-
-     <properties/Concept/lead-concentration>
-       a skos:Concept ;
-       skos:inScheme <properties> ;
-       skos:prefLabel "Lead concentration"@en .
-
-     <properties/Concept/flow>
-       a skos:Concept ;
-       skos:inScheme <properties> ;
-       skos:prefLabel "Flow rate"@en .
-
-     <entities> a skos:ConceptScheme .
-
-     <entities/Concept/water-body>
-       a skos:Concept,
-         iop:Entity ;
-       skos:inScheme <entities> ;
-       skos:prefLabel "Body of water"@en .
-
-     <entities/Concept/lead>
-       a skos:Concept,
-         iop:Entity ;
-       skos:inScheme <entities> ;
-       skos:prefLabel "Lead"@en
-       skos:altLabel "Pb" .
+     
 
 Cubes
 --------
