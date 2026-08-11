@@ -865,8 +865,8 @@ Our modelling approach using DCAT3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. figure:: ./diagrams/dcat_tree.png
 
-The diagram above visualises how we model ``dcat:Catalog``\s and ``dcat:Dataset`` s. At the top level is environment.data.gov.uk which is a ``dcat:Catalog``, it contains other ``dcat:Catalog``\s such as the ecology-and-fish or the data-requirements catalog. 
-Each of these sub-catalogs generally contain ``dcat:Dataset`` s, but they can also contain other ``dcat:Catalog`` s. In the diagram above the only "true" ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only "true" ``dcat:Dataset``\s are the ``skos:ConceptScheme`` s. 
+The diagram above visualises how we model ``dcat:Catalog``\s and ``dcat:Dataset``\s. At the top level is environment.data.gov.uk which is a ``dcat:Catalog``, it contains other ``dcat:Catalog``\s such as the ecology-and-fish or the data-requirements catalog. 
+Each of these sub-catalogs generally contain ``dcat:Dataset``\s, but they can also contain other ``dcat:Catalog``\s. In the diagram above the only "true" ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only "true" ``dcat:Dataset``\s are the ``skos:ConceptScheme``\s. 
 While we explicitly type each ``dcat:Dataset``\s only as a ``dcat:Dataset``\s the use of certain predicates such as ``dcat:inCatalog`` or ``dcat:themeTaxonomy`` results in the ``dcat:Dataset`` 
 being inferred (by an RDF reasoner) to also be a ``dcat:Catalog``, we have made this choice as they should be seen as a ``dcat:Dataset`` resource first and foremost.
 
@@ -2305,7 +2305,7 @@ Observation worked example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Ecology and Fish API currently in development describes observational data using the ``SOSA/SSN``, ``QUDT`` and ``I-ADOPT`` vocabularies. The cut down example below describes an observation describing the count of a particular taxon of fish in a given sample.
-The ``sosa:hasResult`` block breaks down the raw result into its value, units and other additional information. The ``sosa:observedProperty`` block breaks down what the observation property into individual components using I-ADOPT.
+The ``sosa:hasResult`` block breaks down the raw result into its value, units and other additional information. The ``sosa:observedProperty`` block breaks down the observation property into individual components using I-ADOPT.
 
   .. code:: json
 
