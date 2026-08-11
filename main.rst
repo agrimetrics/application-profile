@@ -3,7 +3,8 @@ DSP Application Profile
 
 :Author: Andrew Fergusson <andrew.fergusson@telespazio.com>, Pritam Bhudia <pritam.bhudia@telespazio.com>, Avery Vigolo <avery.vigolo@telespazio.com>
 :Created: $Date: 2026-02-25 $
-:Published: $Date: 2026-08-06 $
+:Published: $Date: 2026-05-07 $
+:Modified: $Date: 2026-08-11 $
 :Version: $Revision: 0.9.1 $
 
 .. contents:: Table of contents
@@ -248,7 +249,7 @@ Namespaces
    
    * - ``defra-core:``
      - `<http://environment.data.gov.uk/ontology/core/>`__
-     - `Defra Core <https://github.com/canwaf/ontology-work/blob/main/defra-core-ontology.ttl>`__
+     - `Defra Core <https://raw.githubusercontent.com/agrimetrics/defra-ontology/refs/heads/main/defra-core-ontology.ttl>`__
 
    * - ``foaf:``
      - `<http://xmlns.com/foaf/0.1/>`__
@@ -866,7 +867,7 @@ Our modelling approach using DCAT3
 .. figure:: ./diagrams/dcat_tree.png
 
 The diagram above visualises how we model ``dcat:Catalog``\s and ``dcat:Dataset``\s. At the top level is environment.data.gov.uk which is a ``dcat:Catalog``, it contains other ``dcat:Catalog``\s such as the ecology-and-fish or the data-requirements catalog. 
-Each of these sub-catalogs generally contain ``dcat:Dataset``\s, but they can also contain other ``dcat:Catalog``\s. In the diagram above the only "true" ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only "true" ``dcat:Dataset``\s are the ``skos:ConceptScheme``\s. 
+Each of these sub-catalogs generally contain ``dcat:Dataset``\s, but they can also contain other ``dcat:Catalog``\s. In the diagram above the only distinct ``dcat:Catalog`` is the environment.data.gov.uk catalog, and the only distinct ``dcat:Dataset``\s are the ``skos:ConceptScheme``\s. 
 While we explicitly type each ``dcat:Dataset``\s only as a ``dcat:Dataset``\s the use of certain predicates such as ``dcat:inCatalog`` or ``dcat:themeTaxonomy`` results in the ``dcat:Dataset`` 
 being inferred (by an RDF reasoner) to also be a ``dcat:Catalog``, we have made this choice as they should be seen as a ``dcat:Dataset`` resource first and foremost.
 
@@ -1443,19 +1444,19 @@ for simplicity:
 .. code:: json
 
   {
-    "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1",
+    "id": "http://environment.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1",
     "@type": "sosa:FeatureOfInterest",
     "geometry": {
-      "@id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1#Geometry",
+      "@id": "http://environment.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1#Geometry",
       "@type": "geo:Geometry",
       "asWKT": "<http://www.opengis.net/def/crs/EPSG/0/27700> POINT(430031 606343)"
     },
-    "seaArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sea-areas/Concept/northumberland",
+    "seaArea": "http://environment.data.gov.uk/ecology-and-fish/benthic/sea-areas/Concept/northumberland",
     "notation": "135967-v1",
-    "agencyArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/agency-areas/Concept/national-marine",
-    "reportingArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/reporting-areas/Concept/north-east",
-    "waterbodyType": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/waterbody-types/Concept/wbcw",
-    "wfdWaterbodyId": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/wfd-waterbodies/Concept/GB650301500001"
+    "agencyArea": "http://environment.data.gov.uk/ecology-and-fish/benthic/agency-areas/Concept/national-marine",
+    "reportingArea": "http://environment.data.gov.uk/ecology-and-fish/benthic/reporting-areas/Concept/north-east",
+    "waterbodyType": "http://environment.data.gov.uk/ecology-and-fish/benthic/waterbody-types/Concept/wbcw",
+    "wfdWaterbodyId": "http://environment.data.gov.uk/ecology-and-fish/benthic/wfd-waterbodies/Concept/GB650301500001"
   }
   
 
@@ -1476,11 +1477,11 @@ The same subject is transformed into the following GeoJSON when requested:
     "properties": {
       "notation": "135967-v1",
       "@type": "sosa:FeatureOfInterest",
-      "seaArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sea-areas/Concept/northumberland",
-      "agencyArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/agency-areas/Concept/national-marine",
-      "reportingArea": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/reporting-areas/Concept/north-east",
-      "waterbodyType": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/waterbody-types/Concept/wbcw",
-      "wfdWaterbodyId": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/wfd-waterbodies/Concept/GB650301500001"
+      "seaArea": "http://environment.data.gov.uk/ecology-and-fish/benthic/sea-areas/Concept/northumberland",
+      "agencyArea": "http://environment.data.gov.uk/ecology-and-fish/benthic/agency-areas/Concept/national-marine",
+      "reportingArea": "http://environment.data.gov.uk/ecology-and-fish/benthic/reporting-areas/Concept/north-east",
+      "waterbodyType": "http://environment.data.gov.uk/ecology-and-fish/benthic/waterbody-types/Concept/wbcw",
+      "wfdWaterbodyId": "http://environment.data.gov.uk/ecology-and-fish/benthic/wfd-waterbodies/Concept/GB650301500001"
     }
   }
 
@@ -1669,7 +1670,7 @@ samples are consistently taken from. This ``geo:Feature`` should be described by
 
    – SOSA/SSN 2023 spec
 
-We use ``sosa:Procedure`` to provide additional information about the ``sosa:Sampling`` method. The ``sosa:Procedure`` should either be a blank node or an anchor e.g. ``http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1/sample/514432-v1-rA-a527041#procedure``.
+We use ``sosa:Procedure`` to provide additional information about the ``sosa:Sampling`` method. The ``sosa:Procedure`` should either be a blank node or an anchor e.g. ``http://environment.data.gov.uk/ecology-and-fish/benthic/sampling-point/135967-v1/sample/514432-v1-rA-a527041#procedure``.
 Where it makes sense to create a vocabulary of ``sosa:Procedure``\s then each ``sosa:Procedure`` will be defined as a ``skos:Concept`` within a ``skos:ConceptScheme``.
 
 .. list-table::
@@ -2310,25 +2311,25 @@ The ``sosa:hasResult`` block breaks down the raw result into its value, units an
   .. code:: json
 
     {
-    "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count",
+    "id": "http://environment.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count",
     "@type": "sosa:Observation",
     "hasResult": {
-      "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count#result",
+      "id": "http://environment.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count#result",
       "@type": "qudt:QuantityValue",
       "hasUnit": "unit:INDIV",
       "numericValue": 2,
       "standardUncertainty": null
     },
     "observedProperty": {
-      "id": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count#observedProperty",
+      "id": "http://environment.data.gov.uk/ecology-and-fish/benthic/sampling-point/135966-v1/sample/514427-v1-rA-a527036/observation/taxon=NBNSYS0100049570@abundance,statistical-modifier=count#observedProperty",
       "@type": [
         "sosa:Property",
         "iop:Variable"
       ],
       "hasProperty": "quantitykind:Count",
       "hasConstraint": [],
-      "hasObjectOfInterest": "http://environment-test.data.gov.uk/ecology-and-fish/benthic/taxa/Concept/NBNSYS0100049570",
-      "hasStatisticalModifier": "https://environment-test.data.gov.uk/ecology-and-fish/statistical-modifiers/Concept/count"
+      "hasObjectOfInterest": "http://environment.data.gov.uk/ecology-and-fish/benthic/taxa/Concept/NBNSYS0100049570",
+      "hasStatisticalModifier": "https://environment.data.gov.uk/ecology-and-fish/statistical-modifiers/Concept/count"
     }
    }
 
@@ -2701,8 +2702,6 @@ Observation data endpoints
 -  **Bulk access**: Query parameters for filtering (e.g. ``/data/observation?pointNotation={id}``)
 -  **Pagination**: All endpoints paginated using Hydra; in-memory formats (JSON-LD, GeoJSON) have lower max limits
    than streaming formats (CSV, JSON-Lines)
--  **Multi-source aggregation**: A FAIRground instance can merge observations from multiple sources (e.g., fish,
-   invertebrates, plankton) into the unified ``/data/observation`` endpoint
 
 Uniquely identifying sites, sample/samplings, and observations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
