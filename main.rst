@@ -2264,17 +2264,22 @@ Observation JSON-LD mapping
 
    * - ``sosa:phenomenonTime``
      - ``phenomenonDate`` when encoding an ``xsd:date``, ``phenomenonDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string
+     - Literal value as string in ``XSD`` valid format
      - 
 
    * - ``sosa:resultTime``
      - ``resultDate`` when encoding an ``xsd:date``, ``resultDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string
+     - Literal value as string in ``XSD`` valid format
      -
 
    * - ``sosa:startTime``
      - ``startDate`` when encoding an ``xsd:date``, ``startDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string
+     - Literal value as string in ``XSD`` valid format
+     -
+
+   * - ``sosa:endTime``
+     - ``endDate`` when encoding an ``xsd:date``, ``endDateTime`` for ``xsd:dateTime``\s
+     - Literal value as string in ``XSD`` valid format
      -
 
    * - ``sosa:isSampleOf``
