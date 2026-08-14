@@ -2457,7 +2457,7 @@ URL structure
 ``{base URL}/{catalog}/{dataset}/{RDF class}/{instance identifier}``
 
 
--  Text-based instance identifiers must always use kebab-case and be URI-safe, regardless of whether they are created internally or derived from source data. Source-provided identifiers or notations that are not text-based should retain their original format so long as the URI is valid.
+-  Text-based instance identifiers must always use kebab-case and be URI-safe (as per `RFC 3896 <https://www.rfc-editor.org/info/rfc3986/#section-2.3>`__), regardless of whether they are created internally or derived from source data. Source-provided identifiers or notations that are not text-based should retain their original format so long as the URI is valid.
 
 -  RDF class names must be in PascalCase, URI-safe, and unique within a dataset
 
