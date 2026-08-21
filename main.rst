@@ -1774,7 +1774,7 @@ produce ``sosa:Observation``\ s.
      - Literal ``xsd:dateTime``, ``xsd:date``, ``xsd:gYearMonth``, and/or ``xsd:gYear``.
      - Must
      - ``1``
-     - Time at which the result became available. Typically the same as ``sosa:endTime``.
+     - Date or Date/Time at which the result became available. Typically the same as ``sosa:endTime``.
 
    * - ``sosa:hasResult``
      - a ``sosa:Sample``
@@ -1795,22 +1795,22 @@ produce ``sosa:Observation``\ s.
      - ``geo:hasGeometry`` is used on the ``sosa:Sampling`` to describe the location at which the ``sosa:Sampling`` took place or it can be used to describe the ``sosa:Sample`` location.
 
    * - ``sosa:startTime``
-     - Literal, includes ``xsd:dateTime``
+     - Literal, includes ``xsd:date`` or ``xsd:dateTime``
      - May
      - ``0..1``
-     - Time at which the sampling began
+     - Date or Date/Time at which the sampling began
 
    * - ``sosa:endTime``
-     - Literal, includes ``xsd:dateTime``
+     - Literal, includes ``xsd:date`` or ``xsd:dateTime``
      - May
      - ``0..1``
-     - Time at which sampling completed
+     - Date or Date/Time at which sampling completed
 
    * - ``sosa:phenomenonTime``
-     - Literal, includes ``xsd:dateTime``
+     - Literal, includes ``xsd:date`` or ``xsd:dateTime``
      - May
      - ``0..1``
-     - Time of the phenomenon being measured
+     - Date or Date/Time of the phenomenon being measured
 
 ``sosa:Sample``
 ~~~~~~~~~~~~~~~
@@ -1928,10 +1928,10 @@ An observation has a result from a sample for a property of a given feature of i
      -
 
    * - ``sosa:phenomenonTime``
-     - Literal ``xsd:dateTime``
+     - Literal ``xsd:date`` or ``xsd:dateTime``
      - Must
      - ``1``
-     - Time at which the property was measured
+     - Date or Date/Time at which the property was measured
 
    * - ``sosa:hasResult``
      - a ``rdfs:Resource``
@@ -2263,18 +2263,23 @@ Observation JSON-LD mapping
      -
 
    * - ``sosa:phenomenonTime``
-     - ``phenomenonTime``
-     - Literal value as string
-     -
+     - ``phenomenonDate`` when encoding an ``xsd:date``, ``phenomenonDateTime`` for ``xsd:dateTime``\s
+     - Literal value as string in ``XSD`` valid format
+     - 
 
    * - ``sosa:resultTime``
-     - ``resultTime``
-     - Literal value as string
+     - ``resultDate`` when encoding an ``xsd:date``, ``resultDateTime`` for ``xsd:dateTime``\s
+     - Literal value as string in ``XSD`` valid format
      -
 
    * - ``sosa:startTime``
-     - ``startTime``
-     - Literal value as string
+     - ``startDate`` when encoding an ``xsd:date``, ``startDateTime`` for ``xsd:dateTime``\s
+     - Literal value as string in ``XSD`` valid format
+     -
+
+   * - ``sosa:endTime``
+     - ``endDate`` when encoding an ``xsd:date``, ``endDateTime`` for ``xsd:dateTime``\s
+     - Literal value as string in ``XSD`` valid format
      -
 
    * - ``sosa:isSampleOf``
