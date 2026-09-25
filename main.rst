@@ -5,7 +5,7 @@ DSP Application Profile
 :Created: $Date: 2026-02-25 $
 :Published: $Date: 2026-05-07 $
 :Modified: $Date: 2026-08-11 $
-:Version: $Revision: 0.9.1 $
+:Version: $Revision: 0.9.2 $
 
 .. contents:: Table of contents
 
@@ -2681,10 +2681,6 @@ Observation data endpoints
      - Individual observation
      - application/ld+json
 
-   * - ``/variable-set``
-     - A variable set definition. Each predicate points to a concept scheme endpoint, using Hydra’s memberAssertion to indicate that all concepts in that scheme are in the range of the variable set.
-     - application/ld+json
-
    * - ``/data/sampling-point``
      - Bulk sampling point download
      - | application/ld+json
@@ -2700,7 +2696,7 @@ Observation data endpoints
 
 -  **Nested access**: Drill down from sampling point → sample → observation
 -  **Bulk access**: Query parameters for filtering (e.g. ``/data/observation?pointNotation={id}``)
--  **Pagination**: All endpoints paginated using Hydra; in-memory formats (JSON-LD, GeoJSON) have lower max limits
+-  **Pagination**: All endpoints paginated using IANA; in-memory formats (JSON-LD, GeoJSON) have lower max limits
    than streaming formats (CSV, JSON-Lines)
 
 Uniquely identifying sites, sample/samplings, and observations
@@ -2837,16 +2833,12 @@ Fields that should set ``@language`` includes ``skos:prefLabel``, ``skos:altLabe
 
 Fields that should **not** set ``@language`` includes ``skos:notation``.
 
-Hydra
+IANA
 ~~~~~
 
-We use `Hydra <https://www.hydra-cg.com/>`__ to support pagination in our RESTful API endpoints, to
-assert that the pagination objects are all of a set type.
+We use `IANA <https://www.w3.org/ns/iana/link-relations/relation>`__ to support pagination in our RESTful API endpoints.
 
-Hydra's memberAssertion functionality is used to conveniently inject additional predicates into members of collections,
-when it would be tedious or error-prone to add the triple explicitly for each member.
-
-Hydra must not be used for pagination for GeoSPARQL data, instead we must use the query parameter system as defined in
+IANA must not be used for pagination for GeoSPARQL data, instead we must use the query parameter system as defined in
 the GeoSPARQL specification, `section F.2
 <https://docs.ogc.org/is/22-047r1/22-047r1.html#_ee91425f-9f5a-4e9f-9781-45ccc1c95abc>`__.
 
