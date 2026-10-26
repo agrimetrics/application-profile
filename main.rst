@@ -1771,10 +1771,10 @@ produce ``sosa:Observation``\ s.
      -
 
    * - ``sosa:resultTime``
-     - Literal ``xsd:dateTime``, ``xsd:date``, ``xsd:gYearMonth``, and/or ``xsd:gYear``.
+     - Literal ``xsd:dateTime`` or ``xsd:date``
      - Must
      - ``1``
-     - Date or Date/Time at which the result became available. Typically the same as ``sosa:endTime``.
+     - Date or dateTime at which the result became available. Typically the same as ``sosa:endTime``.
 
    * - ``sosa:hasResult``
      - a ``sosa:Sample``
@@ -1798,19 +1798,19 @@ produce ``sosa:Observation``\ s.
      - Literal, includes ``xsd:date`` or ``xsd:dateTime``
      - May
      - ``0..1``
-     - Date or Date/Time at which the sampling began
+     - Date or dateTime at which the sampling began
 
    * - ``sosa:endTime``
      - Literal, includes ``xsd:date`` or ``xsd:dateTime``
      - May
      - ``0..1``
-     - Date or Date/Time at which sampling completed
+     - Date or dateTime at which sampling completed
 
    * - ``sosa:phenomenonTime``
      - Literal, includes ``xsd:date`` or ``xsd:dateTime``
      - May
      - ``0..1``
-     - Date or Date/Time of the phenomenon being measured
+     - Date or dateTime of the phenomenon being measured
 
 ``sosa:Sample``
 ~~~~~~~~~~~~~~~
@@ -1931,7 +1931,7 @@ An observation has a result from a sample for a property of a given feature of i
      - Literal ``xsd:date`` or ``xsd:dateTime``
      - Must
      - ``1``
-     - Date or Date/Time at which the property was measured
+     - Date or dateTime at which the property was measured
 
    * - ``sosa:hasResult``
      - a ``rdfs:Resource``
@@ -2264,22 +2264,22 @@ Observation JSON-LD mapping
 
    * - ``sosa:phenomenonTime``
      - ``phenomenonDate`` when encoding an ``xsd:date``, ``phenomenonDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string in ``XSD`` valid format
-     - 
+     - Literal value as string in valid XSD lexical form
+     -
 
    * - ``sosa:resultTime``
      - ``resultDate`` when encoding an ``xsd:date``, ``resultDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string in ``XSD`` valid format
+     - Literal value as string in valid XSD lexical form
      -
 
    * - ``sosa:startTime``
      - ``startDate`` when encoding an ``xsd:date``, ``startDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string in ``XSD`` valid format
+     - Literal value as string in valid XSD lexical form
      -
 
    * - ``sosa:endTime``
      - ``endDate`` when encoding an ``xsd:date``, ``endDateTime`` for ``xsd:dateTime``\s
-     - Literal value as string in ``XSD`` valid format
+     - Literal value as string in valid XSD lexical form
      -
 
    * - ``sosa:isSampleOf``
