@@ -2696,7 +2696,7 @@ Observation data endpoints
 
 -  **Nested access**: Drill down from sampling point → sample → observation
 -  **Bulk access**: Query parameters for filtering (e.g. ``/data/observation?pointNotation={id}``)
--  **Pagination**: All endpoints paginated using IANA; in-memory formats (JSON-LD, GeoJSON) have lower max limits
+-  **Pagination**: All endpoints paginated using IANA link relations; in-memory formats (JSON-LD, GeoJSON) have lower max limits
    than streaming formats (CSV, JSON-Lines)
 
 Uniquely identifying sites, sample/samplings, and observations
@@ -2833,14 +2833,59 @@ Fields that should set ``@language`` includes ``skos:prefLabel``, ``skos:altLabe
 
 Fields that should **not** set ``@language`` includes ``skos:notation``.
 
-IANA
-~~~~~
+Pagination (IANA link relations)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We use `IANA <https://www.w3.org/ns/iana/link-relations/relation>`__ to support pagination in our RESTful API endpoints.
+We use `IANA link relations <https://www.w3.org/ns/iana/link-relations/relation>`__ (``first``, ``prev``, ``next``,
+``last``) to support pagination in our RESTful API endpoints.
 
-IANA must not be used for pagination for GeoSPARQL data, instead we must use the query parameter system as defined in
-the GeoSPARQL specification, `section F.2
-<https://docs.ogc.org/is/22-047r1/22-047r1.html#_ee91425f-9f5a-4e9f-9781-45ccc1c95abc>`__.
+Paginated JSON-LD responses must include these relations in the response body. All other formats (GeoJSON, CSV,
+JSON-Lines) must not include them in the body, and rely on the HTTP ``Link`` header as defined in
+`RFC 8288 <https://www.rfc-editor.org/rfc/rfc8288>`__.
+
+In JSON-LD, each page links to its parent collection with ``collection`` and lists its members with ``item``, as
+defined in `RFC 6573 <https://www.rfc-editor.org/rfc/rfc6573>`__. ``prev`` must be omitted on the first page and
+``next`` must be omitted on the last page, rather than set to ``null``.
+
+Pagination worked example
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Context:
+
+.. code:: json
+
+   {
+     "@context": {
+       "iana": "http://www.w3.org/ns/iana/link-relations/relation#",
+       "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+       "id": "@id",
+       "label": "rdfs:label",
+       "collection": { "@id": "iana:collection", "@type": "@id" },
+       "first": { "@id": "iana:first", "@type": "@id" },
+       "prev": { "@id": "iana:prev", "@type": "@id" },
+       "next": { "@id": "iana:next", "@type": "@id" },
+       "last": { "@id": "iana:last", "@type": "@id" },
+       "item": { "@id": "iana:item", "@container": "@set" }
+     }
+   }
+
+JSON-LD representation of the second page of a collection of samples:
+
+.. code:: json
+
+   {
+     "@context": "https://example.org/context.json-ld",
+     "id": "https://example.org/samples?skip=2&limit=2",
+     "collection": "https://example.org/samples",
+     "first": "https://example.org/samples?skip=0&limit=2",
+     "prev": "https://example.org/samples?skip=0&limit=2",
+     "next": "https://example.org/samples?skip=4&limit=2",
+     "last": "https://example.org/samples?skip=8&limit=2",
+     "item": [
+       { "id": "https://example.org/samples/3", "label": "Sample 3" },
+       { "id": "https://example.org/samples/4", "label": "Sample 4" }
+     ]
+   }
 
 JSON-LD contexts
 ~~~~~~~~~~~~~~~~
