@@ -259,6 +259,10 @@ Namespaces
      - `<http://www.opengis.net/ont/geosparql#>`__
      - `OGC GeoSPARQL - A Geographic Query Language for RDF Data <https://docs.ogc.org/is/22-047r1/22-047r1.html>`__
 
+   * - ``iana:``
+     - `<http://www.w3.org/ns/iana/link-relations/relation#>`__
+     - `IANA Link Relations <https://www.iana.org/assignments/link-relations/link-relations.xhtml>`__
+
    * - ``iop:``
      - `<http://w3id.org/iadopt/ont/>`__
      - `I-ADOPT Framework ontology <https://i-adopt.github.io/ontology/>`__
@@ -302,6 +306,10 @@ Namespaces
    * - ``unit:``
      - `<http://qudt.org/vocab/unit/>`__
      - `qudt.org <https://qudt.org/>`__
+
+   * - ``void:``
+     - `<http://rdfs.org/ns/void#>`__
+     - `Describing Linked Datasets with the VoID Vocabulary <https://www.w3.org/TR/void/>`__
 
    * - ``xsd:``
      - `<http://www.w3.org/2001/XMLSchema#>`__
@@ -2852,6 +2860,12 @@ In JSON-LD, each page links to its parent collection with ``collection`` and lis
 defined in `RFC 6573 <https://www.rfc-editor.org/rfc/rfc6573>`__. ``prev`` must be omitted on the first page and
 ``next`` must be omitted on the last page, rather than set to ``null``.
 
+The total number of items in the collection must be given with ``void:entities`` on the collection, not on the page.
+In JSON-LD, ``collection`` is therefore an embedded object with its own ``id`` and ``entities``. ``void:entities`` must
+not be stated on the page itself: the number of items on a page is the length of ``item``, and stating
+``void:entities`` on the page would imply that the page is a ``void:Dataset``. The count reflects the collection when
+the response was generated, and may change between requests.
+
 Pagination worked example
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2863,8 +2877,10 @@ Context:
      "@context": {
        "iana": "http://www.w3.org/ns/iana/link-relations/relation#",
        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+       "void": "http://rdfs.org/ns/void#",
        "id": "@id",
        "label": "rdfs:label",
+       "entities": "void:entities",
        "collection": { "@id": "iana:collection", "@type": "@id" },
        "first": { "@id": "iana:first", "@type": "@id" },
        "prev": { "@id": "iana:prev", "@type": "@id" },
@@ -2881,7 +2897,10 @@ JSON-LD representation of the second page of a collection of samples:
    {
      "@context": "https://example.org/context.json-ld",
      "id": "https://example.org/samples?skip=2&limit=2",
-     "collection": "https://example.org/samples",
+     "collection": {
+       "id": "https://example.org/samples",
+       "entities": 10
+     },
      "first": "https://example.org/samples?skip=0&limit=2",
      "prev": "https://example.org/samples?skip=0&limit=2",
      "next": "https://example.org/samples?skip=4&limit=2",
